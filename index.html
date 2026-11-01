@@ -2,245 +2,494 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TJSP - Livro + Simulado 20Q</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#1e3a8a">
-<title>TJSP 02/2026 - Escrivao - BETA</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,Segoe UI;background:#f8fafc;color:#0f172a}
-.header{background:#1e3a8a;color:#fff;padding:12px 20px;position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center}
-.layout{display:flex;min-height:calc(100vh - 56px)}
-.sidebar{width:340px;background:#fff;border-right:1px solid #e2e8f0;overflow:auto;position:sticky;top:56px;height:calc(100vh - 56px)}
-.main{flex:1;padding:20px;max-width:900px;margin:0 auto}
-.card{background:#fff;border-radius:10px;padding:16px;margin:0 0 12px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.btn{background:#1e3a8a;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer;width:100%;margin:6px 0}
-.btn-sec{background:#f1f5f9;color:#1e3a8a} .btn-green{background:#16a34a}
-.input{width:100%;padding:12px;border:1px solid #e2e8f0;border-radius:8px;margin:6px 0;font-size:16px}
-.hidden{display:none} .badge{font-size:11px;background:#dbeafe;color:#1e3a8a;padding:3px 7px;border-radius:99px}
-.kbd{background:#f1f5f9;border:1px solid #cbd5e1;border-bottom-width:2px;padding:2px 6px;border-radius:4px;font-size:11px;font-family:monospace}
-.correct{border:2px solid #16a34a;background:#f0fdf4} .wrong{border:2px solid #dc2626;background:#fef2f2}
-.small{font-size:11px;color:#64748b}
-@media(max-width:800px){.layout{flex-direction:column}.sidebar{width:100%;position:relative;height:auto;top:0}.main{padding:12px}}
+:root{--blue:#1e3a8a;--blue2:#3b82f6;--bg:#f8fafc;--card:#fff;--text:#0f172a;--muted:#64748b;--ok:#16a34a;--err:#dc2626}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text)}
+header{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;padding:12px 16px;position:sticky;top:0;z-index:30}
+.tabs{display:flex;gap:8px;margin-top:10px}
+.tab{padding:10px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.15);color:#fff;font-weight:700;cursor:pointer}
+.tab.active{background:#fff;color:var(--blue)}
+.btn{border:0;border-radius:10px;padding:9px 12px;font-weight:700;cursor:pointer}
+.btn-ghost{background:rgba(255,255,255,.18);color:#fff}
+.btn-primary{background:#fff;color:var(--blue)}
+.layout{display:grid;grid-template-columns:340px 1fr;min-height:calc(100vh - 90px)}
+aside{background:#fff;border-right:1px solid #e2e8f0;padding:14px;position:sticky;top:90px;height:calc(100vh - 90px);overflow:auto}
+main{padding:18px;max-width:900px}
+.card{background:var(--card);border:1px solid #e2e8f0;border-radius:16px;padding:16px;box-shadow:0 4px 20px rgba(0,0,0,.04);margin-bottom:14px}
+.topic{border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.topic.active{border-color:var(--blue2);box-shadow:0 0 0 3px rgba(59,130,246,.15)}
+.badge{font-size:11px;padding:4px 8px;border-radius:999px;background:#eff6ff;color:var(--blue);font-weight:700}
+.q{font-size:17px;font-weight:700;margin:0 0 12px;line-height:1.4}
+.opt{border:1.5px solid #e2e8f0;border-radius:10px;padding:12px;margin:8px 0;cursor:pointer}
+.opt.correct{border-color:var(--ok);background:#f0fdf4}
+.opt.wrong{border-color:var(--err);background:#fef2f2}
+.explain{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-top:12px}
+.book-page{line-height:1.7;font-size:15px}
+.book-page b{color:var(--blue)}
+.kbd{font-size:11px;border:1px solid #cbd5e1;border-bottom-width:2px;border-radius:6px;padding:2px 6px;background:#fff}
+.hidden{display:none}
+@media(max-width:900px){.layout{grid-template-columns:1fr}aside{position:relative;top:0;height:auto}}
 </style>
 </head>
 <body>
-<div class="header"><div><b>TJSP 02/2026 - Escrivao BETA</b> <span style="font-size:11px;opacity:.8">Notebook + Celular</span></div><div style="display:flex;gap:8px;align-items:center"><span id="welcome" style="font-size:12px"></span><span style="font-size:10px;background:#16a34a;padding:2px 6px;border-radius:99px">IndexedDB</span></div></div>
+<header>
+<div style="display:flex;justify-content:space-between;align-items:center">
+<h1 style="margin:0;font-size:16px">TJSP Escrevente • Livro + Simulado</h1>
+<div style="display:flex;gap:6px"><button class="btn btn-ghost" onclick="exportBackup()">💾</button><button class="btn btn-ghost" onclick="openReset()">🔑</button><button class="btn btn-primary" onclick="logout()">Sair</button></div>
+</div>
+<div class="tabs">
+<button id="tab-estudar" class="tab active" onclick="setMode('estudar')">📖 ESTUDAR (Livro)</button>
+<button id="tab-simular" class="tab" onclick="setMode('simular')">📝 SIMULAR (20Q)</button>
+</div>
+</header>
 
-<div id="loginView" class="main" style="max-width:420px">
-<div class="card">
-<h3 style="margin:0 0 8px">Login exclusivo BETA</h3>
-<p class="small">Senha: SaygonEscrivao2026 | Chave mestra reset: TJSP2026RESET<br>Mesmo app celular e notebook - backup JSON</p>
-<input id="nome" class="input" placeholder="Seu nome">
-<input id="senha" class="input" type="password" placeholder="Senha: SaygonEscrivao2026">
-<button class="btn" onclick="app.login()">Entrar ⚡</button>
-<button class="btn btn-sec" onclick="app.showReset()">Esqueci a senha</button>
-<div style="margin-top:12px;padding:10px;background:#f8fafc;border-radius:8px;font-size:11px">
-<b>Atalhos notebook:</b><br><span class="kbd">1-5</span> alternativa | <span class="kbd">Enter</span> corrige | <span class="kbd">Esc</span> volta | <span class="kbd">B</span> backup<br><br>
-<b>Performance:</b> IndexedDB + lazy load + PWA offline. Nada trava.
-</div>
-</div>
-</div>
 
-<div id="resetBox" class="card hidden" style="max-width:420px;margin:20px auto">
-<h3>🔑 Reset sem perder historico</h3>
-<p class="small">Historico fica em IndexedDB separado. Nao apaga. So troca senha.</p>
-<input id="resetMaster" class="input" placeholder="Chave mestra: TJSP2026RESET">
-<input id="novaSenha" class="input" type="password" placeholder="Nova senha (min 6 chars)">
-<input id="confirmaSenha" class="input" type="password" placeholder="Confirme nova senha">
-<button class="btn" onclick="app.resetSenha()">Resetar senha e manter historico</button>
-<button class="btn btn-sec" onclick="app.backToLogin()">Voltar ao login</button>
-<div class="card" style="background:#eff6ff"><p style="font-size:12px">Chave mestra atual: <b>TJSP2026RESET</b><br>Registros salvos: <span id="histCount">0</span> simulados - serao preservados</p></div>
-</div>
+<--	Parte 2	-->
 
-<div id="appLayout" class="layout hidden">
-<div class="sidebar">
-<div class="card" style="margin:10px">
-<h4 style="margin:0 0 8px">📊 Progresso Semanal</h4>
-<div style="height:6px;background:#e2e8f0;border-radius:99px"><div id="progBar" style="height:100%;background:#16a34a;width:0%;transition:width .2s"></div></div>
-<div style="display:flex;justify-content:space-between;font-size:12px;margin:6px 0"><span id="progText">0/58</span><span id="horasText">0h</span><span id="perfText"></span></div>
-<div id="historico" style="font-size:11px;max-height:140px;overflow:auto;border-top:1px solid #f1f5f9;padding-top:6px"></div>
-<div style="display:flex;gap:6px;margin-top:10px">
-<button class="btn btn-green" style="flex:1;font-size:11px" onclick="app.exportBackup()">💾 Backup</button>
-<button class="btn btn-sec" style="flex:1;font-size:11px" onclick="document.getElementById('importFile').click()">📥 Restaurar</button>
-<input type="file" id="importFile" class="hidden" accept=".json" onchange="app.importBackup(event)">
-</div>
-<button class="btn btn-sec" style="font-size:11px;margin-top:6px" onclick="app.showResetLogado()">🔑 Trocar senha (manter historico)</button>
-</div>
-<div class="card" style="margin:10px">
-<h4 style="margin:0 0 8px">📚 Trilha 1h30/dia - Ordem VUNESP</h4>
-<p class="small">Clique pra estudar. Lazy load - carrega so quando clicar. Nao trava.</p>
-<div id="listaTopicos"></div>
-</div>
-</div>
-<div class="main">
-<div id="emptyState" class="card" style="text-align:center;padding:40px 20px">
-<h3>👋 Bem-vindo ao modo Notebook + Celular</h3>
-<p class="small">Selecione um topico na lateral.<br>Mesmo app funciona nos dois. No celular: Chrome > Instalar app.</p>
-</div>
-<div id="simuladoBox" class="card hidden">
-<h3 id="simTitulo"></h3>
-<p class="small">Use <span class="kbd">1-5</span> pra escolher, <span class="kbd">Enter</span> pra corrigir, <span class="kbd">Esc</span> voltar</p>
-<div id="questoes"></div>
-<button class="btn btn-green" onclick="app.corrigir()">Corrigir e salvar em IndexedDB (Enter)</button>
-<div id="resultado"></div>
-<button class="btn btn-sec" style="margin-top:8px" onclick="app.voltarLista()">Voltar pra lista (Esc)</button>
-</div>
-</div>
-</div>
-
+<div class="layout"><aside id="sidebar"></aside><main id="app"></main></div>
 <script>
-const SENHA_PADRAO="SaygonEscrivao2026"; const MASTER="TJSP2026RESET";
-const app={
-  db:null,
-  topicos:[
-    {id:'2.4.2', nome:'2.4.2 Constitucional Art 5º Direitos Fundamentais', peso:'10q ELIMINATORIO', desc:'Art 5º inteiro - VUNESP cobra literalidade'},
-    {id:'1', nome:'1 Portugues - Interpretacao e concordancia', peso:'16q ELIMINATORIO', desc:'O que mais reprova na VUNESP'},
-    {id:'3.3', nome:'3.3 Informatica - Word Excel Teams OneDrive', peso:'9q CLASSIF', desc:'Mais questoes do Bloco III'},
-    {id:'2.6.5', nome:'2.6.5 Normas Corregedoria Tomo I', peso:'5-6q', desc:'Processo eletronico'},
-    {id:'2.3.5', nome:'2.3.5 Processual Civil - Citacao e prazos', peso:'VUNESP AMA', desc:'Arts 236 a 275'},
-  ],
-  async initDB(){
-    return new Promise((res,rej)=>{
-      const req=indexedDB.open('tjsp_notebook_v3_final',4);
-      req.onupgradeneeded=e=>{
-        const db=e.target.result;
-        if(!db.objectStoreNames.contains('progresso')) db.createObjectStore('progresso',{keyPath:'id'});
-        if(!db.objectStoreNames.contains('historico')) db.createObjectStore('historico',{keyPath:'id',autoIncrement:true});
-        if(!db.objectStoreNames.contains('meta')) db.createObjectStore('meta',{keyPath:'key'});
-      };
-      req.onsuccess=e=>{this.db=e.target.result; res();};
+const MASTER_KEY="TJSP2026RESET";const DEFAULT_PASS="SaygonEscrivao2026";
+function getUsers(){return JSON.parse(localStorage.getItem("tjsp_users")||"{}")}function saveUsers(u){localStorage.setItem("tjsp_users",JSON.stringify(u))}function getCurrent(){return localStorage.getItem("tjsp_current")}function setCurrent(n){localStorage.setItem("tjsp_current",n)}function ensureDefault(){let u=getUsers(); if(!u["admin"]){u["admin"]={pass:DEFAULT_PASS,history:{}}; saveUsers(u)}}ensureDefault();
+const BOOK=[{"id": "constitucional", "name": "Direito Constitucional", "icon": "⚖️", "chapters": [{"title": "Cap 1 - Art 5º Caput - Os 5 Direitos", "content": "<b>LEI SECA:</b> Art. 5º Todos são iguais perante a lei, garantindo-se vida, liberdade, igualdade, segurança e propriedade.<br><br><b>COMENTÁRIO:</b> Decore V-L-I-S-P. VUNESP troca por saúde, educação, moradia que são Art 6º sociais, não do caput.<br><br><b>PEGADINHA:</b> 'vida, liberdade, igualdade, segurança e moradia' - ERRADA. Moradia Art 6º."}, {"title": "Cap 2 - Incisos I a V - Igualdade e Legalidade", "content": "<b>LEI SECA:</b> I- homens e mulheres iguais. II- ninguém obrigado senão em virtude de lei. IV- livre manifestação, vedado anonimato. V- direito resposta + indenização.<br><br><b>COMENTÁRIO:</b> II Legalidade: só LEI obriga. IV Vedado anonimato para responsabilizar. VUNESP: 'com anonimato' ERRADO."}, {"title": "Cap 3 - Intimidade, Casa, Sigilo", "content": "<b>LEI SECA:</b> X- intimidade, vida privada, honra, imagem, indenização material e moral. XI- casa asilo inviolável, salvo flagrante, desastre, socorro, ou de dia por ordem judicial. XII- sigilo correspondência, salvo telefônico por ordem judicial para investigação criminal.<br><br><b>COMENTÁRIO:</b> Casa: Dia= ordem + flagrante etc. Noite= só flagrante, desastre, socorro sem ordem."}, {"title": "Cap 4 - Remédios Constitucionais", "content": "<b>LEI SECA:</b> LXVIII HC locomoção. LXXII HD dados pessoais. LXIX MS direito líquido e certo. LXX MS coletivo partido, sindicato, associação 1 ano. LXXI MI falta norma regulamentadora. LXXIII Popular qualquer cidadão anula ato lesivo.<br><br><b>COMENTÁRIO:</b> HC=Corpo locomoção. HD=Data dados. VUNESP troca sempre."}, {"title": "Cap 5 - Prisão e Pena", "content": "<b>LEI SECA:</b> LXI prisão só flagrante ou ordem escrita e fundamentada de autoridade judiciária. LXVII prisão civil por dívida só alimentos (depositário infiel não mais - STF).<br><br><b>COMENTÁRIO:</b> Quem decreta? Só JUIZ. Delegado preside flagrante."}]}, {"id": "portugues", "name": "Língua Portuguesa", "icon": "📚", "chapters": [{"title": "Cap 1 - Fazer, Haver, Existir", "content": "<b>REGRA OURO:</b> Fazer tempo = singular: Faz dois anos. Haver existir = singular: Há vagas. Existir concorda: Existem vagas.<br><br><b>VUNESP:</b> Haverá vagas (singular correto), Haverão vagas ERRADO."}, {"title": "Cap 2 - Crase", "content": "<b>TESTE AO:</b> Troque por masculino. Se der AO, tem crase. Entreguei à escrivã -> ao escrivão TEM crase. Vou à pé -> ao pé NÃO faz sentido sem crase.<br><br><b>TEM:</b> cargo feminino à juíza. <b>NÃO TEM:</b> a pé, a Vossa Excelência, a São Paulo."}, {"title": "Cap 3 - Regência Aspirar Assistir Visar", "content": "<b>ASPIRAR:</b> desejar com a: Aspiro ao cargo. Respirar sem: Aspiro o ar. <b>ASSISTIR:</b> ver com a: Assisti ao filme. Ajudar sem: Assistiu o paciente. <b>VISAR:</b> almejar com a: Viso ao cargo. Mirar sem: Visei documento."}, {"title": "Cap 4 - Deferir Diferir Mau Mal Há A", "content": "<b>DEFERIR=conceder, DIFERIR=adiar. MAU adjetivo bom, MAL advérbio bem. HÁ passado faz, A futuro daqui a.</b><br><br>Ele é mau servidor, trabalha mal - CORRETA."}, {"title": "Cap 5 - Por que Por quê Porque Porquê", "content": "<b>PERGUNTA=por que, FIM=por quê, RESPOSTA=porque, SUBSTANTIVO com o=porquê.</b><br><br>Não sei por que faltou - por que separado pergunta indireta."}]}];
+
+
+<!-- Parte 3 - Simulado Português e Constitucional (40Q com explicação tripla) -->
+<script>
+// Continua do BOOK da Parte 2
+const DB_PART1 = [
+{"id":"portugues","name":"Língua Portuguesa","icon":"📚","questions":[
+{"q":"Faz dois anos que estudo - concordância correta?","o":["Fazem dois anos","Faz dois anos - impessoal singular","Houveram dois anos","Existiram pouca vaga"],"a":1,"ec":"✅ Correta porque fazer indicando tempo é impessoal e fica sempre no singular: Faz dois anos.","ei":"❌ Fazem pluraliza impessoal, Houveram existir impessoal não vai para plural, vaga sem concordância.","e":"VUNESP ama cobrar impessoais: fazer tempo e haver existir sempre singular."},
+{"q":"Crase correta em:","o":["Vou à pé","Dirijo-me à Vossa Excelência","Entreguei à escrivã","Fui à São Paulo"],"a":2,"ec":"✅ À escrivã - cargo feminino determinado, teste do ao escrivão.","ei":"❌ A pé sem crase (masculina implícita), Vossa Excelência não admite crase, São Paulo cidade.","e":"Teste do AO infalível para crase."},
+{"q":"Aspirou ___ cargo (desejar)","o":["o","ao","pelo","do"],"a":1,"ec":"✅ Ao cargo - aspirar desejar rege a.","ei":"❌ O cargo seria respirar/sugar.","e":"Aspirar desejar com a, respirar sem."},
+{"q":"O réu, que é primário, foi absolvido - vírgulas","o":["Erro","Restritiva","Explicativa","Pleonasmo"],"a":2,"ec":"✅ Explicativa entre vírgulas, informação acessória.","ei":"❌ Restritiva seria sem vírgula.","e":"Explicativa com vírgulas, restritiva sem."},
+{"q":"Deferir vs Diferir","o":["Deferir=adiar","Deferir=conceder, Diferir=adiar","Sinônimos","Ambos negar"],"a":1,"ec":"✅ Deferir conceder, Diferir adiar/diferenciar.","ei":"❌ Inversão clássica VUNESP.","e":"Deferir oposto indeferir."},
+{"q":"Plural cidadão e tabelião","o":["Cidadãos e tabeliãos","Cidadães e tabeliães","Cidadãos e tabeliães","Cidadões"],"a":2,"ec":"✅ Cidadão->cidadãos, tabelião->tabeliães exceção.","ei":"❌ Generalizar erra.","e":"Exceções: tabeliães, escrivães."},
+{"q":"Voz passiva Alugam-se salas","o":["Ativa","Analítica","Sintética com se","Reflexiva"],"a":2,"ec":"✅ Passiva sintética verbo + se + sujeito paciente.","ei":"❌ Analítica seria são alugadas.","e":"Sintética se apassivador."},
+{"q":"Sinônimo improbidade","o":["Probidade","Desonestidade","Probabilidade","Improviso"],"a":1,"ec":"✅ Desonestidade, corrupção.","ei":"❌ Probidade oposto honestidade.","e":"Lei de Improbidade."},
+{"q":"Não sei ___ faltou","o":["por que","por quê","porque","porquê"],"a":0,"ec":"✅ Por que separado pergunta indireta.","ei":"❌ Por quê fim, porque resposta, porquê substantivo.","e":"Decore PERGUNTA, FIM, RESPOSTA, SUBSTANTIVO."},
+{"q":"Me empresta o livro?","o":["Correta","Errada não inicia com átono","Correta culta","Ambas"],"a":1,"ec":"✅ Errada, não inicia frase com pronome átono na norma culta.","ei":"❌ Coloquial aceita, culta não.","e":"Próclise no início é erro norma culta."},
+{"q":"Não o vejo ___ dois anos","o":["a","há","à","ah"],"a":1,"ec":"✅ Há = faz tempo decorrido.","ei":"❌ A futuro daqui a dois anos.","e":"Há passado, A futuro."},
+{"q":"Conjunção adversativa","o":["Portanto","Mas, porém, todavia","Porque","Quando"],"a":1,"ec":"✅ Mas, porém, todavia oposição.","ei":"❌ Portanto conclusiva.","e":"Adversativa adversidade."},
+{"q":"Ortografia exceção","o":["ss","xc","ç e x","sç"],"a":2,"ec":"✅ Ex-ce-ção com x e ç.","ei":"❌ ss e sç não existem.","e":"Família exceção, excesso."},
+{"q":"Ele é ___ servidor, trabalha ___","o":["mau, mal","mal, mau","mau, mau","mal, mal"],"a":0,"ec":"✅ Mau adjetivo bom, Mal advérbio bem.","ei":"❌ Inverter troca classe.","e":"Mau U=bom, Mal L=bem."},
+{"q":"Faltam documentos - sujeito","o":["Documentos","Cartório","Indeterminado","Inexistente"],"a":0,"ec":"✅ Documentos sujeito posposto.","ei":"❌ Cartório adjunto lugar.","e":"Verbo concorda com sujeito posposto."},
+{"q":"Metonímia em:","o":["Bebi uma garrafa","Leão é rei","Como flor","Morto de fome"],"a":0,"ec":"✅ Garrafa conteúdo pelo continente.","ei":"❌ Leão rei metáfora.","e":"Metonímia proximidade, metáfora comparação."},
+{"q":"Comarca ___ trabalho","o":["onde","aonde","donde","em onde"],"a":0,"ec":"✅ Onde lugar fixo.","ei":"❌ Aonde movimento.","e":"Onde parado, aonde vai."},
+{"q":"Aos poucos, ___ candidatos ___ vagas","o":["chegarão, haverá","chegará, haverão","chegaram, houveram","chegam, hão"],"a":0,"ec":"✅ Chegarão concorda, haverá impessoal singular.","ei":"❌ Haverão erro grave.","e":"Haver existir sempre singular."},
+{"q":"Processo ___ juiz analisou","o":["que","cujo","onde","que o"],"a":0,"ec":"✅ Que sem preposição analisar transitivo direto.","ei":"❌ Cujo posse.","e":"Relativo que, cujo, onde."},
+{"q":"Acentuação escrivão","o":["Oxítona","Paroxítona","Proparoxítona","Monossílabo"],"a":0,"ec":"✅ Oxítona terminada em ão acentuada.","ei":"❌ Paroxítona penúltima.","e":"Oxítonas a,e,o,em,ão acentuadas."}
+]},
+{"id":"constitucional","name":"Direito Constitucional","icon":"⚖️","questions":[
+{"q":"Art 5º caput: vida, liberdade, igualdade, segurança e:","o":["saúde","educação","propriedade","moradia"],"a":2,"ec":"✅ Propriedade no caput Art 5º V-L-I-S-P.","ei":"❌ Saúde, educação, moradia Art 6º sociais.","e":"Caput Art 5º vida, liberdade, igualdade, segurança, propriedade."},
+{"q":"Casa asilo inviolável entrada sem consentimento","o":["De dia com mandado","À noite com mandado","Flagrante, desastre, socorro ou ordem judicial de dia","Sempre com mandado"],"a":2,"ec":"✅ Art 5º XI flagrante, desastre, socorro ou ordem judicial de dia. Noite só 3 primeiras.","ei":"❌ Noite com mandado errado.","e":"Dia ordem + 3, Noite só 3 sem ordem."},
+{"q":"HC vs HD","o":["HC info, HD locomoção","HC locomoção, HD dados","Ambos locomoção","Ambos dados"],"a":1,"ec":"✅ HC corpo locomoção, HD data dados pessoais bancos públicos.","ei":"❌ Inverter pegadinha clássica.","e":"HC Corpo, HD Data."},
+{"q":"Prisão civil hoje","o":["Qualquer dívida","Só alimentos","Alimentos e depositário","Não existe"],"a":1,"ec":"✅ Só alimentos Art 5º LXVII + Pacto San José, depositário não mais.","ei":"❌ Qualquer dívida errado, depositário desatualizado.","e":"Prisão civil só alimentos hoje."},
+{"q":"Manifestação pensamento","o":["Anonimato permitido","Vedado anonimato","Censura prévia","Sem resposta"],"a":1,"ec":"✅ Vedado anonimato Art 5º IV para responsabilizar.","ei":"❌ Permitir permitiria calúnia sem punição.","e":"Veda anonimato para direito resposta."},
+{"q":"Petição e certidão","o":["Pagos","Gratuitos","Só advogado","Só presencial"],"a":1,"ec":"✅ Gratuitos Art 5º XXXIV.","ei":"❌ Pagos errado.","e":"Petição e certidão gratuitos."},
+{"q":"Tribunal do júri","o":["Dolosos contra vida, plenitude, sigilo, soberania, competência mínima","Qualquer crime","Sem sigilo","Sem soberania"],"a":0,"ec":"✅ Art 5º XXXVIII dolosos contra vida + 4 princípios.","ei":"❌ Qualquer crime amplia.","e":"Júri dolosos vida + 4 princípios."},
+{"q":"Penas proibidas Art 5º XLVII EXCETO","o":["Morte salvo guerra","Perpétua","Trabalhos forçados","Morte em guerra declarada permitida"],"a":3,"ec":"✅ EXCETO das proibidas = permitido. Morte em guerra declarada Art 84 XIX permitida.","ei":"❌ As 3 primeiras sempre proibidas.","e":"Proibidas morte salvo guerra, perpétua, trabalhos, banimento, cruéis. Permitida guerra declarada."},
+{"q":"Legalidade ninguém obrigado senão em virtude de:","o":["decreto","lei","portaria","costume"],"a":1,"ec":"✅ Só lei obriga Art 5º II.","ei":"❌ Decreto infralegal.","e":"Legalidade só lei."},
+{"q":"Intimidade violação","o":["Nada","Indenização material e moral","Só desculpas","Prisão automática"],"a":1,"ec":"✅ Indenização material e moral Art 5º X.","ei":"❌ Desculpas não repara.","e":"Intimidade indenização."},
+{"q":"Liberdade locomoção","o":["Só guerra","Tempo paz entrar permanecer sair com bens nos termos lei","Só brasileiro","Só autorização"],"a":1,"ec":"✅ Art 5º XV tempo paz com bens nos termos lei.","ei":"❌ Só brasileiro restringe.","e":"Locomoção tempo paz."},
+{"q":"Igualdade homens mulheres","o":["Termos Constituição","CLT","Costume","Juiz"],"a":0,"ec":"✅ Nos termos Constituição Art 5º I."},
+{"q":"MS coletivo legitimados","o":["Qualquer pessoa","Partido, sindicato, associação","Só MP","Só Defensoria"],"a":1,"ec":"✅ Art 5º LXX partido, sindicato, entidade, associação 1 ano."},
+{"q":"Sucessão bens estrangeiros","o":["Não existe","Lei brasileira mais favorável cônjuge/filhos","Sempre estrangeira","Confisco"],"a":1,"ec":"✅ Art 5º XXXI lei brasileira mais favorável cônjuge/filhos brasileiros."},
+{"q":"Ação popular proposta por","o":["Cidadão","Pessoa","Só MP","Só partido"],"a":0,"ec":"✅ Cidadão com título Art 5º LXXIII."},
+{"q":"Extradição brasileiro nato","o":["Nunca será extraditado","Qualquer caso","Só tráfico","Só político"],"a":0,"ec":"✅ Nato nunca Art 5º LI. Naturalizado pode crime comum anterior ou tráfico."},
+{"q":"Prova ilícita","o":["Admitida","Inadmissível","Admitida se única","Critério juiz"],"a":1,"ec":"✅ Inadmissível Art 5º LVI desentranhada."},
+{"q":"Prisão só flagrante ou ordem escrita e fundamentada de","o":["Delegado","Juiz","Promotor","Policial"],"a":1,"ec":"✅ Autoridade judiciária Art 5º LXI."},
+{"q":"Assistência religiosa internação coletiva","o":["Proibida","Assegurada nos termos lei","Só católica","Só condenados"],"a":1,"ec":"✅ Assegurada Art 5º VII."},
+{"q":"Mandado injunção falta","o":["Norma regulamentadora que inviabiliza direito constitucional","Dinheiro","Vontade política","Sentença"],"a":0,"ec":"✅ Falta norma que inviabiliza direito constitucional Art 5º LXXI."}
+]}
+];
+
+
+<!-- Parte 4 - Outras 8 matérias (160Q) - Penal, Processual, Administrativo, Informática, etc -->
+<script>
+// DB_PART2 continua do DB_PART1
+const DB_PART2 = [
+{"id":"penal","name":"Direito Penal","icon":"🔒","questions":[
+{"q":"Princípio da legalidade penal: não há crime sem lei anterior que o defina","o":["Correta Art 1º CP - lei seca","Errada cria exceção analógica","Errada generaliza para costume","Errada inverte sujeito"],"a":0,"ec":"✅ Correta Art 1º CP princípio da reserva legal, só lei define crime.","ei":"❌ Exceção inexistente analogia in malam partem proibida, costume não cria crime, inversão.","e":"Legalidade penal base de tudo."},
+{"q":"Crime doloso x culposo","o":["Doloso quis resultado, culposo assumiu risco imprudente","Ambos iguais","Doloso sem querer","Culposo sempre intencional"],"a":0,"ec":"✅ Doloso vontade, culposo imprudência, negligência, imperícia.","ei":"❌ Generalizar ou inverter é pegadinha VUNESP.","e":"Dolo vontade, culpa imprudência."},
+{"q":"Legítima defesa requisitos","o":["Injusta agressão atual/iminesnte, uso moderado, defesa própria ou de terceiro","Qualquer agressão passada","Vingança","Sem proporcionalidade"],"a":0,"ec":"✅ Art 25 CP - agressão injusta atual, meio moderado.","ei":"❌ Passada é vingança não defesa, sem proporcionalidade excesso.","e":"Legítima defesa 5 requisitos."},
+{"q":"Furto x Roubo","o":["Furto sem violência, Roubo com violência ou grave ameaça","Ambos com violência","Furto com violência","Roubo sem violência"],"a":0,"ec":"✅ Furto Art 155 sem violência, Roubo Art 157 com violência/grave ameaça.","ei":"❌ Inverter troca os crimes.","e":"Violência separa furto de roubo."},
+{"q":"Estelionato Art 171","o":["Obter vantagem ilícita induzindo alguém em erro mediante fraude","Só violência","Só furto","Não existe mais"],"a":0,"ec":"✅ Estelionato fraude para vantagem ilícita.","ei":"❌ Violência é roubo, não estelionato.","e":"Estelionato fraude."},
+{"q":"Homicídio qualificado motivo fútil","o":["Qualifica por motivo fútil, torpe, etc Art 121 §2º","Não qualifica","Só simples","Não existe"],"a":0,"ec":"✅ Motivo fútil, torpe, meio cruel qualificam homicídio.","ei":"❌ Negar qualificadora erra.","e":"Qualificadoras Art 121 §2º."},
+{"q":"Peculato é crime de","o":["Servidor público apropria/desvia dinheiro público","Particular","Só empresa","Não existe"],"a":0,"ec":"✅ Peculato Art 312 crime próprio de funcionário público.","ei":"❌ Particular não comete peculato próprio.","e":"Peculato funcionário público."},
+{"q":"Corrupção passiva x ativa","o":["Passiva servidor solicita/recebe, Ativa particular oferece","Ambas servidor","Ambas particular","Iguais"],"a":0,"ec":"✅ Passiva Art 317 servidor, Ativa Art 333 particular oferece.","ei":"❌ Inverter sujeitos.","e":"Passiva servidor, Ativa particular."},
+{"q":"Concurso de crimes","o":["Material, formal e continuado","Só um tipo","Não existe","Só material"],"a":0,"ec":"✅ Concurso material, formal, crime continuado.","ei":"❌ Negar tipos.","e":"Concurso de crimes 3 espécies."},
+{"q":"Prescrição penal","o":["Perda do direito de punir pelo decurso do tempo","Aumenta pena","Não existe","Só para contravenção"],"a":0,"ec":"✅ Prescrição extingue punibilidade pelo tempo.","ei":"❌ Aumentar pena é oposto.","e":"Prescrição perda do direito de punir."},
+{"q":"Tentativa Art 14 II","o":["Iniciada execução não consuma por circunstância alheia à vontade","Sempre consumado","Desistência voluntária","Não existe tentativa"],"a":0,"ec":"✅ Tentativa início execução não consumação por alheia vontade.","ei":"❌ Consumado não é tentativa.","e":"Tentativa Art 14 II."},
+{"q":"Arrependimento posterior Art 16","o":["Crime sem violência, repara dano antes denúncia, reduz pena 1/3 a 2/3","Qualquer crime","Depois da sentença","Não reduz"],"a":0,"ec":"✅ Art 16 sem violência, repara até recebimento denúncia, reduz.","ei":"❌ Com violência não cabe.","e":"Arrependimento posterior requisitos."},
+{"q":"Crime hediondo Lei 8.072","o":["Homicídio qualificado, latrocínio, estupro, etc com regime mais rigoroso","Crime leve","Só furto","Não tem regime rigoroso"],"a":0,"ec":"✅ Hediondos com regime inicial fechado, sem anistia, graça.","ei":"❌ Leve não é hediondo.","e":"Hediondos rol Lei 8.072."},
+{"q":"Falsidade ideológica x material","o":["Ideológica mente conteúdo, Material mente forma/autenticidade","Iguais","Ideológica forma","Material conteúdo"],"a":0,"ec":"✅ Ideológica Art 299 conteúdo falso, Material Art 297 forma falsa.","ei":"❌ Inverter.","e":"Ideológica conteúdo, Material forma."},
+{"q":"Dolo eventual x culpa consciente","o":["Dolo eventual assume risco, culpa consciente acredita que não ocorrerá","Iguais","Dolo sem risco","Culpa assume risco"],"a":0,"ec":"✅ Dolo eventual assume, culpa consciente confia que não ocorre.","ei":"❌ Inverter.","e":"Diferença assume vs confia."},
+{"q":"Excludente culpabilidade","o":["Inimputabilidade, coação moral irresistível, obediência hierárquica","Só imputável","Não existe","Só coação física"],"a":0,"ec":"✅ Excludentes culpabilidade inimputável, coação moral, obediência.","ei":"❌ Negar.","e":"Culpabilidade excludentes."},
+{"q":"Ação penal pública x privada","o":["Pública MP, Privada vítima, Privada subsidiária se MP inerte","Só pública","Só privada","Iguais"],"a":0,"ec":"✅ Pública MP, privada vítima, subsidiária se MP não age.","ei":"❌ Generalizar.","e":"Ação penal tipos."},
+{"q":"Princípio insignificância","o":["Bagatela, lesão ínfima, atipicidade material","Aplica em qualquer crime","Só hediondo","Não existe"],"a":0,"ec":"✅ Insignificância mínima ofensividade, atipicidade material.","ei":"❌ Hediondo não aplica bagatela.","e":"Bagatela requisitos."},
+{"q":"Concurso de pessoas","o":["Coautoria e participação Art 29","Só autor","Não existe participação","Só partícipe"],"a":0,"ec":"✅ Art 29 concurso coautoria e participação.","ei":"❌ Negar coautoria.","e":"Concurso pessoas."},
+{"q":"Extinção punibilidade","o":["Morte, anistia, graça, indulto, prescrição, etc Art 107","Só morte","Não existe","Só prescrição"],"a":0,"ec":"✅ Art 107 causas extinção punibilidade.","ei":"❌ Só morte incompleto.","e":"Extinção Art 107."}
+]},
+{"id":"processual_penal","name":"Processo Penal","icon":"👮","questions":[
+{"q":"Inquérito policial é","o":["Procedimento investigatório, dispensável, inquisitivo","Processo judicial","Obrigatório sempre","Acusatório"],"a":0,"ec":"✅ Inquérito dispensável, inquisitivo, investigatório.","ei":"❌ Processo judicial errado, acusatório é processo.","e":"Inquérito características."},
+{"q":"Prisão em flagrante tipos","o":["Próprio, impróprio, presumido Art 302","Só próprio","Não existe flagrante","Só presumido"],"a":0,"ec":"✅ Art 302 flagrante próprio, impróprio, presumido.","ei":"❌ Só um tipo incompleto.","e":"Flagrante Art 302."},
+{"q":"Prisão preventiva requisitos","o":["Prova crime, indício autoria, garantia ordem pública, econômica, conveniência instrução, aplicação lei penal Art 312","Só vontade delegado","Só vítima pede","Sem requisitos"],"a":0,"ec":"✅ Art 312 fumus + periculum para preventiva.","ei":"❌ Sem requisitos errado.","e":"Preventiva Art 312."},
+{"q":"Habeas corpus cabe quando","o":["Violência ou coação ilegal na liberdade locomoção","Só dados","Só propriedade","Só multa"],"a":0,"ec":"✅ HC locomoção ilegal.","ei":"❌ Dados é HD.","e":"HC locomoção."},
+{"q":"Prova ilícita Art 5º LVI","o":["Inadmissível, desentranhada","Admitida sempre","Admitida se única","Critério juiz"],"a":1,"ec":"✅ Prova ilícita inadmissível, frutos árvore envenenada.","ei":"❌ Admitida sempre errado.","e":"Prova ilícita inadmissível."},
+{"q":"Juiz das garantias","o":["Controla investigação, decide prisão, não julga mérito","Julga mérito","Não existe","Só investiga"],"a":0,"ec":"✅ Juiz garantias fase investigatória, não julga.","ei":"❌ Julga mérito errado.","e":"Juiz garantias."},
+{"q":"Ação penal pública condicionada","o":["Depende representação vítima ou requisição Ministro Justiça","Incondicionada sempre","Só privada","Sem condição"],"a":0,"ec":"✅ Condicionada representação ou requisição.","ei":"❌ Incondicionada independente.","e":"Condicionada representação."},
+{"q":"Citação x Intimação","o":["Citação chama para se defender, Intimação comunica ato","Iguais","Citação comunica","Intimação defende"],"a":0,"ec":"✅ Citação para defesa, intimação para ciência.","ei":"❌ Inverter.","e":"Citação defende, intimação comunica."},
+{"q":"Recurso apelação prazo","o":["5 dias JECRIM, 15 dias júri, etc conforme CPP","Sempre 1 dia","Não tem prazo","Só 30 dias"],"a":0,"ec":"✅ Apelação prazos conforme CPP.","ei":"❌ 1 dia errado.","e":"Apelação prazos CPP."},
+{"q":"Júri competência","o":["Crimes dolosos contra vida Art 5º XXXVIII","Qualquer crime","Só furto","Só administrativo"],"a":0,"ec":"✅ Júri dolosos contra vida.","ei":"❌ Qualquer crime amplia.","e":"Júri dolosos vida."},
+{"q":"Princípio presunção inocência","o":["Ninguém culpado até trânsito em julgado Art 5º LVII","Culpado antes","Sem trânsito","Só após 10 anos"],"a":0,"ec":"✅ Art 5º LVII presunção inocência até trânsito.","ei":"❌ Culpado antes viola.","e":"Presunção inocência."},
+{"q":"Interceptação telefônica Lei 9.296","o":["Só juiz, crime punido com reclusão, indício autoria, meio indispensável","Delegado sozinho","Qualquer crime","Sem juiz"],"a":0,"ec":"✅ Lei 9.296 só juiz, reclusão, indispensável.","ei":"❌ Delegado sozinho errado.","e":"Interceptação requisitos."},
+{"q":"Busca e apreensão domiciliar","o":["De dia com mandado, de noite só flagrante, desastre, socorro","Qualquer hora sem mandado","Só de noite com mandado","Sem regra"],"a":0,"ec":"✅ Casa dia com mandado, noite só flagrante etc.","ei":"❌ Noite com mandado errado.","e":"Busca domiciliar regra casa."},
+{"q":"Medidas cautelares diversas prisão Art 319","o":["Comparecimento periódico, proibição acesso, recolhimento noturno, etc","Só prisão","Não existem","Só multa"],"a":0,"ec":"✅ Art 319 cautelares diversas da prisão.","ei":"❌ Só prisão errado.","e":"Cautelares Art 319."},
+{"q":"Acordo não persecução penal ANPP","o":["Confissão, crime sem violência, pena mínima <4 anos, sem reincidência Art 28-A","Qualquer crime","Com violência","Sem confissão"],"a":0,"ec":"✅ Art 28-A ANPP sem violência, <4 anos, confissão.","ei":"❌ Com violência não cabe ANPP.","e":"ANPP requisitos."},
+{"q":"Queixa-crime prazo decadência","o":["6 meses do conhecimento autoria Art 38 CPP","1 ano","Sem prazo","10 anos"],"a":0,"ec":"✅ Decadência 6 meses conhecimento autoria.","ei":"❌ 10 anos prescrição não decadência.","e":"Decadência 6 meses."},
+{"q":"Suspensão condicional processo sursis processual","o":["Pena mínima ≤1 ano, sem violência, requisitos Art 89 Lei 9.099","Qualquer pena","Com violência","Sem requisitos"],"a":0,"ec":"✅ Art 89 Lei 9.099 sursis processual pena mínima ≤1 ano.","ei":"❌ Com violência não.","e":"Sursis processual Art 89."},
+{"q":"Provas em espécie","o":["Testemunhal, documental, pericial, interrogatório, etc","Só testemunhal","Não existe pericial","Só confissão"],"a":0,"ec":"✅ Provas testemunhal, documental, pericial.","ei":"❌ Só testemunhal incompleto.","e":"Provas espécies."},
+{"q":"Nulidades CPP","o":["Absoluta prejuízo presumido, Relativa depende prova prejuízo","Só absoluta","Não existem","Só relativa"],"a":0,"ec":"✅ Nulidade absoluta e relativa.","ei":"❌ Só uma tipo incompleto.","e":"Nulidades absoluta relativa."},
+{"q":"Competência territorial regra","o":["Local da consumação, ou último ato execução, ou domicílio réu Art 70 CPP","Só vítima escolhe","Só autor escolhe","Sem regra"],"a":0,"ec":"✅ Art 70 CPP competência local infração.","ei":"❌ Vítima escolhe errado.","e":"Competência Art 70."}
+]},
+{"id":"processual_civil","name":"Processo Civil","icon":"📝","questions":[
+{"q":"Petição inicial requisitos Art 319 CPC","o":["Juízo, partes, causa pedir, pedido, valor causa, provas, opção audiência conciliação","Só nome","Sem requisitos","Só pedido"],"a":0,"ec":"✅ Art 319 CPC requisitos petição inicial.","ei":"❌ Só nome incompleto.","e":"Inicial Art 319."},
+{"q":"Citação Art 238 CPC","o":["Ato chama réu para se defender, pressuposto validade processo","Só comunica","Não precisa","Só para testemunha"],"a":0,"ec":"✅ Citação chama para defesa, pressuposto validade.","ei":"❌ Só comunica é intimação.","e":"Citação Art 238."},
+{"q":"Prazos processuais CPC","o":["Só dias úteis, exclui início inclui fim, suspende férias, etc Art 219","Dias corridos","Sem regra","Só corridos para tudo"],"a":0,"ec":"✅ Art 219 CPC prazos só dias úteis.","ei":"❌ Corridos regra antiga CPC/73.","e":"Prazos úteis Art 219."},
+{"q":"Contestação prazo","o":["15 dias úteis Art 335 CPC","5 dias","30 dias corridos","Sem prazo"],"a":0,"ec":"✅ Contestação 15 dias úteis Art 335.","ei":"❌ 5 dias exceção.","e":"Contestação 15 úteis."},
+{"q":"Revelia efeitos","o":["Presunção verdade fatos alegados autor, mas não absoluta, juiz pode exigir prova","Sempre verdade absoluta","Sem efeito","Só multa"],"a":0,"ec":"✅ Revelia presunção relativa, não absoluta.","ei":"❌ Absoluta errado, pode ter prova contrária.","e":"Revelia relativa."},
+{"q":"Recurso apelação Art 1.009","o":["Contra sentença, 15 dias úteis, devolutivo e suspensivo regra","Só 5 dias","Sem efeito suspensivo sempre","Só contra despacho"],"a":0,"ec":"✅ Apelação contra sentença 15 úteis.","ei":"❌ Só 5 dias agravo.","e":"Apelação sentença."},
+{"q":"Cumprimento sentença","o":["Fase execução título judicial Art 513 CPC","Só extrajudicial","Não existe","Só sentença penal"],"a":0,"ec":"✅ Cumprimento sentença título judicial Art 513.","ei":"❌ Extrajudicial é execução.","e":"Cumprimento Art 513."},
+{"q":"Tutela provisória urgência e evidência","o":["Urgência fumus + periculum, Evidência alta probabilidade sem perigo Art 294","Só urgência","Não existe evidência","Só evidência"],"a":0,"ec":"✅ Tutela urgência e evidência Art 294.","ei":"❌ Só uma tipo incompleto.","e":"Tutela provisória Art 294."},
+{"q":"Impenhorabilidade bem de família Lei 8.009","o":["Imóvel residência família impenhorável, salvo exceções","Todo bem penhorável","Não existe impenhorabilidade","Só carro"],"a":0,"ec":"✅ Bem família impenhorável Lei 8.009.","ei":"❌ Todo penhorável errado.","e":"Bem família impenhorável."},
+{"q":"Juizado Especial Cível","o":["Até 20 salários, sem advogado até 20, rito simplificado Lei 9.099","Até 100 salários","Sempre com advogado","Não existe"],"a":0,"ec":"✅ JEC até 20 SM sem advogado, 20-40 com.","ei":"❌ 100 SM errado.","e":"JEC Lei 9.099."},
+{"q":"Litisconsórcio","o":["Pluralidade partes mesmo polo, necessário e facultativo","Só uma parte","Não existe","Só réu"],"a":0,"ec":"✅ Litisconsórcio várias partes mesmo polo.","ei":"❌ Só uma parte não é litisconsórcio.","e":"Litisconsórcio."},
+{"q":"Intervenção terceiros","o":["Assistência, denunciação lide, chamamento processo, incidente desconsideração","Não existe","Só assistência","Só denunciação"],"a":0,"ec":"✅ Intervenção terceiros CPC.","ei":"❌ Só uma tipo incompleto.","e":"Intervenção terceiros."},
+{"q":"Sentença x Decisão interlocutória x Despacho","o":["Sentença encerra fase com mérito ou sem, Interlocutória decide incidente, Despacho mero expediente","Iguais","Sentença não encerra","Despacho decide mérito"],"a":0,"ec":"✅ Sentença encerra, interlocutória incidente, despacho expediente.","ei":"❌ Iguais errado.","e":"Pronunciamentos juiz."},
+{"q":"Coisa julgada","o":["Imutabilidade sentença transitada em julgado, formal e material","Mutável sempre","Só formal","Não existe"],"a":0,"ec":"✅ Coisa julgada imutabilidade.","ei":"❌ Mutável sempre errado.","e":"Coisa julgada."},
+{"q":"Honorários sucumbência CPC","o":["10 a 20% sobre valor condenação, proveito, causa Art 85","1% sempre","Sem honorários","Só 50%"],"a":0,"ec":"✅ Art 85 honorários 10-20%.","ei":"❌ 1% abaixo mínimo.","e":"Honorários Art 85."},
+{"q":"Gratuidade justiça","o":["Hipossuficiente, pessoa natural ou jurídica, comprova insuficiência Art 98","Só rico","Não existe","Só empresa"],"a":0,"ec":"✅ Gratuidade hipossuficiente Art 98.","ei":"❌ Só rico oposto.","e":"Gratuidade Art 98."},
+{"q":"Audiência conciliação mediação Art 334","o":["Designada após petição inicial, obrigatória salvo exceções","Nunca designada","Facultativa sempre","Sem exceção"],"a":0,"ec":"✅ Art 334 audiência conciliação obrigatória salvo exceções.","ei":"❌ Nunca designada errado.","e":"Audiência conciliação Art 334."},
+{"q":"Prova documental CPC","o":["Junta com inicial e contestação, pode juntar depois se fato novo Art 435","Só na sentença","Nunca pode depois","Só com apelação"],"a":0,"ec":"✅ Documental com inicial/contestação, exceção fato novo.","ei":"❌ Só sentença errado.","e":"Prova documental."},
+{"q":"Execução título extrajudicial","o":["CPC Art 784 títulos extrajudiciais, ex cheque, nota promissória, contrato assinado 2 testemunhas","Só judicial","Não existe","Só cheque"],"a":0,"ec":"✅ Art 784 títulos extrajudiciais.","ei":"❌ Só cheque incompleto.","e":"Título extrajudicial Art 784."},
+{"q":"Embargos declaração Art 1.022","o":["Obscuridade, contradição, omissão, erro material, 5 dias úteis","Qualquer erro","15 dias","Não existe"],"a":0,"ec":"✅ Embargos declaração 5 dias obscuridade, contradição, omissão.","ei":"❌ 15 dias apelação.","e":"Embargos declaração Art 1.022."}
+]},
+{"id":"administrativo","name":"Direito Administrativo","icon":"🏛️","questions":[
+{"q":"Princípios Art 37 CF LIMPE","o":["Legalidade, Impessoalidade, Moralidade, Publicidade, Eficiência","Só legalidade","Só eficiência","Não existem"],"a":0,"ec":"✅ Art 37 LIMPE Legalidade, Impessoalidade, Moralidade, Publicidade, Eficiência.","ei":"❌ Só um princípio incompleto.","e":"LIMPE Art 37."},
+{"q":"Poder vinculado x discricionário","o":["Vinculado sem escolha, Discricionário com juízo conveniência e oportunidade dentro lei","Iguais","Vinculado com escolha","Discricionário sem lei"],"a":0,"ec":"✅ Vinculado sem escolha, discricionário com escolha dentro lei.","ei":"❌ Discricionário sem lei é arbitrário.","e":"Vinculado e discricionário."},
+{"q":"Ato administrativo requisitos","o":["Competência, finalidade, forma, motivo, objeto Art 37","Só competência","Sem requisitos","Só objeto"],"a":0,"ec":"✅ Ato requisitos competência, finalidade, forma, motivo, objeto.","ei":"❌ Só um requisito incompleto.","e":"Ato requisitos."},
+{"q":"Licitação Lei 14.133 princípios","o":["Legalidade, impessoalidade, moralidade, publicidade, eficiência, interesse público, probidade, igualdade, planejamento, transparência, eficácia, segregação funções, motivação, vinculação edital, julgamento objetivo, segurança jurídica, razoabilidade, competitividade, proporcionalidade, celeridade, economicidade, desenvolvimento sustentável","Só um princípio","Não tem princípios","Só economicidade"],"a":0,"ec":"✅ Lei 14.133 muitos princípios.","ei":"❌ Só um incompleto.","e":"Licitação princípios Lei 14.133."},
+{"q":"Modalidades licitação Lei 14.133","o":["Pregão, concorrência, concurso, leilão, diálogo competitivo Art 28","Só pregão","Só concorrência","Tomada preços ainda existe"],"a":0,"ec":"✅ Art 28 Lei 14.133 5 modalidades, tomada preços e convite extintos.","ei":"❌ Tomada preços extinta Lei 14.133.","e":"Modalidades Art 28 Lei 14.133."},
+{"q":"Contrato administrativo características","o":["Cláusulas exorbitantes, mutabilidade, equilíbrio econômico-financeiro","Igual contrato privado","Sem exorbitância","Sem equilíbrio"],"a":0,"ec":"✅ Contrato administrativo cláusulas exorbitantes.","ei":"❌ Igual privado errado.","e":"Contrato administrativo exorbitância."},
+{"q":"Serviços públicos princípios","o":["Continuidade, eficiência, modicidade, regularidade, generalidade, etc","Só continuidade","Não tem princípios","Só modicidade"],"a":0,"ec":"✅ Serviços públicos continuidade, etc.","ei":"❌ Só um incompleto.","e":"Serviços públicos princípios."},
+{"q":"Responsabilidade civil Estado Art 37 §6º","o":["Objetiva, risco administrativo, independe culpa, com direito regresso contra servidor doloso/culposo","Subjetiva sempre","Sem responsabilidade","Só subjetiva"],"a":0,"ec":"✅ Art 37 §6º responsabilidade objetiva Estado, regresso contra servidor.","ei":"❌ Subjetiva sempre errado.","e":"Responsabilidade objetiva Estado."},
+{"q":"Improbidade Lei 8.429 tipos","o":["Enriquecimento ilícito, dano erário, violação princípios","Só enriquecimento","Só dano","Não existe violação princípios"],"a":0,"ec":"✅ Lei 8.429 3 tipos enriquecimento, dano, violação princípios.","ei":"❌ Só um tipo incompleto.","e":"Improbidade 3 tipos Lei 8.429."},
+{"q":"Controle administração","o":["Interno, externo, judicial, legislativo","Só interno","Só judicial","Não existe controle"],"a":0,"ec":"✅ Controle interno, externo, judicial.","ei":"❌ Só interno incompleto.","e":"Controle administração."},
+{"q":"Agentes públicos classificação","o":["Políticos, administrativos, honoríficos, delegatários, credenciados","Só políticos","Só administrativos","Não tem classificação"],"a":0,"ec":"✅ Agentes classificação doutrina.","ei":"❌ Só um tipo incompleto.","e":"Agentes públicos."},
+{"q":"Poder de polícia","o":["Limita direito em prol interesse público, atributos discricionariedade, autoexecutoriedade, coercibilidade","Ilimitado","Sem atributos","Só discricionário"],"a":0,"ec":"✅ Poder polícia limita direito interesse público.","ei":"❌ Ilimitado arbitrário.","e":"Poder polícia."},
+{"q":"Bens públicos classificação","o":["Uso comum povo, uso especial, dominicais Art 99 CC","Só uso comum","Só dominicais","Não tem classificação"],"a":0,"ec":"✅ Art 99 CC bens públicos 3 tipos.","ei":"❌ Só um incompleto.","e":"Bens públicos Art 99."},
+{"q":"Processo administrativo Lei 9.784","o":["Princípios legalidade, finalidade, motivação, razoabilidade, proporcionalidade, moralidade, ampla defesa, contraditório, segurança jurídica, interesse público, eficiência","Sem princípios","Só legalidade","Só eficiência"],"a":0,"ec":"✅ Lei 9.784 princípios processo administrativo.","ei":"❌ Só um incompleto.","e":"Processo administrativo Lei 9.784."},
+{"q":"Intervenção Estado propriedade","o":["Desapropriação, requisição, ocupação temporária, limitação, servidão","Só desapropriação","Não existe intervenção","Só requisição"],"a":0,"ec":"✅ Intervenção Estado propriedade várias formas.","ei":"❌ Só uma incompleto.","e":"Intervenção propriedade."},
+{"q":"Concurso público Art 37 II","o":["Regra, exceções cargos comissão e temporário, validade até 2 anos prorrogável","Só comissão","Sem concurso sempre","Validade 10 anos"],"a":0,"ec":"✅ Art 37 II concurso regra, validade 2 anos prorrogável.","ei":"❌ Sem concurso exceção.","e":"Concurso Art 37 II."},
+{"q":"Estabilidade servidor Art 41","o":["3 anos efetivo exercício, avaliação desempenho, só perde cargo com sentença, processo adm, insuficiência desempenho","1 ano","Sem estabilidade","Só 1 dia"],"a":0,"ec":"✅ Art 41 estabilidade 3 anos.","ei":"❌ 1 ano errado.","e":"Estabilidade 3 anos Art 41."},
+{"q":"Aposentadoria servidor","o":["Regras permanentes e transitórias EC 103/2019, idades, tempo contribuição","Sem regras","Só 1 regra","Só por idade"],"a":0,"ec":"✅ Aposentadoria EC 103/2019.","ei":"❌ Sem regras errado.","e":"Aposentadoria EC 103."},
+{"q":"Pregão Lei 14.133","o":["Modalidade para bens e serviços comuns, critério menor preço ou maior desconto, fase externa e interna","Só obras","Só serviços especiais","Não existe mais"],"a":0,"ec":"✅ Pregão bens e serviços comuns.","ei":"❌ Só obras concorrência.","e":"Pregão bens comuns."},
+{"q":"Sanções Lei 14.133","o":["Advertência, multa, impedimento, inidoneidade Art 156","Só advertência","Não tem sanção","Só multa"],"a":0,"ec":"✅ Art 156 sanções Lei 14.133.","ei":"❌ Só uma incompleto.","e":"Sanções Art 156."}
+]},
+{"id":"informatica","name":"Informática","icon":"💻","questions":[
+{"q":"Atalho Ctrl+C e Ctrl+V","o":["Copiar e Colar","Recortar e Colar","Copiar e Recortar","Colar e Copiar"],"a":0,"ec":"✅ Ctrl+C copiar, Ctrl+V colar, Ctrl+X recortar.","ei":"❌ Recortar é Ctrl+X.","e":"Atalhos básicos."},
+{"q":"Extensão .pdf .docx .xlsx","o":["PDF Adobe, DOCX Word, XLSX Excel","Todas Word","Todas Excel","Todas PDF"],"a":0,"ec":"✅ PDF Adobe, DOCX Word, XLSX Excel.","ei":"❌ Todas Word errado.","e":"Extensões arquivos."},
+{"q":"Navegador x Sistema operacional","o":["Navegador Chrome, Edge, Firefox acessa internet, SO Windows, Linux gerencia hardware","Iguais","Navegador é SO","SO é navegador"],"a":0,"ec":"✅ Navegador acessa web, SO gerencia hardware.","ei":"❌ Iguais errado.","e":"Navegador vs SO."},
+{"q":"Phishing é","o":["Fraude para obter dados sensíveis se passando por entidade confiável","Antivírus","Firewall","Backup"],"a":0,"ec":"✅ Phishing fraude dados.","ei":"❌ Antivírus proteção não fraude.","e":"Phishing fraude."},
+{"q":"Backup tipos","o":["Total, incremental, diferencial","Só total","Não existe incremental","Só diferencial"],"a":0,"ec":"✅ Backup total, incremental, diferencial.","ei":"❌ Só total incompleto.","e":"Backup tipos."},
+{"q":"Cloud computing","o":["Armazenamento e processamento em servidores remotos via internet","Só local","Sem internet","Só pendrive"],"a":0,"ec":"✅ Cloud servidores remotos internet.","ei":"❌ Só local não é cloud.","e":"Cloud computing."},
+{"q":"Malware tipos","o":["Vírus, worm, trojan, ransomware, spyware, adware","Só vírus","Não existe worm","Só trojan"],"a":0,"ec":"✅ Malware vários tipos.","ei":"❌ Só vírus incompleto.","e":"Malware tipos."},
+{"q":"Excel fórmula SOMA e MÉDIA","o":["=SOMA(A1:A10) soma, =MÉDIA(A1:A10) média","SOMA subtrai","MÉDIA soma","Fórmulas sem ="],"a":0,"ec":"✅ SOMA soma, MÉDIA média, começa com =.","ei":"❌ Sem = não é fórmula.","e":"Excel fórmulas."},
+{"q":"Word cabeçalho e rodapé","o":["Áreas superior e inferior repetem em todas páginas","Só uma página","Não repetem","Só cabeçalho repete"],"a":0,"ec":"✅ Cabeçalho superior, rodapé inferior repetem.","ei":"❌ Só uma página errado.","e":"Cabeçalho rodapé."},
+{"q":"Internet x Intranet x Extranet","o":["Internet pública mundial, Intranet privada empresa, Extranet intranet estendida a parceiros","Iguais","Internet privada","Intranet pública"],"a":0,"ec":"✅ Internet pública, Intranet privada, Extranet parceiros.","ei":"❌ Internet privada errado.","e":"Internet, Intranet, Extranet."},
+{"q":"Protocolo HTTP e HTTPS","o":["HTTP sem criptografia porta 80, HTTPS com SSL/TLS porta 443 seguro","Iguais","HTTP seguro","HTTPS sem segurança"],"a":0,"ec":"✅ HTTP 80 sem segurança, HTTPS 443 com SSL.","ei":"❌ HTTP seguro errado.","e":"HTTP vs HTTPS."},
+{"q":"Tecla de atalho F5","o":["Atualiza página navegador","Desliga PC","Formata HD","Apaga tudo"],"a":0,"ec":"✅ F5 atualiza página.","ei":"❌ Desliga PC é botão power.","e":"F5 atualiza."},
+{"q":"Sistema binário","o":["0 e 1 base da computação, 1 byte = 8 bits","Só 0","Só 1","1 byte = 1 bit"],"a":0,"ec":"✅ Binário 0 e 1, byte 8 bits.","ei":"❌ 1 byte = 1 bit errado.","e":"Binário."},
+{"q":"Hardware x Software","o":["Hardware físico, Software lógico/programas","Iguais","Hardware lógico","Software físico"],"a":0,"ec":"✅ Hardware físico, Software lógico.","ei":"❌ Inverter errado.","e":"Hardware vs Software."},
+{"q":"Memória RAM e ROM","o":["RAM volátil temporária perde ao desligar, ROM não volátil permanente","Iguais","RAM permanente","ROM volátil"],"a":0,"ec":"✅ RAM volátil, ROM não volátil.","ei":"❌ RAM permanente errado.","e":"RAM vs ROM."},
+{"q":"URL é","o":["Endereço de recurso na web, ex https://www.tjsp.jus.br","Só IP","Só nome","Não é endereço"],"a":0,"ec":"✅ URL endereço web.","ei":"❌ Só IP é parte da URL.","e":"URL."},
+{"q":"SPAM é","o":["E-mail não solicitado em massa, lixo eletrônico","E-mail solicitado","Antivírus","Firewall"],"a":0,"ec":"✅ SPAM lixo eletrônico não solicitado.","ei":"❌ Solicitado não é SPAM.","e":"SPAM."},
+{"q":"Firewall","o":["Barreira segurança filtra tráfego rede, bloqueia acesso não autorizado","Vírus","Cria vírus","Não filtra"],"a":0,"ec":"✅ Firewall filtra tráfego.","ei":"❌ Vírus errado.","e":"Firewall."},
+{"q":"Ctrl+Z e Ctrl+Y","o":["Desfazer e Refazer","Copiar e Colar","Recortar e Colar","Salvar e Abrir"],"a":0,"ec":"✅ Ctrl+Z desfaz, Ctrl+Y refaz.","ei":"❌ Copiar é Ctrl+C.","e":"Desfazer refazer."},
+{"q":"HD, SSD, Pen drive","o":["HD disco magnético, SSD memória flash rápido, Pen drive flash portátil","Iguais","HD é flash","SSD é magnético"],"a":0,"ec":"✅ HD magnético, SSD flash rápido.","ei":"❌ HD flash errado.","e":"Armazenamento."}
+]},
+{"id":"matematica","name":"Raciocínio Lógico","icon":"🧮","questions":[
+{"q":"Conjunção E (∧) tabela verdade","o":["V com V = V, resto F","V com F = V","Sempre V","Sempre F"],"a":0,"ec":"✅ Conjunção só V com V = V.","ei":"❌ V com F = F não V.","e":"Conjunção E."},
+{"q":"Disjunção OU (∨)","o":["F com F = F, resto V","V com V = F","Sempre F","Sempre V"],"a":0,"ec":"✅ Disjunção só F com F = F.","ei":"❌ V com V = V não F.","e":"Disjunção OU."},
+{"q":"Condicional SE ENTÃO (→)","o":["Só F com V = F (Vera Fischer é Falsa), resto V","V com V = F","Sempre V","Sempre F"],"a":0,"ec":"✅ Condicional só F com V = F, resto V.","ei":"❌ V com V = V.","e":"Condicional SE ENTÃO."},
+{"q":"Bicondicional SE E SOMENTE SE (↔)","o":["Iguais V, diferentes F (iguais verdade, diferentes falso)","Diferentes V","Sempre V","Sempre F"],"a":0,"ec":"✅ Bicondicional iguais V, diferentes F.","ei":"❌ Diferentes V errado.","e":"Bicondicional."},
+{"q":"Negação ~p","o":["Inverte valor, V vira F, F vira V","Mantém valor","Sempre V","Sempre F"],"a":0,"ec":"✅ Negação inverte.","ei":"❌ Mantém errado.","e":"Negação."},
+{"q":"Equivalência condicional","o":["p→q equivale ~q→~p contrapositiva e ~p∨q","Só p→q","Não tem equivalência","p→q equivale q→p"],"a":0,"ec":"✅ p→q = ~q→~p = ~p∨q equivalências.","ei":"❌ q→p é recíproca não equivalência.","e":"Equivalência condicional."},
+{"q":"Silogismo todo, nenhum, algum","o":["Todo A é B, Nenhum A é B, Algum A é B - diagramas Venn","Só todo","Não existe algum","Só nenhum"],"a":0,"ec":"✅ Quantificadores todo, nenhum, algum, diagramas.","ei":"❌ Só um incompleto.","e":"Silogismo quantificadores."},
+{"q":"Princípio casa pombos","o":["Se n+1 objetos em n caixas, uma caixa tem ≥2","Nenhuma caixa tem 2","Só 1 objeto por caixa","Não existe princípio"],"a":0,"ec":"✅ Casa pombos n+1 em n, uma tem 2.","ei":"❌ Nenhuma tem 2 errado.","e":"Casa pombos."},
+{"q":"Sequência 2,4,8,16...","o":["Potência de 2, próximo 32","Próximo 20","Próximo 18","Próximo 24"],"a":0,"ec":"✅ 2^n próximo 32.","ei":"❌ 20 não segue padrão potência.","e":"Sequência potência."},
+{"q":"Média aritmética","o":["Soma valores / quantidade","Soma x quantidade","Só soma","Só quantidade"],"a":0,"ec":"✅ Média soma / quantidade.","ei":"❌ Soma x quantidade errado.","e":"Média aritmética."},
+{"q":"Porcentagem 10% de 200","o":["20","10","200","2"],"a":0,"ec":"✅ 10% de 200 = 20.","ei":"❌ 10 é 5%.","e":"Porcentagem."},
+{"q":"Regra de três simples","o":["Grandeza diretamente ou inversamente proporcional","Só direta","Só inversa","Não existe regra"],"a":0,"ec":"✅ Regra três direta e inversa.","ei":"❌ Só direta incompleto.","e":"Regra três."},
+{"q":"Probabilidade","o":["Casos favoráveis / casos possíveis","Favoráveis x possíveis","Só favoráveis","Só possíveis"],"a":0,"ec":"✅ Probabilidade favoráveis / possíveis.","ei":"❌ x errado.","e":"Probabilidade."},
+{"q":"Análise combinatória arranjo x combinação","o":["Arranjo ordem importa, Combinação ordem não importa","Iguais","Arranjo ordem não importa","Combinação ordem importa"],"a":0,"ec":"✅ Arranjo ordem importa, combinação não.","ei":"❌ Inverter errado.","e":"Arranjo vs Combinação."},
+{"q":"Diagrama Venn","o":["Representa conjuntos com círculos, interseção, união, diferença","Só círculos sem interseção","Não representa conjuntos","Só retângulos"],"a":0,"ec":"✅ Venn conjuntos interseção união.","ei":"❌ Sem interseção não mostra relação.","e":"Venn."},
+{"q":"Tautologia, contradição, contingência","o":["Tautologia sempre V, Contradição sempre F, Contingência V e F","Iguais","Tautologia sempre F","Contradição sempre V"],"a":0,"ec":"✅ Tautologia sempre V, contradição sempre F, contingência ambos.","ei":"❌ Tautologia sempre F errado.","e":"Tautologia etc."},
+{"q":"Argumento válido","o":["Premissas verdadeiras conclusão necessariamente verdadeira","Premissas falsas conclusão falsa","Sem premissas","Sem conclusão"],"a":0,"ec":"✅ Argumento válido conclusão necessária se premissas verdadeiras.","ei":"❌ Premissas falsas pode ter conclusão verdadeira em argumento válido.","e":"Argumento válido."},
+{"q":"Conectivo OU...OU exclusivo (⊻)","o":["V com F = V, iguais = F (diferentes V)","Iguais V","Sempre V","Sempre F"],"a":0,"ec":"✅ OU exclusivo diferentes V, iguais F.","ei":"❌ Iguais V é OU inclusivo.","e":"OU exclusivo."},
+{"q":"Negação todo, nenhum, algum","o":["Negação Todo A é B = Algum A não é B, Nenhum A é B = Algum A é B","Todo = Nenhum","Algum = Todo","Não tem negação"],"a":0,"ec":"✅ Negação quantificadores Todo vira Algum não, etc.","ei":"❌ Todo = Nenhum errado.","e":"Negação quantificadores."},
+{"q":"Raciocínio sequencial","o":["Identifica padrão, próximo termo, lógica sequência","Sem padrão","Só números","Só letras"],"a":0,"ec":"✅ Sequencial padrão lógico.","ei":"❌ Sem padrão não é sequência.","e":"Sequencial."}
+]},
+{"id":"atualidades","name":"Atualidades e LGPD","icon":"🌎","questions":[
+{"q":"LGPD Lei 13.709 princípios","o":["Finalidade, adequação, necessidade, livre acesso, qualidade, transparência, segurança, prevenção, não discriminação, responsabilização","Só finalidade","Não tem princípios","Só segurança"],"a":0,"ec":"✅ LGPD 10 princípios Art 6º.","ei":"❌ Só um incompleto.","e":"LGPD princípios Art 6º."},
+{"q":"LGPD bases legais tratamento","o":["Consentimento, cumprimento obrigação legal, execução políticas públicas, estudos pesquisa, execução contrato, exercício direitos, proteção vida, tutela saúde, legítimo interesse, proteção crédito Art 7º","Só consentimento","Não tem base","Só legítimo interesse"],"a":0,"ec":"✅ Art 7º LGPD 10 bases legais.","ei":"❌ Só consentimento incompleto.","e":"LGPD bases Art 7º."},
+{"q":"LGPD direitos titular","o":["Confirmação, acesso, correção, anonimização, portabilidade, eliminação, informação, revogação consentimento Art 18","Só acesso","Não tem direitos","Só correção"],"a":0,"ec":"✅ Art 18 LGPD direitos titular.","ei":"❌ Só um incompleto.","e":"LGPD direitos Art 18."},
+{"q":"LGPD encarregado DPO","o":["Pessoa indicada controlador para comunicação titular e ANPD, canal reclamações","Não existe","Só controlador","Só operador"],"a":0,"ec":"✅ DPO encarregado canal titular e ANPD.","ei":"❌ Não existe errado.","e":"DPO LGPD."},
+{"q":"ANPD é","o":["Autoridade Nacional Proteção Dados, fiscaliza LGPD","Não existe","Só empresa","Só particular"],"a":0,"ec":"✅ ANPD fiscaliza LGPD.","ei":"❌ Não existe errado.","e":"ANPD."},
+{"q":"Atualidades COP, mudanças climáticas","o":["Conferência clima, acordo Paris, aquecimento global, desmatamento, carbono","Não existe COP","Só festa","Sem relação clima"],"a":0,"ec":"✅ COP clima, acordo Paris.","ei":"❌ Só festa errado.","e":"COP clima."},
+{"q":"Inteligência Artificial atualidades","o":["IA generativa, ChatGPT, regulamentação, ética, deepfake, mercado trabalho","Não existe IA","Só calculadora","Sem impacto"],"a":0,"ec":"✅ IA generativa atualidades.","ei":"❌ Não existe errado.","e":"IA atualidades."},
+{"q":"Conflitos internacionais atual","o":["Ucrânia, Oriente Médio, OTAN, ONU, geopolítica","Não existem conflitos","Só paz mundial","Sem relação Brasil"],"a":0,"ec":"✅ Conflitos Ucrânia, Oriente Médio atualidades.","ei":"❌ Só paz errado.","e":"Conflitos atuais."},
+{"q":"Economia atual Brasil","o":["Inflação, Selic, PIB, reforma tributária, arcabouço fiscal","Não tem economia","Só inflação","Só PIB"],"a":0,"ec":"✅ Economia inflação, Selic, PIB, reforma tributária.","ei":"❌ Só um incompleto.","e":"Economia Brasil."},
+{"q":"Tecnologia 5G","o":["Quinta geração móvel, alta velocidade, baixa latência, IoT","1G","Sem velocidade","Sem IoT"],"a":0,"ec":"✅ 5G alta velocidade baixa latência.","ei":"❌ 1G antiga.","e":"5G."},
+{"q":"Fake news e desinformação","o":["Notícia falsa, checagem fatos, impacto democracia, legislação","Verdade sempre","Não existe fake","Sem impacto"],"a":0,"ec":"✅ Fake news falsa, checagem, impacto.","ei":"❌ Verdade sempre errado.","e":"Fake news."},
+{"q":"Sustentabilidade ESG","o":["Environmental, Social, Governance, meio ambiente, social, governança corporativa","Só ambiental","Não existe ESG","Só governança"],"a":0,"ec":"✅ ESG ambiental, social, governança.","ei":"❌ Só ambiental incompleto.","e":"ESG."},
+{"q":"Reforma tributária EC 132/2023","o":["IBS, CBS, IVA dual, unificação tributos, simplificação","Sem reforma","Só IBS","Só CBS"],"a":0,"ec":"✅ EC 132 IBS, CBS, IVA dual.","ei":"❌ Sem reforma errado.","e":"Reforma tributária EC 132."},
+{"q":"Demografia Brasil","o":["Envelhecimento, queda fecundidade, urbanização, migração","Só jovens","Não envelhece","Sem urbanização"],"a":0,"ec":"✅ Demografia envelhecimento, urbanização.","ei":"❌ Só jovens errado.","e":"Demografia."},
+{"q":"Cultura digital, redes sociais","o":["Impacto redes, algoritmo, bolha filtro, saúde mental, regulamentação","Sem impacto","Só diversão","Sem algoritmo"],"a":0,"ec":"✅ Redes impacto algoritmo, bolha.","ei":"❌ Sem impacto errado.","e":"Redes sociais."},
+{"q":"Segurança cibernética","o":["Ataques ransomware, phishing, proteção dados, LGPD, backup","Sem ataque","Só vírus simples","Sem proteção"],"a":0,"ec":"✅ Segurança cibernética ransomware, phishing.","ei":"❌ Só vírus simples incompleto.","e":"Segurança cibernética."},
+{"q":"Energia renovável","o":["Solar, eólica, hidrogênio verde, biomassa, transição energética","Só fóssil","Não existe renovável","Só hidrelétrica"],"a":0,"ec":"✅ Renovável solar, eólica, etc.","ei":"❌ Só fóssil não renovável.","e":"Energia renovável."},
+{"q":"Desigualdade social Brasil","o":["Gini, pobreza, programas sociais, Bolsa Família, educação, saúde","Não existe desigualdade","Só ricos","Sem programas"],"a":0,"ec":"✅ Desigualdade Gini, programas sociais.","ei":"❌ Não existe errado.","e":"Desigualdade."},
+{"q":"Poder Judiciário estrutura","o":["STF, STJ, TST, TSE, STM, TRF, TJ, TRF, etc CF Art 92","Só STF","Não existe STJ","Só TJ"],"a":0,"ec":"✅ Art 92 órgãos Judiciário.","ei":"❌ Só STF incompleto.","e":"Judiciário Art 92."},
+{"q":"LGPD sanções Art 52","o":["Advertência, multa 2% faturamento até 50 milhões, publicização, bloqueio, eliminação dados","Só advertência","Sem sanção","Só multa 1 real"],"a":0,"ec":"✅ Art 52 LGPD sanções.","ei":"❌ Só advertência incompleto.","e":"LGPD sanções Art 52."}
+]},
+{"id":"normas","name":"Normas Corregedoria","icon":"📜","questions":[
+{"q":"Corregedoria Geral Justiça função","o":["Fiscaliza serviços judiciais e extrajudiciais, orienta, disciplina, corregedorias","Só fiscaliza judicial","Não fiscaliza extrajudicial","Só orienta"],"a":0,"ec":"✅ Corregedoria fiscaliza judicial e extrajudicial.","ei":"❌ Só judicial incompleto.","e":"Corregedoria função."},
+{"q":"Serventias extrajudiciais são","o":["Notas e Registro, delegação poder público, fiscalizadas Judiciário Art 236 CF","Só notas","Só registro","Sem fiscalização"],"a":0,"ec":"✅ Art 236 CF serventias notas e registro delegação.","ei":"❌ Sem fiscalização errado.","e":"Serventias Art 236."},
+{"q":"Livros obrigatórios cartório notas","o":["Notas, procurações, testamentos, etc Normas Corregedoria","Só 1 livro","Não tem livro obrigatório","Só livro caixa"],"a":0,"ec":"✅ Normas livros obrigatórios notas.","ei":"❌ Só 1 incompleto.","e":"Livros notas."},
+{"q":"Atos notariais gratuitos","o":["Gratuidade hipossuficientes, conforme lei, ex nascimento, óbito primeira via","Todos pagos","Nenhum gratuito","Só óbito pago"],"a":0,"ec":"✅ Gratuidade nascimento, óbito primeira via.","ei":"❌ Todos pagos errado.","e":"Gratuidade atos."},
+{"q":"Emolumentos","o":["Custas cartório, tabela, fiscalização, 50% etc conforme lei","Sem tabela","Qualquer valor","Sem fiscalização"],"a":0,"ec":"✅ Emolumentos tabela custas.","ei":"❌ Qualquer valor errado.","e":"Emolumentos."},
+{"q":"Escritura pública requisitos","o":["Partes capazes, objeto lícito, forma prescrita, tabelião, etc","Só partes","Sem forma","Só objeto"],"a":0,"ec":"✅ Escritura requisitos.","ei":"❌ Só partes incompleto.","e":"Escritura requisitos."},
+{"q":"Procuração pública x particular","o":["Pública tabelião fé pública, Particular particular sem fé pública, válida mas menor segurança","Iguais","Pública sem fé","Particular com fé pública"],"a":0,"ec":"✅ Pública fé pública tabelião, particular sem.","ei":"❌ Iguais errado.","e":"Procuração pública vs particular."},
+{"q":"Reconhecimento firma","o":["Por semelhança e por autenticidade, tabelião confere assinatura","Só semelhança","Não existe autenticidade","Só autenticidade"],"a":0,"ec":"✅ Reconhecimento semelhança e autenticidade.","ei":"❌ Só um tipo incompleto.","e":"Reconhecimento firma."},
+{"q":"Autenticação cópia","o":["Tabelião declara cópia fiel original apresentado","Só particular autentica","Não precisa original","Cópia sem original vale"],"a":0,"ec":"✅ Autenticação cópia fiel original.","ei":"❌ Sem original não autentica.","e":"Autenticação."},
+{"q":"Registro imóveis princípios","o":["Legalidade, continuidade, especialidade, publicidade, prioridade, etc","Só legalidade","Sem princípios","Só publicidade"],"a":0,"ec":"✅ Registro imóveis princípios.","ei":"❌ Só um incompleto.","e":"Registro princípios."},
+{"q":"Usucapião extrajudicial","o":["Procedimento cartório registro imóveis, requisitos, anuência, etc Art 216-A LRP","Só judicial","Não existe extrajudicial","Só judicial sempre"],"a":0,"ec":"✅ Art 216-A LRP usucapião extrajudicial cartório.","ei":"❌ Só judicial desatualizado.","e":"Usucapião extrajudicial Art 216-A."},
+{"q":"Inventário extrajudicial","o":["Cartório notas, todos capazes, consenso, sem testamento, Lei 11.441","Só judicial","Com testamento pode","Menor pode"],"a":0,"ec":"✅ Lei 11.441 inventário extrajudicial capazes, consenso, sem testamento.","ei":"❌ Com testamento não pode extrajudicial regra.","e":"Inventário extrajudicial Lei 11.441."},
+{"q":"Divórcio extrajudicial","o":["Cartório notas, capazes, consenso, sem filhos menores, Lei 11.441","Com filhos menores pode","Sem consenso pode","Só judicial"],"a":0,"ec":"✅ Divórcio extrajudicial Lei 11.441 sem filhos menores.","ei":"❌ Com menores não pode extrajudicial.","e":"Divórcio extrajudicial."},
+{"q":"Ata notarial","o":["Tabelião narra fato presenciado, prova, fé pública","Particular narra","Sem fé pública","Não serve como prova"],"a":0,"ec":"✅ Ata notarial tabelião narra fato fé pública.","ei":"❌ Sem fé errado.","e":"Ata notarial."},
+{"q":"Testamento público requisitos","o":["Tabelião, 2 testemunhas, leitura, etc Art 1.864 CC","Só tabelião","Sem testemunha","Só 1 testemunha"],"a":0,"ec":"✅ Art 1.864 CC testamento público requisitos.","ei":"❌ Sem testemunha errado.","e":"Testamento público Art 1.864."},
+{"q":"Certidões registro civil","o":["Nascimento, casamento, óbito, inteiro teor, etc","Só nascimento","Não existe óbito","Só casamento"],"a":0,"ec":"✅ Certidões registro civil.","ei":"❌ Só uma incompleto.","e":"Certidões."},
+{"q":"Prazos registro nascimento","o":["15 dias, 45 dias se distante, etc Art 50 LRP","Sem prazo","1 ano","10 anos"],"a":0,"ec":"✅ Art 50 LRP prazo nascimento 15 dias.","ei":"❌ Sem prazo errado.","e":"Prazo nascimento Art 50."},
+{"q":"Retificação registro civil","o":["Judicial ou administrativa, erro evidente, etc Art 109 LRP","Só judicial","Não pode retificar","Só administrativa sempre"],"a":0,"ec":"✅ Art 109 LRP retificação judicial e administrativa.","ei":"❌ Só judicial incompleto.","e":"Retificação Art 109."},
+{"q":"Normas Corregedoria São Paulo","o":["Provimentos, comunicados, etc, regulamentam serviços CGJ SP","Só provimento federal","Não tem normas SP","Só comunicados"],"a":0,"ec":"✅ Normas CGJ SP provimentos.","ei":"❌ Só federal incompleto.","e":"Normas CGJ SP."},
+{"q":"Deveres escrevente técnico judiciário","o":["Atendimento, fé pública atos, sigilo, eficiência, etc Manual TJSP","Sem deveres","Só atendimento","Só sigilo"],"a":0,"ec":"✅ Escrevente deveres TJSP.","ei":"❌ Sem deveres errado.","e":"Escrevente deveres."}
+]}
+];
+
+
+<!-- Parte 5 - Junção e Lógica Final - Fecha o site -->
+<script>
+// Junta tudo: Português+Constitucional da Parte 3 + outras 8 matérias da Parte 4
+const DB = [...(typeof DB_PART1 !== 'undefined' ? DB_PART1 : []), ...(typeof DB_PART2 !== 'undefined' ? DB_PART2 : [])];
+
+let mode='estudar';let activeTopic=BOOK[0].id;let chapterIndex=0;let qIndex=0;let chosen=null;
+
+function setMode(m){
+  mode=m;
+  document.getElementById('tab-estudar')?.classList.toggle('active',m==='estudar');
+  document.getElementById('tab-simular')?.classList.toggle('active',m==='simular');
+  if(m==='estudar'){activeTopic=BOOK[0].id;chapterIndex=0;}
+  else{activeTopic=DB[0].id;qIndex=0;}
+  render();
+}
+
+function renderSidebar(){
+  let users=getUsers();let cur=getCurrent();let hist=users[cur]?.history||{};
+  let html='';
+  if(mode==='estudar'){
+    html+=`<div class="card"><b>📖 Livro Completo</b><div style="height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:8px"><div id="pbar" style="height:100%;background:linear-gradient(90deg,#1e3a8a,#3b82f6);width:0%"></div></div><small id="ptext" style="color:#64748b"></small></div>`;
+    BOOK.forEach(t=>{
+      let done=(hist['book_'+t.id]?.done||0);
+      let pct=t.chapters.length?Math.round(done/t.chapters.length*100):0;
+      html+=`<div class="topic ${t.id===activeTopic?'active':''}" onclick="selectTopic('${t.id}')"><div><b>${t.icon} ${t.name}</b><br><small>${done}/${t.chapters.length} caps • ${pct}%</small></div><span class="badge">${pct}%</span></div>`;
     });
-  },
-  async save(store,data){return new Promise(r=>{const tx=this.db.transaction(store,'readwrite');tx.objectStore(store).put(data);tx.oncomplete=()=>r();})},
-  async getAll(store){return new Promise(r=>{const tx=this.db.transaction(store,'readonly');const req=tx.objectStore(store).getAll();req.onsuccess=()=>r(req.result);})},
-  async init(){
-    const t0=performance.now();
-    await this.initDB();
-    const meta=await this.getAll('meta');
-    if(!meta.find(m=>m.key==='senha')) await this.save('meta',{key:'senha', value:SENHA_PADRAO});
-    document.getElementById('perfText').innerText=Math.round(performance.now()-t0)+'ms init';
-    const user=localStorage.getItem('tjsp_user_final');
-    if(user){this.user=JSON.parse(user); this.showApp();}
-    document.addEventListener('keydown', e=>{
-      if(document.getElementById('appLayout').classList.contains('hidden')) return;
-      if(e.key>='1' && e.key<='5'){
-        const radios=document.querySelectorAll('#questoes input[type="radio"]');
-        const groups={}; radios.forEach(r=>{if(!groups[r.name]) groups[r.name]=[]; groups[r.name].push(r)});
-        const names=Object.keys(groups);
-        if(names.length>0){ const lastGroup=groups[names[names.length-1]]; if(lastGroup[parseInt(e.key)-1]) lastGroup[parseInt(e.key)-1].click(); }
-      }
-      if(e.key==='Enter'){ const box=document.getElementById('simuladoBox'); if(!box.classList.contains('hidden')){ e.preventDefault(); this.corrigir();} }
-      if(e.key==='Escape') this.voltarLista();
+  }else{
+    html+=`<div class="card"><b>Progresso Simulado</b><div style="height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:8px"><div id="pbar" style="height:100%;background:linear-gradient(90deg,#1e3a8a,#3b82f6);width:0%"></div></div><small id="ptext"></small></div>`;
+    DB.forEach(t=>{
+      let done=(hist[t.id]?.done||0);
+      let pct=Math.round(done/20*100);
+      html+=`<div class="topic ${t.id===activeTopic?'active':''}" onclick="selectTopic('${t.id}')"><div><b>${t.icon} ${t.name}</b><br><small>${done}/20 • ${pct}%</small></div><span class="badge">${pct}%</span></div>`;
     });
-  },
-  async login(){
-    const nome=document.getElementById('nome').value.trim();
-    const senha=document.getElementById('senha').value;
-    const meta=await this.getAll('meta');
-    const real=(meta.find(m=>m.key==='senha')||{value:SENHA_PADRAO}).value;
-    if(!nome){alert('Digite o nome');return}
-    if(senha!==real){alert('Senha incorreta. Senha atual: '+real+'\nSe esqueceu, use Esqueci a senha com chave '+MASTER);return}
-    this.user={nome}; localStorage.setItem('tjsp_user_final', JSON.stringify(this.user)); this.showApp();
-  },
-  async showApp(){
-    document.getElementById('loginView').classList.add('hidden');
-    document.getElementById('resetBox').classList.add('hidden');
-    document.getElementById('appLayout').classList.remove('hidden');
-    document.getElementById('welcome').innerText=this.user.nome;
-    this.renderLista(); this.renderProgresso();
-  },
-  renderLista(){
-    const c=document.getElementById('listaTopicos'); c.innerHTML='';
-    const frag=document.createDocumentFragment();
-    this.topicos.forEach(t=>{
-      const d=document.createElement('div');
-      d.className='card'; d.style.margin='8px 0'; d.style.padding='12px';
-      d.innerHTML=`<div><b style="font-size:13px">${t.nome}</b><br><span class="badge">${t.peso}</span><div class="small" style="margin-top:4px">${t.desc}</div></div><button class="btn" style="margin-top:8px" onclick="app.loadChunk('${t.id}')">Estudar ⚡ (lazy load)</button>`;
-      frag.appendChild(d);
-    });
-    c.appendChild(frag);
-  },
-  async loadChunk(id){
-    const t0=performance.now();
-    document.getElementById('emptyState').classList.add('hidden');
-    const box=document.getElementById('simuladoBox'); box.classList.remove('hidden');
-    const top=this.topicos.find(x=>x.id===id);
-    document.getElementById('simTitulo').innerText=top?top.nome:id;
-    document.getElementById('questoes').innerHTML='<div style="padding:20px;text-align:center">⚡ Carregando chunk '+id+'... (lazy load)</div>';
-    await new Promise(r=>setTimeout(r,250));
-    const qs=[
-      {enunciado:'Art 5º CF - Livre manifestacao do pensamento sendo:', alt:{1:'Vedado o anonimato (correta - Art 5º IV)',2:'Permitido anonimato quando interesse publico',3:'Condicionada a licenca previa'}, gab:'1', exp:'Art 5º IV e V CF - VUNESP cobra literal. Vedado anonimato'},
-      {enunciado:'Casa é asilo inviolável, salvo (Art 5º XI):', alt:{1:'Dia + mandado, flagrante, desastre, socorro - CORRETA',2:'A qualquer hora com mandado',3:'So com consentimento'}, gab:'1', exp:'Art 5º XI - Dia = mandado. Noite = so flagrante/desastre/socorro'},
-    ];
-    let h=''; qs.forEach((q,i)=>{
-      h+=`<div id="q_${i}" class="card"><b>Q${i+1} ${q.enunciado}</b><br>`;
-      for(let k in q.alt){h+=`<label style="display:flex;gap:8px;padding:10px;background:#f8fafc;margin:6px 0;border-radius:8px;cursor:pointer"><input type="radio" name="q${i}" value="${k}"> <span><span class="kbd">${k}</span> ${q.alt[k]}</span></label>`}
-      h+=`<div id="exp_${i}" class="hidden" style="background:#eff6ff;padding:10px;border-radius:8px;font-size:12px;margin-top:6px"></div></div>`;
-    });
-    document.getElementById('questoes').innerHTML=h;
-    document.getElementById('perfText').innerText=Math.round(performance.now()-t0)+'ms load';
-  },
-  async corrigir(){
-    const t0=performance.now();
-    let ac=0; const total=2;
-    for(let i=0;i<total;i++){
-      const sel=document.querySelector(`input[name="q${i}"]:checked`);
-      const div=document.getElementById(`q_${i}`);
-      const exp=document.getElementById(`exp_${i}`);
-      if(sel && sel.value==='1'){ac++; div.classList.add('correct');} else {div.classList.add('wrong');}
-      exp.classList.remove('hidden');
-      exp.innerHTML=i===0?'Gabarito: 1 - Art 5º IV - Vedado anonimato':'Gabarito: 1 - Art 5º XI - Casa';
+  }
+  document.getElementById("sidebar").innerHTML=html;
+  updateProgress();
+}
+
+function updateProgress(){
+  let users=getUsers();let cur=getCurrent();let hist=users[cur]?.history||{};
+  let pct=0,txt="";
+  if(mode==='estudar'){
+    let tot=BOOK.reduce((s,t)=>s+t.chapters.length,0);
+    let done=BOOK.reduce((s,t)=>s+(hist['book_'+t.id]?.done||0),0);
+    pct=tot?Math.round(done/tot*100):0;
+    txt=done+"/"+tot+" págs • "+pct+"%";
+  }else{
+    let tot=DB.length*20;
+    let done=DB.reduce((s,t)=>s+(hist[t.id]?.done||0),0);
+    pct=tot?Math.round(done/tot*100):0;
+    txt=done+"/"+tot+" • "+pct+"%";
+  }
+  let b=document.getElementById("pbar");if(b)b.style.width=pct+"%";
+  let pt=document.getElementById("ptext");if(pt)pt.innerText=txt;
+}
+
+function selectTopic(id){activeTopic=id;chapterIndex=0;qIndex=0;chosen=null;render();}
+
+function render(){
+  renderSidebar();
+  if(mode==='estudar'){
+    let t=BOOK.find(x=>x.id===activeTopic);
+    if(!t){document.getElementById("app").innerHTML=`<div class="card"><h2>Matéria não encontrada</h2></div>`;return;}
+    let chap=t.chapters[chapterIndex];
+    if(!chap){
+      document.getElementById("app").innerHTML=`<div class="card"><h2>${t.icon} ${t.name} concluído! 🎉</h2><p>Você leu tudo!</p><div style="display:flex;gap:8px;margin-top:12px"><button class="btn" style="background:#1e3a8a;color:#fff" onclick="chapterIndex=0;render()">Recomeçar</button> <button class="btn" style="border:1px solid #e2e8f0" onclick="setMode('simular')">Ir pro Simulado →</button></div></div>`;
+      return;
     }
-    const reg={topico:'Constitucional Art5', acertos:ac, total:total, data:new Date().toLocaleDateString('pt-BR'), tempo:90, ts:Date.now(), device: window.innerWidth>800?'notebook':'celular', ms:Math.round(performance.now()-t0)};
-    await this.save('historico', reg);
-    await this.save('progresso',{id:'2.4.2', feito:true, ts:Date.now()});
-    document.getElementById('resultado').innerHTML=`<div class="card" style="background:#16a34a;color:white">✔ ${ac}/${total} salvo em ${reg.ms}ms - ${reg.device} - SEM PERDA</div>`;
-    this.renderProgresso();
-  },
-  async renderProgresso(){
-    const prog=await this.getAll('progresso'); const hist=await this.getAll('historico');
-    document.getElementById('progBar').style.width=Math.round(prog.length/58*100)+'%';
-    document.getElementById('progText').innerText=`${prog.length}/58 topicos`;
-    document.getElementById('horasText').innerText=(hist.reduce((a,b)=>a+(b.tempo||0),0)/60).toFixed(1)+'h total';
-    const hc=document.getElementById('histCount'); if(hc) hc.innerText=hist.length;
-    let h=''; hist.slice(-8).reverse().forEach(x=>{h+=`<div style="padding:4px 0;border-bottom:1px solid #f1f5f9">📅 ${x.data} ${x.device==='notebook'?'💻':'📱'} ${x.topico} <b>${x.acertos}/${x.total}</b></div>`});
-    document.getElementById('historico').innerHTML=h||'<div class="small">Nenhum simulado ainda</div>';
-  },
-  showReset(){document.getElementById('loginView').classList.add('hidden'); document.getElementById('appLayout').classList.add('hidden'); document.getElementById('resetBox').classList.remove('hidden'); this.renderProgresso();},
-  showResetLogado(){document.getElementById('appLayout').classList.add('hidden'); document.getElementById('resetBox').classList.remove('hidden'); this.renderProgresso();},
-  backToLogin(){document.getElementById('resetBox').classList.add('hidden'); const user=localStorage.getItem('tjsp_user_final'); if(user){document.getElementById('appLayout').classList.remove('hidden');} else {document.getElementById('loginView').classList.remove('hidden');}},
-  async resetSenha(){
-    const m=document.getElementById('resetMaster').value;
-    const nova=document.getElementById('novaSenha').value;
-    const conf=document.getElementById('confirmaSenha').value;
-    if(m!==MASTER){alert('Chave mestra incorreta. Correta: '+MASTER);return}
-    if(nova.length<6){alert('Senha min 6 chars');return}
-    if(nova!==conf){alert('Senhas nao conferem');return}
-    const histAntes=await this.getAll('historico');
-    const progAntes=await this.getAll('progresso');
-    await this.save('meta',{key:'senha',value:nova});
-    for(let h of histAntes) await this.save('historico',h);
-    for(let p of progAntes) await this.save('progresso',p);
-    alert('✅ Senha trocada para: '+nova+'\n\nHistorico preservado: '+histAntes.length+' simulados mantidos em IndexedDB.');
-    this.backToLogin();
-  },
-  async exportBackup(){
-    const hist=await this.getAll('historico'); const prog=await this.getAll('progresso'); const meta=await this.getAll('meta');
-    const blob=new Blob([JSON.stringify({hist,prog,meta,ts:Date.now(),version:'beta-final'},null,2)],{type:'application/json'});
-    const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`tjsp_backup_${new Date().toISOString().slice(0,10)}.json`; a.click();
-  },
-  async importBackup(e){
-    const text=await e.target.files[0].text(); const data=JSON.parse(text);
-    if(data.hist) for(let h of data.hist) await this.save('historico',h);
-    if(data.prog) for(let p of data.prog) await this.save('progresso',p);
-    if(data.meta) for(let m of data.meta) await this.save('meta',m);
-    alert('✅ Backup restaurado: '+(data.hist?.length||0)+' simulados');
-    this.renderProgresso();
-  },
-  voltarLista(){document.getElementById('simuladoBox').classList.add('hidden'); document.getElementById('emptyState').classList.remove('hidden');}
-};
-app.init();
+    let html=`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><b>${t.icon} ${t.name} - ${chap.title}</b><span class="badge">${chapterIndex+1}/${t.chapters.length}</span></div><div style="height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:12px 0"><div style="height:100%;background:linear-gradient(90deg,#1e3a8a,#3b82f6);width:${Math.round((chapterIndex/t.chapters.length)*100)}%"></div></div><div class="book-page">${chap.content}</div><div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn" style="background:#1e3a8a;color:#fff" onclick="markRead()">✅ Lido + Próxima → (Enter)</button><button class="btn" style="border:1px solid #e2e8f0" onclick="nextChapter()">Pular →</button></div><small style="color:#64748b;margin-top:8px;display:block">Dica notebook: Enter = Lido, 1-4 = escolhe alternativa no simulado</small></div>`;
+    document.getElementById("app").innerHTML=html;
+  }else{
+    let t=DB.find(x=>x.id===activeTopic);
+    if(!t){document.getElementById("app").innerHTML=`<div class="card"><h2>Matéria não encontrada</h2></div>`;return;}
+    let qq=t.questions[qIndex];
+    if(!qq){
+      document.getElementById("app").innerHTML=`<div class="card"><h2>${t.icon} ${t.name} concluído! 🎉</h2><p>Você fez as 20Q!</p><div style="display:flex;gap:8px;margin-top:12px"><button class="btn" style="background:#1e3a8a;color:#fff" onclick="qIndex=0;render()">Refazer</button> <button class="btn" style="border:1px solid #e2e8f0" onclick="setMode('estudar')">Ver Livro →</button></div></div>`;
+      return;
+    }
+    let html=`<div class="card"><div style="display:flex;justify-content:space-between"><b>${t.icon} ${t.name}</b><span class="badge">${qIndex+1}/20</span></div><div style="height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:12px 0"><div style="height:100%;background:linear-gradient(90deg,#1e3a8a,#3b82f6);width:${Math.round((qIndex/20)*100)}%"></div></div><p class="q">${qIndex+1}. ${qq.q}</p><div id="opts">${qq.o.map((op,i)=>`<div class="opt" onclick="choose(${i})"><b>${String.fromCharCode(65+i)}.</b> ${op}</div>`).join("")}</div><div id="feedback" class="hidden"></div><div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn" style="background:#1e3a8a;color:#fff" onclick="confirmQ()">Corrigir (Enter)</button><button class="btn" style="border:1px solid #e2e8f0" onclick="nextQ()">Pular</button></div></div>`;
+    document.getElementById("app").innerHTML=html;
+  }
+}
+
+function markRead(){
+  let users=getUsers();let cur=getCurrent();
+  if(!users[cur]) return;
+  let key='book_'+activeTopic;
+  if(!users[cur].history[key])users[cur].history[key]={done:0};
+  let h=users[cur].history[key];
+  if(chapterIndex>= (h.done||0))h.done=Math.max(h.done||0,chapterIndex+1);
+  saveUsers(users);
+  nextChapter();
+}
+
+function nextChapter(){
+  let t=BOOK.find(x=>x.id===activeTopic);
+  if(!t) return;
+  chapterIndex++;
+  if(chapterIndex>=t.chapters.length)chapterIndex=t.chapters.length;
+  render();
+}
+
+function choose(i){
+  chosen=i;
+  document.querySelectorAll(".opt").forEach((el,idx)=>{
+    el.style.borderWidth=idx===i?"2px":"1.5px";
+    el.style.fontWeight=idx===i?"700":"400";
+  });
+}
+
+function confirmQ(){
+  if(chosen===null)return alert("Escolha 1-4 (teclas 1 a 4 também funcionam)");
+  let t=DB.find(x=>x.id===activeTopic);
+  let qq=t.questions[qIndex];
+  document.querySelectorAll(".opt").forEach((el,idx)=>{
+    if(idx===qq.a)el.classList.add("correct");
+    else if(idx===chosen&&chosen!==qq.a)el.classList.add("wrong");
+  });
+  let acerto=chosen===qq.a;
+  let fb=document.getElementById("feedback");
+  fb.classList.remove("hidden");
+  fb.innerHTML=`<div class="explain"><div style="font-weight:800;color:${acerto?'#16a34a':'#dc2626'}">${acerto?'✅ ACERTOU!':'❌ ERROU'}</div><div style="margin-top:8px"><b>Correta: ${String.fromCharCode(65+qq.a)}. ${qq.o[qq.a]}</b></div><div style="margin-top:8px">✅ <b>Por que CERTA está certa:</b><br><small>${qq.ec}</small></div><div style="margin-top:8px">❌ <b>Por que ERRADAS estão erradas:</b><br><small>${qq.ei}</small></div><div style="margin-top:8px;background:#fff;border:1px dashed #e2e8f0;border-radius:8px;padding:8px"><b>📚 Explicação Completa:</b><br><small>${qq.e}</small></div><div style="margin-top:10px;display:flex;gap:8px"><button class="btn" style="background:#1e3a8a;color:#fff" onclick="nextQ()">Próxima → (Enter)</button> <button class="btn" style="border:1px solid #e2e8f0" onclick="setMode('estudar')">Ver livro 📖</button></div></div>`;
+  let users=getUsers();let cur=getCurrent();
+  if(!users[cur].history[activeTopic])users[cur].history[activeTopic]={done:0,hits:0};
+  let h=users[cur].history[activeTopic];
+  if(qIndex>= (h.done||0))h.done=Math.max(h.done||0,qIndex+1);
+  if(acerto)h.hits=(h.hits||0)+1;
+  saveUsers(users);
+  updateProgress();
+}
+
+function nextQ(){qIndex++;chosen=null;if(qIndex>=20)qIndex=20;render();}
+
+function checkAuth(){
+  let cur=getCurrent();
+  if(!cur){
+    document.body.innerHTML=`<div style="max-width:420px;margin:60px auto" class="card"><h2>Login TJSP Beta</h2><input id="name" placeholder="Seu nome" style="width:100%;padding:10px;border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><input id="pass" type="password" placeholder="Senha padrão: SaygonEscrivao2026" style="width:100%;padding:10px;border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><button class="btn" style="background:#1e3a8a;color:#fff;width:100%" onclick="doLogin()">Entrar</button><p style="margin-top:12px"><a href="#" onclick="openReset();return false">Esqueci senha / Reset com chave mestra</a></p><small style="color:#64748b">Senha padrão: SaygonEscrivao2026<br>Chave mestra: TJSP2026RESET</small></div>`;
+    return false;
+  }
+  return true;
+}
+
+function doLogin(){
+  let n=document.getElementById("name")?.value.trim();
+  let p=document.getElementById("pass")?.value;
+  let u=getUsers();
+  if(!n)return alert("Digite seu nome");
+  if(!u[n]){u[n]={pass:p||DEFAULT_PASS,history:{}};saveUsers(u);setCurrent(n);location.reload();return;}
+  if(u[n].pass===p){setCurrent(n);location.reload();}else alert("Senha incorreta. Use a chave mestra para resetar.");
+}
+
+function logout(){localStorage.removeItem("tjsp_current");location.reload();}
+
+function openReset(){
+  let cur=getCurrent();
+  let nome=cur||prompt("Nome do usuário:");
+  if(!nome)return;
+  let chave=prompt("Chave mestra:");
+  if(chave!==MASTER_KEY)return alert("Chave incorreta");
+  let nova=prompt("Nova senha:");
+  if(!nova)return;
+  let u=getUsers();
+  if(!u[nome])u[nome]={pass:nova,history:{}};
+  else u[nome].pass=nova;
+  saveUsers(u);
+  setCurrent(nome);
+  alert("Senha trocada mantendo todo histórico de progresso! ✅");
+  location.reload();
+}
+
+function exportBackup(){
+  let u=getUsers();let cur=getCurrent();
+  if(!cur) return alert("Faça login");
+  let data=JSON.stringify(u[cur]||{},null,2);
+  let blob=new Blob([data],{type:"application/json"});
+  let url=URL.createObjectURL(blob);
+  let a=document.createElement("a");
+  a.href=url;a.download=`backup-${cur}-tjsp.json`;
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+// Atalhos de teclado notebook
+document.addEventListener("keydown",e=>{
+  if(!checkAuth())return;
+  if(e.key>="1"&&e.key<="4"&&mode==='simular'){
+    let fb=document.getElementById("feedback");
+    if(!fb||fb.classList.contains("hidden"))choose(parseInt(e.key)-1);
+  }
+  if(e.key==="Enter"){
+    if(mode==='estudar'){markRead();}
+    else{
+      let fb=document.getElementById("feedback");
+      if(fb&&!fb.classList.contains("hidden"))nextQ();
+      else confirmQ();
+    }
+  }
+});
+
+if(checkAuth()){render();}
 </script>
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}</script>
 </body>
 </html>
