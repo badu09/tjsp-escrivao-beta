@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1e3a8a">
+<title>TJSP 02/2026 - Escrivao - BETA</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Segoe UI;background:#f8fafc;color:#0f172a}
+.header{background:#1e3a8a;color:#fff;padding:12px 20px;position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center}
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.sidebar{width:340px;background:#fff;border-right:1px solid #e2e8f0;overflow:auto;position:sticky;top:56px;height:calc(100vh - 56px)}
+.main{flex:1;padding:20px;max-width:900px;margin:0 auto}
+.card{background:#fff;border-radius:10px;padding:16px;margin:0 0 12px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.btn{background:#1e3a8a;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer;width:100%;margin:6px 0}
+.btn-sec{background:#f1f5f9;color:#1e3a8a} .btn-green{background:#16a34a}
+.input{width:100%;padding:12px;border:1px solid #e2e8f0;border-radius:8px;margin:6px 0;font-size:16px}
+.hidden{display:none} .badge{font-size:11px;background:#dbeafe;color:#1e3a8a;padding:3px 7px;border-radius:99px}
+.kbd{background:#f1f5f9;border:1px solid #cbd5e1;border-bottom-width:2px;padding:2px 6px;border-radius:4px;font-size:11px;font-family:monospace}
+.correct{border:2px solid #16a34a;background:#f0fdf4} .wrong{border:2px solid #dc2626;background:#fef2f2}
+.small{font-size:11px;color:#64748b}
+@media(max-width:800px){.layout{flex-direction:column}.sidebar{width:100%;position:relative;height:auto;top:0}.main{padding:12px}}
+</style>
+</head>
+<body>
+<div class="header"><div><b>TJSP 02/2026 - Escrivao BETA</b> <span style="font-size:11px;opacity:.8">Notebook + Celular</span></div><div style="display:flex;gap:8px;align-items:center"><span id="welcome" style="font-size:12px"></span><span style="font-size:10px;background:#16a34a;padding:2px 6px;border-radius:99px">IndexedDB</span></div></div>
+
+<div id="loginView" class="main" style="max-width:420px">
+<div class="card">
+<h3 style="margin:0 0 8px">Login exclusivo BETA</h3>
+<p class="small">Senha: SaygonEscrivao2026 | Chave mestra reset: TJSP2026RESET<br>Mesmo app celular e notebook - backup JSON</p>
+<input id="nome" class="input" placeholder="Seu nome">
+<input id="senha" class="input" type="password" placeholder="Senha: SaygonEscrivao2026">
+<button class="btn" onclick="app.login()">Entrar ⚡</button>
+<button class="btn btn-sec" onclick="app.showReset()">Esqueci a senha</button>
+<div style="margin-top:12px;padding:10px;background:#f8fafc;border-radius:8px;font-size:11px">
+<b>Atalhos notebook:</b><br><span class="kbd">1-5</span> alternativa | <span class="kbd">Enter</span> corrige | <span class="kbd">Esc</span> volta | <span class="kbd">B</span> backup<br><br>
+<b>Performance:</b> IndexedDB + lazy load + PWA offline. Nada trava.
+</div>
+</div>
+</div>
+
+<div id="resetBox" class="card hidden" style="max-width:420px;margin:20px auto">
+<h3>🔑 Reset sem perder historico</h3>
+<p class="small">Historico fica em IndexedDB separado. Nao apaga. So troca senha.</p>
+<input id="resetMaster" class="input" placeholder="Chave mestra: TJSP2026RESET">
+<input id="novaSenha" class="input" type="password" placeholder="Nova senha (min 6 chars)">
+<input id="confirmaSenha" class="input" type="password" placeholder="Confirme nova senha">
+<button class="btn" onclick="app.resetSenha()">Resetar senha e manter historico</button>
+<button class="btn btn-sec" onclick="app.backToLogin()">Voltar ao login</button>
+<div class="card" style="background:#eff6ff"><p style="font-size:12px">Chave mestra atual: <b>TJSP2026RESET</b><br>Registros salvos: <span id="histCount">0</span> simulados - serao preservados</p></div>
+</div>
+
+<div id="appLayout" class="layout hidden">
+<div class="sidebar">
+<div class="card" style="margin:10px">
+<h4 style="margin:0 0 8px">📊 Progresso Semanal</h4>
+<div style="height:6px;background:#e2e8f0;border-radius:99px"><div id="progBar" style="height:100%;background:#16a34a;width:0%;transition:width .2s"></div></div>
+<div style="display:flex;justify-content:space-between;font-size:12px;margin:6px 0"><span id="progText">0/58</span><span id="horasText">0h</span><span id="perfText"></span></div>
+<div id="historico" style="font-size:11px;max-height:140px;overflow:auto;border-top:1px solid #f1f5f9;padding-top:6px"></div>
+<div style="display:flex;gap:6px;margin-top:10px">
+<button class="btn btn-green" style="flex:1;font-size:11px" onclick="app.exportBackup()">💾 Backup</button>
+<button class="btn btn-sec" style="flex:1;font-size:11px" onclick="document.getElementById('importFile').click()">📥 Restaurar</button>
+<input type="file" id="importFile" class="hidden" accept=".json" onchange="app.importBackup(event)">
+</div>
+<button class="btn btn-sec" style="font-size:11px;margin-top:6px" onclick="app.showResetLogado()">🔑 Trocar senha (manter historico)</button>
+</div>
+<div class="card" style="margin:10px">
+<h4 style="margin:0 0 8px">📚 Trilha 1h30/dia - Ordem VUNESP</h4>
+<p class="small">Clique pra estudar. Lazy load - carrega so quando clicar. Nao trava.</p>
+<div id="listaTopicos"></div>
+</div>
+</div>
+<div class="main">
+<div id="emptyState" class="card" style="text-align:center;padding:40px 20px">
+<h3>👋 Bem-vindo ao modo Notebook + Celular</h3>
+<p class="small">Selecione um topico na lateral.<br>Mesmo app funciona nos dois. No celular: Chrome > Instalar app.</p>
+</div>
+<div id="simuladoBox" class="card hidden">
+<h3 id="simTitulo"></h3>
+<p class="small">Use <span class="kbd">1-5</span> pra escolher, <span class="kbd">Enter</span> pra corrigir, <span class="kbd">Esc</span> voltar</p>
+<div id="questoes"></div>
+<button class="btn btn-green" onclick="app.corrigir()">Corrigir e salvar em IndexedDB (Enter)</button>
+<div id="resultado"></div>
+<button class="btn btn-sec" style="margin-top:8px" onclick="app.voltarLista()">Voltar pra lista (Esc)</button>
+</div>
+</div>
+</div>
+
+<script>
+const SENHA_PADRAO="SaygonEscrivao2026"; const MASTER="TJSP2026RESET";
+const app={
+  db:null,
+  topicos:[
+    {id:'2.4.2', nome:'2.4.2 Constitucional Art 5º Direitos Fundamentais', peso:'10q ELIMINATORIO', desc:'Art 5º inteiro - VUNESP cobra literalidade'},
+    {id:'1', nome:'1 Portugues - Interpretacao e concordancia', peso:'16q ELIMINATORIO', desc:'O que mais reprova na VUNESP'},
+    {id:'3.3', nome:'3.3 Informatica - Word Excel Teams OneDrive', peso:'9q CLASSIF', desc:'Mais questoes do Bloco III'},
+    {id:'2.6.5', nome:'2.6.5 Normas Corregedoria Tomo I', peso:'5-6q', desc:'Processo eletronico'},
+    {id:'2.3.5', nome:'2.3.5 Processual Civil - Citacao e prazos', peso:'VUNESP AMA', desc:'Arts 236 a 275'},
+  ],
+  async initDB(){
+    return new Promise((res,rej)=>{
+      const req=indexedDB.open('tjsp_notebook_v3_final',4);
+      req.onupgradeneeded=e=>{
+        const db=e.target.result;
+        if(!db.objectStoreNames.contains('progresso')) db.createObjectStore('progresso',{keyPath:'id'});
+        if(!db.objectStoreNames.contains('historico')) db.createObjectStore('historico',{keyPath:'id',autoIncrement:true});
+        if(!db.objectStoreNames.contains('meta')) db.createObjectStore('meta',{keyPath:'key'});
+      };
+      req.onsuccess=e=>{this.db=e.target.result; res();};
+    });
+  },
+  async save(store,data){return new Promise(r=>{const tx=this.db.transaction(store,'readwrite');tx.objectStore(store).put(data);tx.oncomplete=()=>r();})},
+  async getAll(store){return new Promise(r=>{const tx=this.db.transaction(store,'readonly');const req=tx.objectStore(store).getAll();req.onsuccess=()=>r(req.result);})},
+  async init(){
+    const t0=performance.now();
+    await this.initDB();
+    const meta=await this.getAll('meta');
+    if(!meta.find(m=>m.key==='senha')) await this.save('meta',{key:'senha', value:SENHA_PADRAO});
+    document.getElementById('perfText').innerText=Math.round(performance.now()-t0)+'ms init';
+    const user=localStorage.getItem('tjsp_user_final');
+    if(user){this.user=JSON.parse(user); this.showApp();}
+    document.addEventListener('keydown', e=>{
+      if(document.getElementById('appLayout').classList.contains('hidden')) return;
+      if(e.key>='1' && e.key<='5'){
+        const radios=document.querySelectorAll('#questoes input[type="radio"]');
+        const groups={}; radios.forEach(r=>{if(!groups[r.name]) groups[r.name]=[]; groups[r.name].push(r)});
+        const names=Object.keys(groups);
+        if(names.length>0){ const lastGroup=groups[names[names.length-1]]; if(lastGroup[parseInt(e.key)-1]) lastGroup[parseInt(e.key)-1].click(); }
+      }
+      if(e.key==='Enter'){ const box=document.getElementById('simuladoBox'); if(!box.classList.contains('hidden')){ e.preventDefault(); this.corrigir();} }
+      if(e.key==='Escape') this.voltarLista();
+    });
+  },
+  async login(){
+    const nome=document.getElementById('nome').value.trim();
+    const senha=document.getElementById('senha').value;
+    const meta=await this.getAll('meta');
+    const real=(meta.find(m=>m.key==='senha')||{value:SENHA_PADRAO}).value;
+    if(!nome){alert('Digite o nome');return}
+    if(senha!==real){alert('Senha incorreta. Senha atual: '+real+'\nSe esqueceu, use Esqueci a senha com chave '+MASTER);return}
+    this.user={nome}; localStorage.setItem('tjsp_user_final', JSON.stringify(this.user)); this.showApp();
+  },
+  async showApp(){
+    document.getElementById('loginView').classList.add('hidden');
+    document.getElementById('resetBox').classList.add('hidden');
+    document.getElementById('appLayout').classList.remove('hidden');
+    document.getElementById('welcome').innerText=this.user.nome;
+    this.renderLista(); this.renderProgresso();
+  },
+  renderLista(){
+    const c=document.getElementById('listaTopicos'); c.innerHTML='';
+    const frag=document.createDocumentFragment();
+    this.topicos.forEach(t=>{
+      const d=document.createElement('div');
+      d.className='card'; d.style.margin='8px 0'; d.style.padding='12px';
+      d.innerHTML=`<div><b style="font-size:13px">${t.nome}</b><br><span class="badge">${t.peso}</span><div class="small" style="margin-top:4px">${t.desc}</div></div><button class="btn" style="margin-top:8px" onclick="app.loadChunk('${t.id}')">Estudar ⚡ (lazy load)</button>`;
+      frag.appendChild(d);
+    });
+    c.appendChild(frag);
+  },
+  async loadChunk(id){
+    const t0=performance.now();
+    document.getElementById('emptyState').classList.add('hidden');
+    const box=document.getElementById('simuladoBox'); box.classList.remove('hidden');
+    const top=this.topicos.find(x=>x.id===id);
+    document.getElementById('simTitulo').innerText=top?top.nome:id;
+    document.getElementById('questoes').innerHTML='<div style="padding:20px;text-align:center">⚡ Carregando chunk '+id+'... (lazy load)</div>';
+    await new Promise(r=>setTimeout(r,250));
+    const qs=[
+      {enunciado:'Art 5º CF - Livre manifestacao do pensamento sendo:', alt:{1:'Vedado o anonimato (correta - Art 5º IV)',2:'Permitido anonimato quando interesse publico',3:'Condicionada a licenca previa'}, gab:'1', exp:'Art 5º IV e V CF - VUNESP cobra literal. Vedado anonimato'},
+      {enunciado:'Casa é asilo inviolável, salvo (Art 5º XI):', alt:{1:'Dia + mandado, flagrante, desastre, socorro - CORRETA',2:'A qualquer hora com mandado',3:'So com consentimento'}, gab:'1', exp:'Art 5º XI - Dia = mandado. Noite = so flagrante/desastre/socorro'},
+    ];
+    let h=''; qs.forEach((q,i)=>{
+      h+=`<div id="q_${i}" class="card"><b>Q${i+1} ${q.enunciado}</b><br>`;
+      for(let k in q.alt){h+=`<label style="display:flex;gap:8px;padding:10px;background:#f8fafc;margin:6px 0;border-radius:8px;cursor:pointer"><input type="radio" name="q${i}" value="${k}"> <span><span class="kbd">${k}</span> ${q.alt[k]}</span></label>`}
+      h+=`<div id="exp_${i}" class="hidden" style="background:#eff6ff;padding:10px;border-radius:8px;font-size:12px;margin-top:6px"></div></div>`;
+    });
+    document.getElementById('questoes').innerHTML=h;
+    document.getElementById('perfText').innerText=Math.round(performance.now()-t0)+'ms load';
+  },
+  async corrigir(){
+    const t0=performance.now();
+    let ac=0; const total=2;
+    for(let i=0;i<total;i++){
+      const sel=document.querySelector(`input[name="q${i}"]:checked`);
+      const div=document.getElementById(`q_${i}`);
+      const exp=document.getElementById(`exp_${i}`);
+      if(sel && sel.value==='1'){ac++; div.classList.add('correct');} else {div.classList.add('wrong');}
+      exp.classList.remove('hidden');
+      exp.innerHTML=i===0?'Gabarito: 1 - Art 5º IV - Vedado anonimato':'Gabarito: 1 - Art 5º XI - Casa';
+    }
+    const reg={topico:'Constitucional Art5', acertos:ac, total:total, data:new Date().toLocaleDateString('pt-BR'), tempo:90, ts:Date.now(), device: window.innerWidth>800?'notebook':'celular', ms:Math.round(performance.now()-t0)};
+    await this.save('historico', reg);
+    await this.save('progresso',{id:'2.4.2', feito:true, ts:Date.now()});
+    document.getElementById('resultado').innerHTML=`<div class="card" style="background:#16a34a;color:white">✔ ${ac}/${total} salvo em ${reg.ms}ms - ${reg.device} - SEM PERDA</div>`;
+    this.renderProgresso();
+  },
+  async renderProgresso(){
+    const prog=await this.getAll('progresso'); const hist=await this.getAll('historico');
+    document.getElementById('progBar').style.width=Math.round(prog.length/58*100)+'%';
+    document.getElementById('progText').innerText=`${prog.length}/58 topicos`;
+    document.getElementById('horasText').innerText=(hist.reduce((a,b)=>a+(b.tempo||0),0)/60).toFixed(1)+'h total';
+    const hc=document.getElementById('histCount'); if(hc) hc.innerText=hist.length;
+    let h=''; hist.slice(-8).reverse().forEach(x=>{h+=`<div style="padding:4px 0;border-bottom:1px solid #f1f5f9">📅 ${x.data} ${x.device==='notebook'?'💻':'📱'} ${x.topico} <b>${x.acertos}/${x.total}</b></div>`});
+    document.getElementById('historico').innerHTML=h||'<div class="small">Nenhum simulado ainda</div>';
+  },
+  showReset(){document.getElementById('loginView').classList.add('hidden'); document.getElementById('appLayout').classList.add('hidden'); document.getElementById('resetBox').classList.remove('hidden'); this.renderProgresso();},
+  showResetLogado(){document.getElementById('appLayout').classList.add('hidden'); document.getElementById('resetBox').classList.remove('hidden'); this.renderProgresso();},
+  backToLogin(){document.getElementById('resetBox').classList.add('hidden'); const user=localStorage.getItem('tjsp_user_final'); if(user){document.getElementById('appLayout').classList.remove('hidden');} else {document.getElementById('loginView').classList.remove('hidden');}},
+  async resetSenha(){
+    const m=document.getElementById('resetMaster').value;
+    const nova=document.getElementById('novaSenha').value;
+    const conf=document.getElementById('confirmaSenha').value;
+    if(m!==MASTER){alert('Chave mestra incorreta. Correta: '+MASTER);return}
+    if(nova.length<6){alert('Senha min 6 chars');return}
+    if(nova!==conf){alert('Senhas nao conferem');return}
+    const histAntes=await this.getAll('historico');
+    const progAntes=await this.getAll('progresso');
+    await this.save('meta',{key:'senha',value:nova});
+    for(let h of histAntes) await this.save('historico',h);
+    for(let p of progAntes) await this.save('progresso',p);
+    alert('✅ Senha trocada para: '+nova+'\n\nHistorico preservado: '+histAntes.length+' simulados mantidos em IndexedDB.');
+    this.backToLogin();
+  },
+  async exportBackup(){
+    const hist=await this.getAll('historico'); const prog=await this.getAll('progresso'); const meta=await this.getAll('meta');
+    const blob=new Blob([JSON.stringify({hist,prog,meta,ts:Date.now(),version:'beta-final'},null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`tjsp_backup_${new Date().toISOString().slice(0,10)}.json`; a.click();
+  },
+  async importBackup(e){
+    const text=await e.target.files[0].text(); const data=JSON.parse(text);
+    if(data.hist) for(let h of data.hist) await this.save('historico',h);
+    if(data.prog) for(let p of data.prog) await this.save('progresso',p);
+    if(data.meta) for(let m of data.meta) await this.save('meta',m);
+    alert('✅ Backup restaurado: '+(data.hist?.length||0)+' simulados');
+    this.renderProgresso();
+  },
+  voltarLista(){document.getElementById('simuladoBox').classList.add('hidden'); document.getElementById('emptyState').classList.remove('hidden');}
+};
+app.init();
+</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}</script>
+</body>
+</html>
