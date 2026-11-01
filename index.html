@@ -422,20 +422,39 @@ function nextQ(){qIndex++;chosen=null;if(qIndex>=20)qIndex=20;render();}
 
 function checkAuth(){
   let cur=getCurrent();
+  let loginDiv = document.getElementById("login-overlay");
   if(!cur){
-    document.body.innerHTML=`<div style="max-width:420px;margin:60px auto" class="card"><h2>Login TJSP Beta</h2><input id="name" placeholder="Seu nome" style="width:100%;padding:10px;border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><input id="pass" type="password" placeholder="Senha padrão: SaygonEscrivao2026" style="width:100%;padding:10px;border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><button class="btn" style="background:#1e3a8a;color:#fff;width:100%" onclick="doLogin()">Entrar</button><p style="margin-top:12px"><a href="#" onclick="openReset();return false">Esqueci senha / Reset com chave mestra</a></p><small style="color:#64748b">Senha padrão: SaygonEscrivao2026<br>Chave mestra: TJSP2026RESET</small></div>`;
+    if(!loginDiv){
+      let div = document.createElement("div");
+      div.id="login-overlay";
+      div.innerHTML=`
+      <div style="position:fixed;inset:0;background:linear-gradient(135deg,#1e3a8a,#3b82f6);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px">
+        <div class="card" style="width:100%;max-width:420px">
+          <h2 style="margin-top:0">Login TJSP Beta</h2>
+          <input id="name" placeholder="Seu nome" style="width:100%;padding:12px;border:1px solid #e2e8f0;border-radius:8px;margin:8px 0;font-size:16px" autocomplete="off">
+          <input id="pass" type="password" placeholder="Senha: SaygonEscrivao2026" style="width:100%;padding:12px;border:1px solid #e2e8f0;border-radius:8px;margin:8px 0;font-size:16px" autocomplete="off">
+          <button class="btn" style="background:#1e3a8a;color:#fff;width:100%;padding:12px;margin-top:8px" onclick="doLogin()">Entrar</button>
+          <p style="margin-top:12px"><a href="#" onclick="openReset();return false">Esqueci senha / Reset com chave</a></p>
+          <small style="color:#64748b">Senha padrão: SaygonEscrivao2026<br>Chave: TJSP2026RESET</small>
+        </div>
+      </div>`;
+      document.body.appendChild(div);
+      setTimeout(()=>{document.getElementById("name")?.focus();},100);
+    }
     return false;
+  }else{
+    if(loginDiv) loginDiv.remove();
+    return true;
   }
-  return true;
 }
 
 function doLogin(){
   let n=document.getElementById("name")?.value.trim();
   let p=document.getElementById("pass")?.value;
+  if(!n){alert("Digite seu nome");return;}
   let u=getUsers();
-  if(!n)return alert("Digite seu nome");
   if(!u[n]){u[n]={pass:p||DEFAULT_PASS,history:{}};saveUsers(u);setCurrent(n);location.reload();return;}
-  if(u[n].pass===p){setCurrent(n);location.reload();}else alert("Senha incorreta. Use a chave mestra para resetar.");
+  if(u[n].pass===p){setCurrent(n);location.reload();}else{alert("Senha incorreta. Use a chave mestra para resetar.");}
 }
 
 function logout(){localStorage.removeItem("tjsp_current");location.reload();}
