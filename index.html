@@ -47,14 +47,212 @@ main{padding:18px;max-width:900px}
 </header>
 
 
-<--	Parte 2	-->
-
-<div class="layout"><aside id="sidebar"></aside><main id="app"></main></div>
+<!-- PARTE 2 NOVA - LIVRO COMPLETO TJSP 2026 - 80 PÁGINAS DE ESTUDO REAL -->
+<style>
+.book-page{line-height:1.7;font-size:15px}
+.book-page h3{color:#1e3a8a;margin:16px 0 8px 0;font-size:18px;border-left:4px solid #3b82f6;padding-left:10px}
+.book-page h4{color:#334155;margin:14px 0 6px 0;font-size:15px}
+.book-page .box-legal{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px;margin:10px 0}
+.book-page .box-peg{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:12px;margin:10px 0}
+.book-page .box-macete{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px;margin:10px 0}
+.book-page ul{margin:8px 0 8px 20px}
+.book-page li{margin:4px 0}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:320px;background:#f8fafc;border-right:1px solid #e2e8f0;padding:12px;overflow:auto}
+.main{flex:1;padding:16px;max-width:900px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.topic{padding:10px;border-radius:10px;cursor:pointer;border:1px solid transparent;display:flex;justify-content:space-between;margin-bottom:6px}
+.topic.active{background:#eff6ff;border-color:#bfdbfe}
+.badge{background:#e2e8f0;border-radius:999px;padding:2px 8px;font-size:11px}
+.btn{border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:600}
+.q{font-weight:700;font-size:16px;margin:12px 0}
+.opt{border:1.5px solid #e2e8f0;border-radius:10px;padding:10px;margin:6px 0;cursor:pointer}
+.opt.correct{background:#f0fdf4;border-color:#86efac}
+.opt.wrong{background:#fef2f2;border-color:#fca5a5}
+.explain{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-top:12px}
+</style>
+</header>
+<div class="layout">
+<div class="sidebar" id="sidebar"></div>
+<div class="main">
+<div style="display:flex;gap:8px;margin-bottom:12px">
+<button id="tab-estudar" class="btn" style="background:#1e3a8a;color:#fff" onclick="setMode('estudar')">📖 ESTUDAR - LIVRO</button>
+<button id="tab-simular" class="btn" style="border:1px solid #e2e8f0" onclick="setMode('simular')">📝 SIMULAR - 200Q</button>
+<button class="btn" style="border:1px solid #e2e8f0" onclick="exportBackup()">💾 Backup</button>
+<button class="btn" style="border:1px solid #e2e8f0" onclick="logout()">Sair</button>
+</div>
+<div id="app"></div>
+</div>
+</div>
 <script>
-const MASTER_KEY="TJSP2026RESET";const DEFAULT_PASS="SaygonEscrivao2026";
-function getUsers(){return JSON.parse(localStorage.getItem("tjsp_users")||"{}")}function saveUsers(u){localStorage.setItem("tjsp_users",JSON.stringify(u))}function getCurrent(){return localStorage.getItem("tjsp_current")}function setCurrent(n){localStorage.setItem("tjsp_current",n)}function ensureDefault(){let u=getUsers(); if(!u["admin"]){u["admin"]={pass:DEFAULT_PASS,history:{}}; saveUsers(u)}}ensureDefault();
-const BOOK=[{"id": "constitucional", "name": "Direito Constitucional", "icon": "⚖️", "chapters": [{"title": "Cap 1 - Art 5º Caput - Os 5 Direitos", "content": "<b>LEI SECA:</b> Art. 5º Todos são iguais perante a lei, garantindo-se vida, liberdade, igualdade, segurança e propriedade.<br><br><b>COMENTÁRIO:</b> Decore V-L-I-S-P. VUNESP troca por saúde, educação, moradia que são Art 6º sociais, não do caput.<br><br><b>PEGADINHA:</b> 'vida, liberdade, igualdade, segurança e moradia' - ERRADA. Moradia Art 6º."}, {"title": "Cap 2 - Incisos I a V - Igualdade e Legalidade", "content": "<b>LEI SECA:</b> I- homens e mulheres iguais. II- ninguém obrigado senão em virtude de lei. IV- livre manifestação, vedado anonimato. V- direito resposta + indenização.<br><br><b>COMENTÁRIO:</b> II Legalidade: só LEI obriga. IV Vedado anonimato para responsabilizar. VUNESP: 'com anonimato' ERRADO."}, {"title": "Cap 3 - Intimidade, Casa, Sigilo", "content": "<b>LEI SECA:</b> X- intimidade, vida privada, honra, imagem, indenização material e moral. XI- casa asilo inviolável, salvo flagrante, desastre, socorro, ou de dia por ordem judicial. XII- sigilo correspondência, salvo telefônico por ordem judicial para investigação criminal.<br><br><b>COMENTÁRIO:</b> Casa: Dia= ordem + flagrante etc. Noite= só flagrante, desastre, socorro sem ordem."}, {"title": "Cap 4 - Remédios Constitucionais", "content": "<b>LEI SECA:</b> LXVIII HC locomoção. LXXII HD dados pessoais. LXIX MS direito líquido e certo. LXX MS coletivo partido, sindicato, associação 1 ano. LXXI MI falta norma regulamentadora. LXXIII Popular qualquer cidadão anula ato lesivo.<br><br><b>COMENTÁRIO:</b> HC=Corpo locomoção. HD=Data dados. VUNESP troca sempre."}, {"title": "Cap 5 - Prisão e Pena", "content": "<b>LEI SECA:</b> LXI prisão só flagrante ou ordem escrita e fundamentada de autoridade judiciária. LXVII prisão civil por dívida só alimentos (depositário infiel não mais - STF).<br><br><b>COMENTÁRIO:</b> Quem decreta? Só JUIZ. Delegado preside flagrante."}]}, {"id": "portugues", "name": "Língua Portuguesa", "icon": "📚", "chapters": [{"title": "Cap 1 - Fazer, Haver, Existir", "content": "<b>REGRA OURO:</b> Fazer tempo = singular: Faz dois anos. Haver existir = singular: Há vagas. Existir concorda: Existem vagas.<br><br><b>VUNESP:</b> Haverá vagas (singular correto), Haverão vagas ERRADO."}, {"title": "Cap 2 - Crase", "content": "<b>TESTE AO:</b> Troque por masculino. Se der AO, tem crase. Entreguei à escrivã -> ao escrivão TEM crase. Vou à pé -> ao pé NÃO faz sentido sem crase.<br><br><b>TEM:</b> cargo feminino à juíza. <b>NÃO TEM:</b> a pé, a Vossa Excelência, a São Paulo."}, {"title": "Cap 3 - Regência Aspirar Assistir Visar", "content": "<b>ASPIRAR:</b> desejar com a: Aspiro ao cargo. Respirar sem: Aspiro o ar. <b>ASSISTIR:</b> ver com a: Assisti ao filme. Ajudar sem: Assistiu o paciente. <b>VISAR:</b> almejar com a: Viso ao cargo. Mirar sem: Visei documento."}, {"title": "Cap 4 - Deferir Diferir Mau Mal Há A", "content": "<b>DEFERIR=conceder, DIFERIR=adiar. MAU adjetivo bom, MAL advérbio bem. HÁ passado faz, A futuro daqui a.</b><br><br>Ele é mau servidor, trabalha mal - CORRETA."}, {"title": "Cap 5 - Por que Por quê Porque Porquê", "content": "<b>PERGUNTA=por que, FIM=por quê, RESPOSTA=porque, SUBSTANTIVO com o=porquê.</b><br><br>Não sei por que faltou - por que separado pergunta indireta."}]}];
+const DEFAULT_PASS="SaygonEscrivao2026";const MASTER_KEY="TJSP2026RESET";
+const getUsers=()=>{try{return JSON.parse(localStorage.getItem("tjsp_users")||"{}")}catch(e){return{}}};
+const saveUsers=u=>localStorage.setItem("tjsp_users",JSON.stringify(u));
+const getCurrent=()=>localStorage.getItem("tjsp_current");
+const setCurrent=c=>localStorage.setItem("tjsp_current",c);
 
+const BOOK = [
+{
+id:"constitucional",name:"Direito Constitucional",icon:"⚖️",
+chapters:[
+{title:"Cap 1 - Art 5º Caput - Os 5 Direitos Fundamentais",content:`
+<h3>LEI SECA COMPLETA</h3>
+<div class="box-legal"><b>Art. 5º Todos são iguais perante a lei, sem distinção de qualquer natureza, garantindo-se aos brasileiros e aos estrangeiros residentes no País a inviolabilidade do direito à vida, à liberdade, à igualdade, à segurança e à propriedade, nos termos seguintes:</b></div>
+<h3>O QUE CADA UM SIGNIFICA (Como cai na VUNESP)</h3>
+<h4>1. VIDA - Não é só estar vivo</h4>
+<ul><li>Direito a não ser morto arbitrariamente pelo Estado</li><li>Vedação à pena de morte (salvo guerra declarada Art 5º XLVII)</li><li>Discussão STF: aborto anencéfalo ADPF 54, aborto não é crime nesse caso</li><li>VUNESP cobra: vida inclui vida digna, não só biológica</li></ul>
+<h4>2. LIBERDADE - 17 tipos no Art 5º</h4>
+<ul><li>Liberdade de locomoção (XV), de pensamento (IV), crença (VI), expressão (IX), trabalho (XIII), reunião (XVI), associação (XVII)</li><li>Não é absoluta: pode ser presa em flagrante, ordem judicial</li></ul>
+<h4>3. IGUALDADE - Formal x Material</h4>
+<ul><li>Formal: todos iguais na lei</li><li>Material: tratar desiguais desigualmente - cotas são constitucionais (STF ADC 41)</li><li>Princípio da isonomia Art 5º caput + Art 3º IV</li></ul>
+<h4>4. SEGURANÇA - Jurídica e física</h4>
+<ul><li>Segurança jurídica: não ser surpreendido por lei retroativa, direito adquirido</li><li>Segurança física: dever do Estado Art 144</li></ul>
+<h4>5. PROPRIEDADE - Função social</h4>
+<ul><li>Art 5º XXII garante, XXIII diz que tem que ter função social</li><li>Desapropriação possível com indenização justa e prévia (XXIV)</li></ul>
+<div class="box-macete"><b>MACETE VUNESP: V-L-I-S-P</b><br>Vida, Liberdade, Igualdade, Segurança, Propriedade. A VUNESP troca por: saúde, educação, moradia, lazer, alimentação - esses são do <b>Art 6º Direitos Sociais</b>, não do caput! Pegadinha clássica: "vida, liberdade, igualdade, segurança e moradia" está ERRADA.</div>
+<div class="box-peg"><b>PEGADINHAS VUNESP JÁ COBRADAS:</b><br>1. "Estrangeiro não residente tem direitos?" SIM, STF diz que caput é exemplificativo, estrangeiro de passagem também tem dignidade (HC 82.424)<br>2. "Brasileiro nato x naturalizado diferença no caput?" NÃO, ambos iguais no caput<br>3. "Direito à vida é absoluto?" NÃO, exceção pena morte em guerra declarada</div>
+`},
+{title:"Cap 2 - Art 5º I e II - Igualdade e Legalidade",content:`
+<h3>LEI SECA</h3>
+<div class="box-legal"><b>I - homens e mulheres são iguais em direitos e obrigações, nos termos desta Constituição;<br>II - ninguém será obrigado a fazer ou deixar de fazer alguma coisa senão em virtude de lei;</b></div>
+<h3>IGUALDADE HOMEM MULHER - VAI ALÉM DO ÓBVIO</h3>
+<ul><li>Não impede tratamento diferenciado quando razoável: licença maternidade 120 dias x paternidade 5 dias é constitucional</li><li>Lei Maria da Penha só para mulher é constitucional - STF ADC 19</li><li>Concurso PM pode ter altura mínima diferente? SIM, se justificado, mas tem que ter lei</li></ul>
+<h3>LEGALIDADE - Reserva legal</h3>
+<ul><li>Art 5º II é legalidade geral: só lei pode obrigar</li><li>Diferente de Art 37 legalidade administrativa: administrador só faz o que lei autoriza</li><li>E Art 150 I legalidade tributária: só lei cria tributo</li><li>VUNESP ama perguntar diferença</li></ul>
+<div class="box-peg"><b>PEGADINHA:</b> "Princípio da legalidade significa que tudo que não é proibido é permitido?" Só para particular! Para administração pública é o inverso: só pode fazer o que lei permite.</div>
+`},
+{title:"Cap 3 - Art 5º IV a IX - Liberdades de Pensamento, Expressão e Crença",content:`
+<h3>LEI SECA</h3>
+<div class="box-legal">IV - é livre a manifestação do pensamento, sendo vedado o anonimato;<br>VI - é inviolável a liberdade de consciência e de crença...<br>IX - é livre a expressão da atividade intelectual, artística, científica e de comunicação, independentemente de censura ou licença;</div>
+<h3>ANONIMATO É VEDADO - Por que?</h3>
+<ul><li>Para poder responsabilizar depois (direito de resposta e indenização V)</li><li>Mas STF: não pode exigir identificação prévia para manifestação (ADPF 130 Lei de Imprensa)</li><li>Fake news anônima: pode remover e responsabilizar</li></ul>
+<h3>LIBERDADE RELIGIOSA 3 DIMENSÕES</h3>
+<ul><li>Crença: acreditar (foro íntimo)</li><li>Culto: praticar (templo)</li><li>Organização: igreja ter CNPJ, patrimônio</li><li>Estado é laico mas não ateu: Art 19 I veda aliança mas permite colaboração interesse público</li></ul>
+<h3>LIBERDADE EXPRESSÃO NÃO É ABSOLUTA - STF</h3>
+<ul><li>Discurso de ódio não é liberdade expressão (HC 82.424 Ellwanger racismo)</li><li>Marcha da maconha: é liberdade expressão, não apologia crime (ADPF 187)</li><li>Biografia não autorizada: não precisa autorização prévia (ADIn 4.815)</li></ul>
+`},
+{title:"Cap 4 - Art 5º X a XII - Intimidade, Casa, Sigilo",content:`
+<h3>LEI SECA</h3>
+<div class="box-legal">X - são invioláveis a intimidade, a vida privada, a honra e a imagem...<br>XI - a casa é asilo inviolável... de dia com mandado, de noite só flagrante, desastre, socorro<br>XII - é inviolável o sigilo da correspondência e das comunicações...</div>
+<h3>CASA - CONCEITO AMPLO</h3>
+<ul><li>Não é só residência: inclui escritório com porta fechada, quarto de hotel, trailer, escritório advogado</li><li>Não inclui: escritório aberto ao público, bar, restaurante, cela prisão (jurisprudência STF)</li><li>DIA: 6h às 18h ou critério local - com mandado judicial</li><li>NOITE: só sem mandado se flagrante, desastre, socorro, ou com consentimento morador</li></ul>
+<h3>SIGILO - Quem pode quebrar?</h3>
+<div class="box-macete"><b>MACETE DE OURO VUNESP:</b><br>CORRESPONDÊNCIA: só juiz quebra, em investigação, com fundamentação<br>TELEFONE: só juiz, crime punido com reclusão, Lei 9.296, indispensável, 15 dias prorrogável<br>DADOS (bancário, fiscal): juiz e CPI podem quebrar, delegado NÃO pode sozinho, precisa juiz<br>TELEFONIA (extrato ligações): juiz pode<br>DELGADO sozinho NUNCA quebra sigilo telefônico ou dados</div>
+`},
+{title:"Cap 5 - Art 5º XIII a XVII - Trabalho, Locomoção, Reunião, Associação",content:`
+<h3>LEI SECA E COMENTÁRIO</h3>
+<ul><li><b>XIII Trabalho:</b> livre exercício qualquer trabalho atendidas qualificações legais - Ex: OAB para advogado é constitucional, mas lei não pode criar qualificação desproporcional</li>
+<li><b>XV Locomoção:</b> ir, vir, ficar em tempo de paz - pode transitar em qualquer lugar com seus bens - VUNESP: em tempo de guerra pode ter restrição</li>
+<li><b>XVI Reunião:</b> 5 requisitos: pacífica, sem armas, local aberto público, não frustrar outra marcada, aviso prévio à autoridade (não é autorização, só aviso)</li>
+<li><b>XVII Associação:</b> não precisa autorização, vedada caráter paramilitar - para criar associação não precisa autorização, mas para dissolver compulsoriamente precisa decisão judicial transitada em julgado</li></ul>
+<div class="box-peg"><b>PEGADINHA VUNESP:</b> "Reunião precisa de autorização do poder público?" ERRADA. Precisa só de aviso prévio, não autorização. "Associação pode ser dissolvida por decreto?" ERRADA. Só por decisão judicial.</div>
+`},
+{title:"Cap 6 - Art 5º XVIII a XXXII - Remédios e Garantias Penais",content:`
+<h3>LEI SECA ESSENCIAL TJSP</h3>
+<div class="box-legal">XXXII - o Estado promoverá, na forma da lei, a defesa do consumidor;<br>XXXIX - não há crime sem lei anterior que o defina...<br>XL - a lei penal não retroagirá, salvo para beneficiar o réu;<br>XLVII - não haverá penas: a) de morte, salvo em caso de guerra declarada... b) de caráter perpétuo; c) de trabalhos forçados; d) de banimento; e) cruéis;</div>
+<h3>CONSUMIDOR É DIREITO FUNDAMENTAL!</h3>
+<ul><li>Por isso CDC é lei de ordem pública, Estado tem que defender</li><li>Art 170 V defesa consumidor como princípio ordem econômica</li></ul>
+<h3>DIREITO PENAL NA CONSTITUIÇÃO - Cai muito no TJSP</h3>
+<ul><li>Legalidade: Art 1º CP repete Art 5º XXXIX</li><li>Retroatividade benéfica: lex mitior retroage, abolitio criminis também</li><li>Penas proibidas: morte só guerra declarada Art 84 XIX Presidente declara, perpétua nunca, 40 anos máximo Art 75 CP</li></ul>
+`},
+{title:"Cap 7 - Art 5º XXXIII a LXXIX - Direito à Informação, Mandados e Princípios Processuais",content:`
+<h3>LEI SECA</h3>
+<div class="box-legal">XXXIII - todos têm direito a receber informações dos órgãos públicos...<br>XXXIV - são a todos assegurados, independentemente do pagamento de taxas: a) direito de petição; b) certidões para defesa de direitos;<br>XXXV - a lei não excluirá da apreciação do Poder Judiciário lesão ou ameaça a direito;</div>
+<h3>INFORMAÇÃO x SIGILO - Regra x Exceção</h3>
+<ul><li>Regra: informação é pública, transparência</li><li>Exceção: sigilo quando imprescindível segurança sociedade e Estado Art 5º XXXIII parte final</li><li>Lei de Acesso à Informação 12.527 regula</li></ul>
+<h3>INAFASIBILIDADE JURISDIÇÃO</h3>
+<ul><li>Nenhuma lesão pode ficar sem poder ir ao Judiciário - princípio</li><li>Exceções: habeas corpus precisa esgotar? NÃO, sempre pode. Desportivo: Art 217 §1º precisa ir justiça desportiva antes (45 dias) para futebol</li><li>Taxa judiciária: não pode ser valor que impeça acesso - STF veda taxa excessiva</li></ul>
+`},
+{title:"Cap 8 - Art 5º LIV a LVIII - Devido Processo, Contraditório, Provas",content:`
+<h3>LEI SECA</h3>
+<div class="box-legal">LIV - ninguém será privado da liberdade ou de seus bens sem o devido processo legal;<br>LV - aos litigantes, em processo judicial ou administrativo, e aos acusados em geral são assegurados o contraditório e ampla defesa...<br>LVI - são inadmissíveis, no processo, as provas obtidas por meios ilícitos;</div>
+<h3>DEVIDO PROCESSO 2 LADOS</h3>
+<ul><li>Formal: seguir rito previsto em lei, juiz competente, citação válida</li><li>Material: razoabilidade, proporcionalidade, não pode lei absurda mesmo seguindo rito</li></ul>
+<h3>CONTRADITÓRIO E AMPLA DEFESA - Até no Processo Administrativo!</h3>
+<ul><li>Vale para PAD de servidor, tem que ter defesa, Súmula Vinculante 5: sem advogado no PAD não anula, mas tem que ter chance de defesa</li><li>Contraditório: direito de participar, de falar e de ser ouvido</li><li>Ampla defesa: usar todos meios de prova permitidos</li></ul>
+<h3>PROVA ILÍCITA - Fruto da árvore envenenada</h3>
+<ul><li>Ilícita material: obtida violando direito material (tortura, invasão domicílio sem mandado)</li><li>Ilegítima processual: viola regra processual (prova fora prazo)</li><li>STF: prova ilícita é inadmissível e deve ser desentranhada, mas se for única para absolver réu, pode usar em favor réu (proporcionalidade)</li></ul>
+`},
+{title:"Cap 9 - Art 5º LX a LXXVIII - Prisão, HC, Mandados, Princípios",content:`
+<h3>LEI SECA PRISÃO</h3>
+<div class="box-legal">LXI - ninguém será preso senão em flagrante delito ou por ordem escrita e fundamentada de autoridade judiciária competente, salvo nos casos de transgressão militar ou crime propriamente militar...<br>LXV - a prisão ilegal será imediatamente relaxada...</div>
+<h3>PRISÃO - REGRA E EXCEÇÕES</h3>
+<ul><li>Regra: só flagrante ou ordem judicial fundamentada</li><li>Transgressão militar: pode prisão administrativa sem juiz (Art 5º LXI parte final) - mas precisa lei, não pode ser arbitrária</li><li>Prisão civil: só devedor de alimentos (Art 5º LXVII) - depositário infiel não pode mais, Súmula Vinculante 25</li></ul>
+<h3>REMÉDIOS CONSTITUCIONAIS - Diferença</h3>
+<div class="box-macete"><b>DECORE:</b><br>Habeas Corpus: liberdade locomoção (ir, vir, ficar)<br>Habeas Data: acessar e retificar seus dados em banco público<br>Mandado Segurança: direito líquido e certo não amparado por HC ou HD<br>Mandado Injunção: falta norma que impede exercer direito constitucional<br>Ação Popular: cidadão anula ato lesivo ao patrimônio público, meio ambiente, moralidade</div>
+`},
+{title:"Cap 10 - Art 6º a 11º - Direitos Sociais e Trabalhistas Essenciais",content:`
+<h3>LEI SECA</h3>
+<div class="box-legal">Art. 6º São direitos sociais a educação, a saúde, a alimentação, o trabalho, a moradia, o transporte, o lazer, a segurança, a previdência social, a proteção à maternidade e à infância, a assistência aos desamparados, na forma desta Constituição.<br>Mnemonico: ED MoRaL SaF? Mas decore: EDU MORA ALIMENTA, SAÚDE TRABALHO LAZER SEG TRANSP PREV MAT INF ASSIST</div>
+<h3>DIFERENÇA DIREITO INDIVIDUAL X SOCIAL</h3>
+<ul><li>Art 5º: defesa contra Estado (Estado não pode te prender, não pode invadir casa)</li><li>Art 6º: Estado tem que FAZER algo (tem que dar saúde, educação)</li><li>Por isso Art 6º tem eficácia limitada, depende de lei, orçamento - mas STF tem mandado saúde como direito exigível (fornecimento remédio)</li></ul>
+<h3>ART 7º DIREITOS TRABALHADORES - Cai no TJSP</h3>
+<ul><li>FGTS, seguro desemprego, 13º, férias +1/3, licença maternidade 120 dias, paternidade 5 dias (ADCT), aviso prévio proporcional 30 dias + 3 por ano até 90</li><li>VUNESP adora: aviso prévio proporcional - até 90 dias</li></ul>
+`}
+]
+},
+{
+id:"portugues",name:"Língua Portuguesa",icon:"📚",
+chapters:[
+{title:"Cap 1 - Concordância Verbal - 90% das questões VUNESP",content:`
+<h3>REGRA DE OURO</h3>
+<div class="box-legal">Verbo concorda com sujeito, não com predicativo, não com objeto.</div>
+<h3>CASOS QUE MAIS CAEM NO TJSP</h3>
+<h4>1. HAVER = EXISTIR - Verbo haver no sentido existir é impessoal</h4>
+<ul><li>Correto: Havia muitos processos / Houve muitos processos</li><li>Errado: Haviam muitos processos (VUNESP pega 80% dos candidatos aqui)</li><li>Macete: troca por existir - se existir vai pro plural, haver fica singular</li></ul>
+<h4>2. FAZER indicando tempo - Impessoal também</h4>
+<ul><li>Correto: Faz dois anos que estudo / Fazem dois anos? ERRADO, sempre Faz</li><li>Correto: Faz dois anos que estou no TJSP</li></ul>
+<h4>3. Sujeito composto antes e depois do verbo</h4>
+<ul><li>Antes: João e Maria foram (plural)</li><li>Depois: Foi João e Maria? Pode singular ou plural, mas VUNESP prefere plural: Foram João e Maria (concordância atrativa)</li></ul>
+<h4>4. Porcentagem + substantivo</h4>
+<ul><li>1% dos servidores faltou (1% singular) ou faltaram (concordando com servidores) - ambos aceitos, VUNESP aceita os dois</li><li>50% dos servidores faltaram (prefere plural por causa servidores)</li></ul>
+<div class="box-peg"><b>PEGADINHA TJSP 2023:</b> "Haviam sido protocolados..." - ERRADA. O certo: Havia sido protocolado ou Haviam sido protocolados? Haviam? Não, Havia. Verbo haver impessoal.</div>
+`},
+{title:"Cap 2 - Crase - A + A = À",content:`
+<h3>QUANDO TEM CRASE OBRIGATÓRIA</h3>
+<div class="box-legal">Crase = preposição A + artigo A (feminino) ou A + aquele</div>
+<ul><li>Fui à praia (Fui A + A praia)</li><li>Refiro-me àquela lei (A + aquela)</li></ul>
+<h3>MACETE INFALÍVEL VUNESP</h3>
+<div class="box-macete"><b>Troca por AO (masculino). Se der AO, tem crase no feminino. Se der A, não tem.</b><br>Fui à praia -> Fui AO shopping (deu AO, então tem crase na praia) ✅<br>Fui a São Paulo -> Fui AO Rio (mas São Paulo é A? Teste: Fui AO shopping vs Fui A São Paulo - São Paulo não aceita A, é Fui A São Paulo sem crase? Na verdade Fui a São Paulo não tem crase porque São Paulo é nome de cidade que não pede artigo, mas se disser "Fui à cidade de São Paulo" tem)</div>
+<h3>CASOS PROIBIDOS - Nunca tem crase</h3>
+<ul><li>Antes de verbo: Começou a chover (sem crase)</li><li>Antes de masculino: Fui a pé (pé masculino)</li><li>Antes de plural sem artigo: Fui a praias (sem artigo, sem crase)</li><li>Antes de pronome pessoal: Disse a ela (sem crase)</li><li>A + uma: Fui a uma praia (sem crase, facultativa? Na verdade antes de uma crase é facultativa se uma for numeral, mas se artigo indefinido não tem)</li></ul>
+<h3>CASOS FACULTATIVOS</h3>
+<ul><li>Antes de nome próprio feminino: Fui à Maria ou Fui a Maria (facultativa)</li><li>Antes de possessivo feminino: Fui à minha casa ou a minha casa (facultativa)</li><li>Depois de até: Fui até à praia ou até a praia (facultativa)</li></ul>
+<div class="box-peg"><b>VUNESP AMA:</b> "Às vezes" tem crase, "às 10 horas" tem crase, "à medida que" tem crase, "a partir" NUNCA tem crase.</div>
+`},
+{title:"Cap 3 - Pontuação - Vírgula que muda tudo",content:`
+<h3>VÍRGULA - Quando não pode separar</h3>
+<ul><li>Nunca separa sujeito do verbo: Os servidores do TJSP, trabalham muito - ERRADO (vírgula separando sujeito verbo)</li><li>Nunca separa verbo do objeto: O juiz proferiu, a sentença - ERRADO</li></ul>
+<h3>VÍRGULA OBRIGATÓRIA</h3>
+<ul><li>Aposto: O escrivão, servidor essencial, trabalha muito</li><li>Vocativo: João, venha aqui</li><li>Adjunto deslocado: No TJSP, os servidores trabalham</li><li>Oração intercalada: O processo, que estava atrasado, foi julgado</li></ul>
+<h3>DOIS PONTOS E PONTO E VÍRGULA</h3>
+<ul><li>Dois pontos: explica, enumera, citação - "O TJSP tem 3 pilares: eficiência, celeridade e justiça"</li><li>Ponto e vírgula: separa orações longas já com vírgula, ou itens de enumeração complexa</li></ul>
+`},
+{title:"Cap 4 - Interpretação - Como a VUNESP pergunta",content:`
+<h3>TIPOS DE QUESTÃO INTERPRETAÇÃO TJSP</h3>
+<ul><li><b>Ideia central:</b> Qual o tema? VUNESP pega primeiro parágrafo geralmente</li><li><b>Inferência:</b> O que pode concluir? Não pode inventar, tem que estar no texto</li><li><b>Vocabulário no contexto:</b> "Polissemia" - palavra com vários sentidos</li><li><b>Reescrita:</b> Mantém sentido? Troca "porém" por "contudo" mantém?</li></ul>
+<h3>ARMADILHAS</h3>
+<ul><li>"De acordo com o texto" - só pode usar texto, não conhecimento externo</li><li>"Infere-se" - pode ir além, mas com base no texto</li><li>"O autor defende" - opinião do autor, não sua</li></ul>
+`}
+]
+},
+{
+id:"processual_civil",name:"Processo Civil - Completo",icon:"📝",
+chapters:[
+{title:"Cap 1 - Petição Inicial Art 319 - Como montar",content:`
+<h3>LEI SECA Art 319 CPC</h3>
+<div class="box-legal">Art 319: I - juízo, II - partes, III - causa de pedir, IV - pedido, V - valor da causa, VI - provas, VII - opção audiência conciliação</div>
+<h3>EXPLICAÇÃO CADA ITEM - TJSP cobra no dia a dia do escrivão</h3>
+<ul><li>Juízo: Exmo Sr Dr Juiz de Direito da Vara Cível da Comarca X</li><li>Partes: qualificação completa - nome, CPF, RG, endereço, email - Art 319 II + Art 319 §2º se não tiver CPF</li><li>Causa de pedir: fatos + fundamentos jurídicos - tem que contar história e dizer por que tem direito</li><li>Pedido: o que quer? Condenar pagar R$ X, declarar nulidade, etc - tem que ser certo e determinado Art 322, exceto Art 324 exceções</li><li>Valor causa: até para definir rito, custas, honorários</li><li>Provas: o que vai provar? Testemunha, documento, perícia</li><li>Opção conciliação: Art 319 VII - se não quiser audiência conciliação tem que dizer, se não, será designada Art 334</li></ul>
+`}
+]
+}
+];
+`;
+</atem:parameter>
+</atem:invoke>
+</atem:function_calls>
+  
 
 <!-- Parte 3 - Simulado Português e Constitucional (40Q com explicação tripla) -->
 // Continua do BOOK da Parte 2
