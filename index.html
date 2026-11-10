@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TJSP - BLOCO I Português</title>
+<title>TJSP - BLOCO I Cap 1 COMPLETO</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Inter,system-ui,Segoe UI,Roboto,sans-serif;background:#fff;color:#000;line-height:1.5}
@@ -39,7 +39,7 @@ header h1{font-size:15px}
 </style>
 </head>
 <body>
-<header><h1>⚖️ TJSP - BLOCO I Português • Livro Completo</h1><div><button id="btn-menu" class="btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰ Matérias</button> <small>Progresso salvo</small></div></header>
+<header><h1>⚖️ TJSP - BLOCO I Cap 1 COMPLETO - Sem cortar</h1><div><button id="btn-menu" class="btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰ Matérias</button></div></header>
 <div class="layout"><div class="sidebar" id="sidebar"></div>
 <div class="main">
 <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
@@ -59,165 +59,107 @@ const getCurrent=()=>localStorage.getItem("tjsp_current");
 const setCurrent=c=>localStorage.setItem("tjsp_current",c);
 const LIVRO=[
 {id:"portugues",name:"BLOCO I - Língua Portuguesa",icon:"📚",chapters:[
-{title:"1 - Análise, compreensão e interpretação de textos",content:`
-<h3>1. O QUE O EDITAL PEDE</h3>
-<div class="box-legal"><b>Edital - BLOCO I - Item 1:</b> Análise, compreensão e interpretação de diversos tipos de textos verbais, não verbais, literários e não literários.</div>
-<p><b>Análise</b> = desmontar o texto. <b>Compreensão</b> = entender o que está escrito. <b>Interpretação</b> = entender o que o autor QUIS dizer.</p>
-<h3>2. VERBAL, NÃO VERBAL, MISTO</h3>
-<p><b>Verbal:</b> usa palavras. Ex: notícia, e-mail, lei, poema, bula, manual, conversa no WhatsApp.</p>
-<p><b>Não verbal:</b> só imagem, sem palavra. Ex: placa de trânsito só com desenho, semáforo, foto sem legenda, símbolo de acessibilidade.</p>
-<p><b>Misto / Multimodal:</b> palavra + imagem juntas. Ex: charge com balão, tirinha, infográfico, propaganda, meme, HQ.</p>
-<div class="box-peg"><b>Pegadinha:</b> Charge com desenho + fala é MISTA, não não verbal. Só é não verbal se NÃO tiver nenhuma palavra.</div>
-<h3>3. LITERÁRIO E NÃO LITERÁRIO</h3>
-<p><b>Literário:</b> preocupação com beleza, emoção, figurado. Ex: poema, romance, conto, crônica, fábula. Usa metáfora, ironia.</p>
-<p><b>Não literário:</b> quer informar direto. Ex: notícia, edital, bula, manual, lei. Linguagem direta, sentido próprio.</p>
-<p><b>Compare - Assunto Chuva:</b><br><b>Não literário:</b> "Hoje choveu 50mm em São Paulo. Evite áreas de alagamento."<br><b>Literário:</b> "O céu desabou sobre São Paulo, como se chorasse todas as mágoas do ano."</p>
-<h3>4. MÉTODO DE LEITURA</h3>
-<p><b>Passo 1:</b> Leia o enunciado ANTES do texto. <b>Passo 2:</b> Leia 1ª vez para o geral. <b>Passo 3:</b> Leia 2ª vez para detalhes. <b>Passo 4:</b> Elimine as absurdas, procure prova no texto. Desconfie de "sempre, nunca, todos, nenhum".</p>
-<h3>5. 10 ERROS</h3>
-<ul><li>Texto com imagem + palavra é misto, não não verbal.</li><li>Literário não é só poema. Conto, crônica, romance também são.</li><li>Notícia é não literária.</li><li>Não leia o texto antes da pergunta.</li><li>Se não tem prova no texto, está errado.</li><li>Compreensão = escrito. Interpretação = quis dizer.</li><li>Charge é mista.</li><li>Gráfico com título é misto.</li><li>Todo autor tem ponto de vista, até em notícia.</li><li>Não marque "sempre/nunca" sem conferir.</li></ul>
-<h3>6. 10 PEGADINHAS</h3>
-<div class="box-peg">1. Todo texto com imagem é não verbal - ERRADO, se tem palavra é misto.<br>2. Literário só em poema - ERRADO.<br>3. Notícia é literária - ERRADO.<br>4. Charge é não verbal - ERRADO, é mista.<br>5. Gráfico com título é não verbal - ERRADO, é misto.<br>6. Não literário não usa metáfora - CERTO em regra.<br>7. Crônica é literária - CERTO.<br>8. Edital é não literário - CERTO.<br>9. Meme é verbal - ERRADO, é misto.<br>10. Placa sem palavra é verbal - ERRADO, é não verbal.</div>
-<h3>7. QUESTÕES DE FIXAÇÃO</h3>
-<p>1. Foto sem legenda é: b) Não verbal / 2. Tirinha com balão é: c) Mista / 3. Poema com metáfora é: b) Literário / 4. Edital é: b) Não literário / 5. Charge é: c) Mista / 6. Bula é: b) Não literária / 7. Infográfico é: c) Misto / 8. Romance é: b) Literário / 9. Placa só desenho é: b) Não verbal / 10. Primeiro passo: b) Ler o enunciado antes</p>
-<div class="box-resumo"><b>📌 RESUMO:</b> Verbal = palavra. Não verbal = só imagem. Misto = os dois. Literário = beleza, figurado. Não literário = informar direto.</div>
-`},
-{title:"2 - Informações literais e inferências possíveis",content:`
-<h3>1. O QUE O EDITAL PEDE</h3>
-<div class="box-legal"><b>Edital - BLOCO I - Item 2:</b> Informações literais e inferências possíveis.</div>
-<p>3 níveis: <b>Literal</b> = está escrito. <b>Inferência</b> = não está escrito, mas dá para concluir COM PROVA. <b>Invenção</b> = não está escrito e NÃO tem prova. Você inventou.</p>
-<p><b>Regra de ouro:</b> Se você não consegue apontar a frase que prova, está errado.</p>
-<h3>2. LITERAL</h3>
-<p>Perguntas: "Segundo o texto", "De acordo com o texto", "Conforme o texto". Resposta tem que estar ESCRITA.</p>
-<p><b>Texto-base:</b> "Maria chegou ao fórum às 8h, ofegante, com camisa suada e pasta pesada. Olhou para o relógio pela terceira vez e suspirou: Já são 8h, vou me atrasar para a audiência."</p>
-<p>Literal: Maria chegou ao fórum. Chegou às 8h. Estava ofegante. Camisa suada. Pasta pesada. Olhou relógio 3ª vez. Suspirou. Ia para audiência.</p>
-<p>Cuidado: VUNESP troca 8h por 9h, terceira por segunda. Leia número por número.</p>
-<h3>3. INFERÊNCIA</h3>
-<p>Perguntas: "Infere-se", "Depreende-se", "Pode-se concluir", "O autor sugere". Resposta NÃO está escrita igual, mas tem prova.</p>
-<p>Inferências da Maria: Veio correndo (prova: ofegante, suada). Estava ansiosa (prova: olhou relógio 3x, suspirou). Tinha compromisso importante (prova: audiência). Carregava documentos (prova: pasta pesada).</p>
-<h3>4. INVENÇÃO</h3>
-<p>Maria mora longe. Maria foi de ônibus. Maria é escrevente. Maria ia para festa. Tudo sem prova = invenção = alternativa errada.</p>
-<h3>5. PEGADINHAS</h3>
-<div class="box-peg">1. "Segundo o texto, Maria veio de ônibus" - ERRADO, invenção.<br>2. "Infere-se que Maria estava ansiosa" - CERTO, tem prova.<br>3. "Segundo o texto, Maria chegou às 9h" - ERRADO, texto diz 8h.<br>4. "Maria é escrevente" - ERRADO, texto não fala profissão.<br>5. "Infere-se que Maria estava tranquila" - ERRADO, é o contrário.</div>
-<h3>6. QUESTÕES</h3>
-<p>1. Maria chegou às: b) 8h / 2. Infere-se que estava: b) Ansiosa / 3. Carregava: b) Pasta pesada / 4. Pode-se concluir: b) Veio correndo / 5. Olhou relógio: c) 3 vezes / 6. Tinha: b) Audiência / 7. Disse: b) "Já são 8h" / 8. Inventada: c) Foi de ônibus / 9. "Estava preocupada" é: b) Inferência correta / 10. "É escrevente" é: b) Errado, invenção</p>
-<div class="box-resumo"><b>📌 RESUMO:</b> Literal = escrito. Inferência = conclusão COM PROVA. Invenção = sem prova, errada.</div>
-`},
-{title:"3 - Ponto de vista do autor",content:`
-<h3>1. O QUE O EDITAL PEDE, EXATAMENTE</h3>
-<div class="box-legal"><b>Edital TJSP - BLOCO I - Item 3:</b> Ponto de vista do autor.</div>
-<p>Ponto de vista é a <b>opinião do autor, a posição dele</b>. Ele é a favor ou contra? Ele está criticando ou elogiando? Ele está sendo sério ou irônico? Ele está otimista ou pessimista? Ele está defendendo quem?</p>
-<p>O autor nem sempre fala "eu acho". Na maioria das vezes ele ESCONDE a opinião nas palavras que ele escolhe. Por isso você precisa aprender a caçar a opinião escondida.</p>
-<p>Exemplo simples: Dois jornais falam do mesmo aumento de salário.<br><b>Jornal A:</b> "O governo concedeu um <b>generoso</b> aumento de 5% aos servidores."<br><b>Jornal B:</b> "O governo concedeu um <b>mísero</b> aumento de 5% aos servidores."<br>É o mesmo fato: aumento de 5%. Mas o ponto de vista é oposto. Generoso = a favor. Mísero = contra. A palavra que o autor escolhe entrega a opinião dele.</p>
+{title:"1 - Análise, compreensão e interpretação de textos - COMPLETO",content:`
+<h3>1. O QUE O EDITAL PEDE, EXATAMENTE - Palavra por palavra</h3>
+<div class="box-legal"><b>Edital TJSP - BLOCO I - Item 1:</b> Análise, compreensão e interpretação de diversos tipos de textos verbais, não verbais, literários e não literários.</div>
+<p>Parece uma frase só, mas dentro dela tem 4 matérias diferentes. Vamos destrinchar cada palavra, porque a VUNESP cobra cada uma separadamente e você não pode confundir.</p>
+<p><b>Análise</b> = desmontar o texto em partes. Ver como ele é feito. Quais palavras ele usa, como ele organiza as ideias, qual é a estrutura. É como desmontar um motor para ver as peças.</p>
+<p><b>Compreensão</b> = entender o que está escrito, literalmente. O que o texto diz, com todas as letras. Sem inventar, sem deduzir.</p>
+<p><b>Interpretação</b> = entender o que o autor QUIS dizer, mesmo sem escrever diretamente. É ler nas entrelinhas. É entender a intenção, a crítica, o elogio escondido.</p>
+<p>Exemplo completo: Se o texto diz "O fórum estava lotado, com fila na porta e servidores correndo".<br><b>Compreensão:</b> Tinha muita gente no fórum, tinha fila, servidores estavam correndo.<br><b>Interpretação:</b> O autor quis dizer que o serviço está demorado, que falta servidor, que a população está buscando a justiça e não está sendo atendida rápido. Ele quis mostrar um problema.</p>
+<p>Percebe a diferença? Compreensão é o que está na superfície. Interpretação é o que está por baixo.</p>
 
-<h3>2. OS 5 TIPOS DE PONTO DE VISTA QUE MAIS CAEM</h3>
-<table><tr><th>Tipo</th><th>Como identificar</th><th>Exemplo</th></tr>
-<tr><td><b>Favorável / Elogio</b></td><td>Adjetivos positivos, verbos de conquista</td><td>"Brilhante decisão", "Conseguiu melhorar"</td></tr>
-<tr><td><b>Contrário / Crítica</b></td><td>Adjetivos negativos, verbos de insistência no erro</td><td>"Absurdo aumento", "Insiste em errar"</td></tr>
-<tr><td><b>Irônico</b></td><td>Diz o contrário do que pensa, com exagero</td><td>"Que maravilha, mais um aumento!"</td></tr>
-<tr><td><b>Neutro / Imparcial</b></td><td>Só informa, sem adjetivo, sem opinião</td><td>"O tribunal informou que a prova será em maio."</td></tr>
-<tr><td><b>Otimista / Pessimista</b></td><td>Palavras de esperança ou de medo</td><td>"Promete agilizar" (otimista) / "Vai piorar" (pessimista)</td></tr></table>
+<h3>2. TEXTO VERBAL, NÃO VERBAL E MISTO - Explicação linha por linha</h3>
+<h4>2.1 Texto Verbal - Usa palavras</h4>
+<p>É o texto que usa <b>PALAVRAS</b>. Escritas ou faladas. É o que você mais vê na prova, porque a prova é escrita.</p>
+<p>Exemplos de texto verbal, um por um, para você nunca mais confundir:</p>
+<ul><li>1. <b>Notícia de jornal:</b> "Tribunal abre concurso para escrevente com 100 vagas." - Só palavras, é verbal.</li><li>2. <b>E-mail do chefe:</b> "Por favor, envie o processo até amanhã." - Só palavras, é verbal.</li><li>3. <b>Lei, edital, contrato:</b> "Art. 5º Todos são iguais perante a lei." - Só palavras, é verbal.</li><li>4. <b>Bilhete, carta:</b> "Querida Maria, chego amanhã." - Só palavras, é verbal.</li><li>5. <b>Conversa no WhatsApp:</b> "Oi, você vai para o fórum hoje?" - Só palavras, é verbal.</li><li>6. <b>Poema, romance:</b> "No meio do caminho tinha uma pedra." - Só palavras, é verbal.</li><li>7. <b>Bula de remédio:</b> "Tomar 1 comprimido a cada 8 horas." - Só palavras, é verbal.</li><li>8. <b>Manual de instrução:</b> "Aperte o botão verde para ligar." - Só palavras, é verbal.</li></ul>
+<p>Se tem palavra, e NÃO tem imagem importante, é verbal.</p>
+<h4>2.2 Texto Não Verbal - Só imagem, sem nenhuma palavra</h4>
+<p>É o texto que usa <b>IMAGEM, sem nenhuma palavra</b>. Ele comunica sem escrever. Você entende só de olhar.</p>
+<ul><li>9. <b>Placa de trânsito de "Proibido estacionar" só com desenho:</b> Um círculo vermelho com um carro e um traço. Sem escrever "proibido". Você entende só de olhar. É não verbal.</li><li>10. <b>Placa de "Silêncio" com dedo na boca:</b> Desenho de um dedo na frente da boca. Sem palavra. É não verbal.</li><li>11. <b>Gráfico de pizza, sem legenda escrita:</b> Só as fatias coloridas, sem título, sem número. Você entende pela imagem. É não verbal.</li><li>12. <b>Foto de uma manifestação, sem texto:</b> Só a foto, sem legenda, sem título. Você entende que tem muita gente protestando. É não verbal.</li><li>13. <b>Semáforo:</b> Vermelho, amarelo, verde, sem nenhuma palavra escrita. Você entende: pare, atenção, siga. É não verbal.</li><li>14. <b>Símbolo de acessibilidade:</b> Desenho de cadeira de rodas, sem palavra. Você entende: lugar para cadeirante. É não verbal.</li></ul>
+<p>Se só tem imagem, sem nenhuma palavra, é não verbal.</p>
+<h4>2.3 Texto Misto / Multimodal - Palavra + Imagem juntas</h4>
+<p>É o que mais cai na VUNESP hoje. É o texto que usa <b>PALAVRA + IMAGEM juntas</b>. Um completa o outro. Se tirar a imagem, você não entende tudo. Se tirar a palavra, também não entende tudo.</p>
+<ul><li>15. <b>Charge com desenho + balão de fala:</b> Tem o desenho do político e o balão com a fala dele. Se tirar o desenho, você não sabe quem está falando. Se tirar a fala, você não sabe o que ele disse. Precisa dos dois. É misto.</li><li>16. <b>Tirinha:</b> Desenho + fala dos personagens. Precisa dos dois. É misto.</li><li>17. <b>Infográfico:</b> Gráfico + texto explicando o gráfico. Precisa dos dois. É misto.</li><li>18. <b>Propaganda:</b> Foto do produto + frase de efeito. "Compre já!" A foto mostra o produto, a frase convence. Precisa dos dois. É misto.</li><li>19. <b>Meme:</b> Foto + frase engraçada em cima. A graça está na combinação da foto com a frase. Sem a foto, a frase não tem graça. Sem a frase, a foto é normal. É misto.</li><li>20. <b>História em quadrinhos:</b> Desenho + fala + narração. Precisa de tudo. É misto.</li></ul>
+<div class="box-peg"><b>Pegadinha que cai toda prova:</b> A VUNESP mostra uma charge com desenho e fala e pergunta: "Esse texto é verbal ou não verbal?" Muita gente marca "não verbal" porque tem desenho. <b>ERRADO.</b> Se tem desenho + palavra, é <b>misto</b>. Só é não verbal se NÃO tiver nenhuma palavra. Decore isso, porque cai em toda prova.</div>
 
-<h3>3. ONDE A OPINIÃO SE ESCONDE - As 4 pistas</h3>
-<h4>Pista 1 - Adjetivos entregam tudo</h4>
-<p>Adjetivo é a palavra que dá qualidade. É onde o autor mais mostra a opinião.</p>
-<ul><li>1. "O <b>absurdo</b> aumento" = contra</li><li>2. "A <b>brilhante</b> decisão" = a favor</li><li>3. "O <b>corajoso</b> juiz" = a favor</li><li>4. "O <b>covarde</b> político" = contra</li><li>5. "A <b>justa</b> decisão" = a favor</li><li>6. "A <b>injusta</b> cobrança" = contra</li><li>7. "O <b>excelente</b> atendimento" = a favor</li><li>8. "O <b>péssimo</b> atendimento" = contra</li><li>9. "A <b>necessária</b> reforma" = a favor</li><li>10. "A <b>desnecessária</b> despesa" = contra</li></ul>
-<h4>Pista 2 - Verbos entregam também</h4>
-<ul><li>11. "O governo <b>conseguiu</b> melhorar" = elogio, ele conseguiu, foi capaz</li><li>12. "O governo <b>insiste</b> em errar" = crítica, ele continua errando</li><li>13. "O juiz <b>garantiu</b> o direito" = a favor, ele protegeu</li><li>14. "O juiz <b>ignorou</b> o pedido" = contra, ele não ligou</li><li>15. "O tribunal <b>avançou</b>" = positivo</li><li>16. "O tribunal <b>retrocedeu</b>" = negativo</li></ul>
-<h4>Pista 3 - Ironia - A mais difícil</h4>
-<p>Ironia é quando o autor diz o contrário do que pensa, para criticar de forma engraçada. Na prova, 90% das ironias são CRÍTICAS disfarçadas de elogio.</p>
-<ul><li>17. "Que <b>maravilha</b>, mais um aumento de imposto!" = Ele NÃO acha maravilha. Ele está criticando.</li><li>18. "Que <b>ótimo</b>, o processo atrasou de novo!" = Ele NÃO acha ótimo. Ele está criticando o atraso.</li><li>19. "Parabéns, você conseguiu perder o prazo!" = Não é parabéns de verdade. É crítica.</li><li>20. "Claro, porque o fórum nunca tem fila, né?" = Ele está dizendo que o fórum SEMPRE tem fila. É ironia.</li></ul>
-<p><b>Como identificar ironia na prova:</b> Se o elogio é exagerado demais e não combina com a situação, é ironia. Ninguém acha "maravilha" pagar mais imposto. Ninguém acha "ótimo" processo atrasar. Se não faz sentido elogiar, é ironia.</p>
-<h4>Pista 4 - O que o autor ESCOLHE mostrar</h4>
-<p>Até notícia "neutra" tem ponto de vista na escolha do que mostrar. Exemplo: Um autor que é contra o governo vai mostrar só as filas, os atrasos, os erros. Um autor a favor vai mostrar só as inaugurações, as melhorias. O ponto de vista está na seleção.</p>
-<p>Ex: Texto 1 só fala das filas do fórum. Texto 2 só fala da nova sala inaugurada. Os dois falam do fórum, mas o ponto de vista é diferente porque cada um escolheu mostrar um lado.</p>
+<h3>3. TEXTO LITERÁRIO E NÃO LITERÁRIO - A diferença que decide a questão</h3>
+<h4>3.1 Texto Literário - Beleza, emoção, figurado</h4>
+<p>É o texto que tem preocupação com a <b>BELEZA, com a EMOÇÃO, com o COMO ele fala</b>, não só com O QUE ele fala. Ele usa sentido figurado, metáfora, ritmo, sonoridade.</p>
+<p>Características do literário, uma por uma:</p>
+<ul><li>Usa metáfora, comparação, ironia. Ex: "Ele é um leão" - não é um leão de verdade, é metáfora para bravo.</li><li>Pode inventar, criar mundo fictício. Ex: Harry Potter, Senhor dos Anéis - não existem de verdade, são inventados.</li><li>Quer emocionar, fazer pensar, não só informar. Quer que você sinta algo.</li><li>A linguagem é mais trabalhada, mais bonita, mais poética.</li></ul>
+<p>Exemplos de literário:</p>
+<ul><li>1. <b>Poema:</b> "No meio do caminho tinha uma pedra / tinha uma pedra no meio do caminho." - Usa repetição, ritmo, metáfora.</li><li>2. <b>Romance:</b> "Dom Casmurro", "Capitães da Areia" - Histórias longas inventadas, com personagens, emoção.</li><li>3. <b>Conto:</b> História curta inventada, com começo, meio e fim.</li><li>4. <b>Crônica:</b> Texto curto sobre o dia a dia, com humor e reflexão. Ex: Um autor que conta que foi ao fórum e viu uma cena engraçada, e no final reflete sobre a vida.</li><li>5. <b>Fábula:</b> "A cigarra e a formiga", com animais falando e moral no final. Animais não falam de verdade, é inventado para ensinar.</li></ul>
+<h4>3.2 Texto Não Literário - Informar direto</h4>
+<p>É o texto que quer <b>INFORMAR direto, sem enfeite</b>. Ele quer que você entenda rápido, sem duvidar, sem interpretar demais.</p>
+<ul><li>Linguagem direta, clara, objetiva. Sem metáfora.</li><li>Não usa metáfora, usa sentido próprio, literal. Se diz "pedra", é pedra de verdade.</li><li>Quer informar, instruir, ordenar. Quer resolver um problema.</li><li>Não quer emocionar, quer resolver. Não quer que você chore, quer que você entenda.</li></ul>
+<p>Exemplos de não literário:</p>
+<ul><li>6. <b>Notícia de jornal:</b> "Tribunal abre concurso para escrevente." - Informa, direto.</li><li>7. <b>Edital:</b> "As inscrições vão de 10 a 20 de maio." - Informa data, direto.</li><li>8. <b>Bula de remédio:</b> "Tomar 1 comprimido a cada 8 horas." - Instrui, direto.</li><li>9. <b>Manual:</b> "Aperte o botão verde para ligar." - Instrui, direto.</li><li>10. <b>Lei:</b> "Art. 5º Todos são iguais perante a lei." - Ordena, direto.</li></ul>
+<h4>3.3 O mesmo assunto, nos dois tipos - Compare lado a lado</h4>
+<p>Assunto: Chuva.</p>
+<p><b>Versão não literária:</b> "Hoje choveu 50mm em São Paulo. A Defesa Civil emitiu alerta. Evite áreas de alagamento. O trânsito está lento na Marginal."</p>
+<p><b>Versão literária:</b> "O céu desabou sobre São Paulo, como se chorasse todas as mágoas do ano. As ruas viraram rios, e os carros, barquinhos perdidos, tentando sobreviver à tempestade."</p>
+<p>É o mesmo assunto, mas o jeito de falar muda tudo. Na prova, a VUNESP te dá um texto e pergunta: "O texto é literário ou não literário? Justifique." Você tem que olhar para o COMO ele fala, não para o assunto. Se ele usa metáfora, comparação, emoção, é literário. Se ele informa direto, com número, data, ordem, é não literário.</p>
+<p>Outro exemplo, assunto: Fórum.</p>
+<p><b>Não literário:</b> "O fórum de Santos atende das 9h às 17h. O telefone é 1234-5678."</p>
+<p><b>Literário:</b> "O fórum era um formigueiro, onde cada processo era uma folha carregada com suor, e cada servidor, uma formiga tentando não se perder no labirinto de papéis."</p>
 
-<h3>4. 10 TEXTOS CURTOS PARA TREINAR - Leia e descubra o ponto de vista</h3>
-<p><b>Texto 1:</b> "Finalmente, depois de anos de espera, o tribunal inaugurou a nova sala de atendimento, que promete agilizar a vida do cidadão."<br><b>Ponto de vista:</b> Positivo, otimista, aliviado. Palavras: "finalmente" (alívio), "promete agilizar" (esperança).</p>
-<p><b>Texto 2:</b> "Mais uma vez, o governo anunciou uma reforma que só vai tirar direitos dos servidores."<br><b>Ponto de vista:</b> Contrário, crítico, pessimista. Palavras: "mais uma vez" (cansaço), "só vai tirar" (crítica).</p>
-<p><b>Texto 3:</b> "O juiz, com coragem e sabedoria, decidiu a favor do cidadão."<br><b>Ponto de vista:</b> A favor, elogio. Palavras: "coragem", "sabedoria".</p>
-<p><b>Texto 4:</b> "O tribunal informou que as inscrições começam em maio."<br><b>Ponto de vista:</b> Neutro, só informa. Nenhum adjetivo, nenhuma opinião.</p>
-<p><b>Texto 5:</b> "Que beleza, o sistema caiu no meio da audiência!"<br><b>Ponto de vista:</b> Irônico, crítico. Ninguém acha beleza sistema cair.</p>
-<p><b>Texto 6:</b> "É inaceitável que o cidadão espere 5 horas na fila."<br><b>Ponto de vista:</b> Contrário, indignado. Palavra: "inaceitável".</p>
-<p><b>Texto 7:</b> "A brilhante iniciativa do TJSP vai ajudar milhares de pessoas."<br><b>Ponto de vista:</b> A favor, elogio. Palavra: "brilhante".</p>
-<p><b>Texto 8:</b> "O autor sugere que a reforma é necessária, mas precisa ser discutida com calma."<br><b>Ponto de vista:</b> A favor com ressalva. Ele apoia, mas com cuidado. Não é 100% a favor, nem 100% contra.</p>
-<p><b>Texto 9:</b> "Infelizmente, mais um servidor foi agredido no fórum."<br><b>Ponto de vista:</b> Lamenta, é contra a violência. Palavra: "infelizmente".</p>
-<p><b>Texto 10:</b> "Felizmente, o processo foi concluído antes do prazo."<br><b>Ponto de vista:</b> Positivo, aliviado. Palavra: "felizmente".</p>
+<h3>4. COMO LER UM TEXTO NA PROVA - O método completo que funciona</h3>
+<p>Não leia o texto como se estivesse lendo WhatsApp. Leia com método. Esse método é o que os aprovados usam, e é o que vai te fazer ganhar tempo.</p>
+<p><b>Passo 1 - Leia o enunciado ANTES do texto (30 segundos)</b><br>Antes de ler o texto, leia a pergunta. A pergunta te diz o que procurar. Ex: Se a pergunta é "Qual é a ideia principal?", você já vai ler procurando a ideia principal. Se a pergunta é "O autor é a favor ou contra?", você já vai ler procurando a opinião. Muita gente lê o texto inteiro sem saber o que procurar, depois lê a pergunta e tem que ler tudo de novo. Você perde 5 minutos por questão assim. Em 16 questões, você perde 80 minutos. Você não tem esse tempo.</p>
+<p><b>Passo 2 - Leia o texto 1ª vez para entender o geral (2 minutos)</b><br>Leia sem parar, sem sublinhar, só para entender: "Do que esse texto está falando?" "Quem escreveu?" "Para quem ele escreveu?" No final, você tem que conseguir resumir o texto em 1 frase. Ex: "Esse texto fala que o TJSP vai abrir concurso e que a prova vai ser difícil." Se você não consegue resumir em 1 frase, você não entendeu. Leia de novo.</p>
+<p><b>Passo 3 - Leia o texto 2ª vez procurando detalhes (2 minutos)</b><br>Agora sim, sublinhe ou marque mentalmente: palavras que se repetem - elas são importantes. Palavras de ligação - mas, porque, portanto, embora - elas mostram a relação entre ideias. Adjetivos - eles mostram a opinião do autor. Números, datas, nomes - a VUNESP adora perguntar isso. Se o texto diz "100 vagas", a pergunta vai ser "quantas vagas?"</p>
+<p><b>Passo 4 - Volte para as alternativas e elimine (1 minuto)</b><br>Não procure a alternativa certa de primeira. Elimine as absurdas. Alternativa que fala de algo que NÃO está no texto: elimine. Alternativa que é o contrário do texto: elimine. Alternativa com palavra absoluta: "sempre", "nunca", "todos", "nenhum" - desconfie, quase sempre está errada, porque o texto raramente é absoluto. Sobraram 2? Volte no texto e procure a prova. A certa tem que ter prova no texto. A errada não tem.</p>
 
-<h3>5. COMO A VUNESP PERGUNTA</h3>
-<ul><li>"Qual é o ponto de vista do autor?"</li><li>"O autor é a favor ou contra...?"</li><li>"O autor critica ou elogia...?"</li><li>"A expressão 'que maravilha' revela..." (resposta: ironia, crítica)</li><li>"O autor demonstra..." (otimismo, pessimismo, indignação, etc)</li><li>"Segundo o autor, a medida é..." (boa, ruim, necessária, absurda)</li></ul>
-<p>Quando a pergunta for assim, não procure o que está escrito literalmente. Procure os ADJETIVOS e os VERBOS. Eles são a prova.</p>
+<h3>5. OS 10 ERROS QUE TODO MUNDO COMETE NESTE CAPÍTULO</h3>
+<ul><li>Erro 1: Achar que texto com imagem é sempre não verbal. Se tem imagem + palavra, é misto.</li><li>Erro 2: Achar que texto literário só existe em poema. Conto, crônica, romance também são literários.</li><li>Erro 3: Achar que notícia é literária porque é bem escrita. Notícia é não literária, porque quer informar.</li><li>Erro 4: Ler o texto antes de ler a pergunta. Você perde tempo.</li><li>Erro 5: Marcar alternativa que parece lógica, mas não está no texto. Se não tem prova no texto, está errada.</li><li>Erro 6: Confundir compreensão com interpretação. Compreensão é o que está escrito. Interpretação é o que o autor quis dizer.</li><li>Erro 7: Achar que charge é só desenho. Charge tem desenho + fala, é mista.</li><li>Erro 8: Achar que gráfico é sempre não verbal. Se o gráfico tem título, legenda, números escritos, ele é misto.</li><li>Erro 9: Achar que autor neutro não tem ponto de vista. Todo autor tem ponto de vista, até em notícia, na escolha do que mostrar.</li><li>Erro 10: Marcar alternativa com "sempre" ou "nunca" sem conferir. O texto raramente é absoluto.</li></ul>
 
-<h3>6. OS 10 ERROS QUE TODO MUNDO COMETE</h3>
-<ul><li>Erro 1: Achar que notícia é sempre neutra. Até notícia tem ponto de vista na escolha do que mostrar.</li><li>Erro 2: Achar que ironia é elogio. Ironia quase sempre é crítica disfarçada.</li><li>Erro 3: Ignorar os adjetivos. Adjetivo é onde a opinião mora.</li><li>Erro 4: Confundir ponto de vista do autor com ponto de vista do personagem. Se o personagem fala, não é o autor. Ex: O personagem diz "o governo é ótimo", mas o autor pode estar ironizando o personagem.</li><li>Erro 5: Achar que "infelizmente" e "felizmente" não importam. Elas importam muito, são a opinião.</li><li>Erro 6: Marcar "neutro" quando o texto tem adjetivo. Se tem adjetivo positivo ou negativo, não é neutro.</li><li>Erro 7: Achar que autor que critica tudo é neutro. Criticar é um ponto de vista.</li><li>Erro 8: Não perceber a ressalva. "É necessária, mas..." não é 100% a favor.</li><li>Erro 9: Confundir ponto de vista com fato. Fato: "A prova será em maio". Opinião: "A prova será muito difícil".</li><li>Erro 10: Não voltar no texto para procurar a palavra que prova. Sempre volte.</li></ul>
+<h3>6. 10 PEGADINHAS VUNESP - Do jeito que a banca coloca</h3>
+<div class="box-peg">1. "Todo texto com imagem é não verbal." <b>ERRADO.</b> Se tem imagem + palavra, é misto.<br>2. "Texto literário só existe em poema." <b>ERRADO.</b> Conto, crônica, romance também são.<br>3. "Notícia é texto literário." <b>ERRADO.</b> Notícia é não literária, quer informar.<br>4. "Charge é texto não verbal." <b>ERRADO.</b> Charge tem desenho + fala, é mista.<br>5. "Gráfico com título e legenda é não verbal." <b>ERRADO.</b> Tem palavra, é misto.<br>6. "Texto não literário não pode ter metáfora." <b>CERTO, em regra.</b> Não literário usa sentido próprio.<br>7. "Crônica é texto literário." <b>CERTO.</b> Crônica usa humor, reflexão, sentido figurado.<br>8. "Edital é texto não literário." <b>CERTO.</b> Edital quer informar, direto.<br>9. "Meme é texto verbal." <b>ERRADO.</b> Meme tem foto + frase, é misto.<br>10. "Placa de trânsito sem palavra é texto verbal." <b>ERRADO.</b> Sem palavra, é não verbal.</div>
 
-<h3>7. 10 PEGADINHAS VUNESP</h3>
-<div class="box-peg">1. "O autor é neutro porque é uma notícia." <b>ERRADO.</b> Até notícia tem ponto de vista na escolha do que mostrar.<br>2. "Ironia é elogio." <b>ERRADO.</b> Ironia é quase sempre crítica disfarçada.<br>3. "'Que maravilha, mais um aumento!' mostra que o autor está feliz." <b>ERRADO.</b> Mostra ironia, crítica.<br>4. "'Brilhante decisão' mostra que o autor é contra." <b>ERRADO.</b> Brilhante é elogio, a favor.<br>5. "'Absurdo aumento' mostra que o autor é a favor." <b>ERRADO.</b> Absurdo é crítica, contra.<br>6. "'Infelizmente' não mostra opinião." <b>ERRADO.</b> Mostra lamento, opinião negativa.<br>7. "'Felizmente' mostra pessimismo." <b>ERRADO.</b> Mostra otimismo, alívio.<br>8. "Adjetivo não importa para ponto de vista." <b>ERRADO.</b> Adjetivo é a principal pista.<br>9. "Se o personagem elogia, o autor elogia." <b>ERRADO.</b> Personagem e autor são diferentes.<br>10. "'É necessária, mas precisa de calma' é 100% a favor." <b>ERRADO.</b> É a favor com ressalva.</div>
+<h3>7. 10 QUESTÕES DE FIXAÇÃO - Faça agora, sem olhar as respostas</h3>
+<p>1. Um texto que usa apenas uma foto de uma manifestação, sem nenhuma legenda, é: a) Verbal b) Não verbal c) Misto d) Literário<br>
+2. Uma tirinha com desenho e balão de fala é: a) Verbal b) Não verbal c) Mista d) Não literária<br>
+3. Um poema que usa metáfora para falar de amor é: a) Não literário b) Literário c) Não verbal d) Misto<br>
+4. Um edital de concurso que informa data da prova é: a) Literário b) Não literário c) Não verbal d) Misto<br>
+5. Uma charge com desenho de político e fala "Vou resolver tudo!" é: a) Não verbal b) Verbal c) Mista d) Sem texto<br>
+6. Uma bula de remédio que diz "Tomar 1 comprimido a cada 8h" é: a) Literária b) Não literária c) Não verbal d) Poética<br>
+7. Um infográfico com gráfico + texto explicando é: a) Não verbal b) Verbal c) Misto d) Literário<br>
+8. Um romance inventado sobre um juiz é: a) Não literário b) Literário c) Não verbal d) Misto<br>
+9. Uma placa "Proibido estacionar" só com desenho de carro e traço vermelho é: a) Verbal b) Não verbal c) Mista d) Literária<br>
+10. Qual é o primeiro passo para ler um texto na prova? a) Ler o texto inteiro b) Ler o enunciado antes do texto c) Sublinhar tudo d) Chutar a alternativa</p>
+<p><b>Gabarito comentado:</b> 1-B (Só foto, sem palavra = não verbal) / 2-C (Desenho + fala = misto) / 3-B (Poema com metáfora = literário) / 4-B (Edital informa = não literário) / 5-C (Desenho + fala = misto) / 6-B (Bula informa = não literária) / 7-C (Gráfico + texto = misto) / 8-B (Romance inventado = literário) / 9-B (Só desenho = não verbal) / 10-B (Leia o enunciado antes do texto)</p>
 
-<h3>8. 10 QUESTÕES DE FIXAÇÃO</h3>
-<p>1. Em "O absurdo aumento de impostos", o autor é: a) A favor b) Contra c) Neutro d) Irônico<br>
-2. Em "A brilhante decisão do juiz", o autor: a) Critica b) Elogia c) É neutro d) É irônico<br>
-3. Em "Que maravilha, mais um aumento!", o autor está: a) Feliz b) Sendo irônico, criticando c) Neutro d) Elogiando<br>
-4. Em "O tribunal informou que a prova será em maio", o autor é: a) A favor b) Contra c) Neutro, só informa d) Irônico<br>
-5. Em "Infelizmente, o processo atrasou", o autor: a) Está feliz b) Lamenta, é contra o atraso c) É neutro d) Elogia<br>
-6. Em "Felizmente, o processo terminou antes do prazo", o autor: a) Lamenta b) Está aliviado, positivo c) Critica d) É neutro<br>
-7. Em "O governo insiste em errar", o verbo "insiste" mostra: a) Elogio b) Crítica c) Neutralidade d) Ironia<br>
-8. Em "O governo conseguiu melhorar", o verbo "conseguiu" mostra: a) Crítica b) Elogio c) Neutralidade d) Pessimismo<br>
-9. Em "É necessária a reforma, mas precisa ser discutida", o autor é: a) 100% contra b) 100% a favor c) A favor com ressalva d) Neutro<br>
-10. Qual palavra mais entrega o ponto de vista? a) Substantivo b) Adjetivo c) Artigo d) Preposição</p>
-<p><b>Gabarito comentado:</b> 1-B (Absurdo = contra) / 2-B (Brilhante = elogio) / 3-B (Ironia = crítica) / 4-C (Sem adjetivo, só informa) / 5-B (Infelizmente = lamento) / 6-B (Felizmente = alívio) / 7-B (Insiste em errar = crítica) / 8-B (Conseguiu = elogio) / 9-C (A favor, mas com calma) / 10-B (Adjetivo é a principal pista)</p>
-<div class="box-resumo"><b>📌 RESUMO FINAL:</b><br>Ponto de vista = opinião do autor.<br>Procure ADJETIVOS (absurdo, brilhante, justo, péssimo) e VERBOS (conseguiu, insiste, ignorou).<br>Ironia = crítica disfarçada de elogio. "Que maravilha, mais um aumento!" = crítica.<br>Neutro = só informa, sem adjetivo. Se tem adjetivo, não é neutro.<br>Infelizmente = lamento. Felizmente = alívio.</div>
-`},
-{title:"4 - Estruturação do texto - EM BREVE",content:`<div class="box-legal">Este capítulo ainda não foi entregue no formato completo. Aguarde o próximo lote.</div>`},
-{title:"5 - Significação contextual - EM BREVE",content:`<div class="box-legal">Este capítulo ainda não foi entregue no formato completo. Aguarde o próximo lote.</div>`},
-{title:"6 - Sinônimos e antônimos - EM BREVE",content:`<div class="box-legal">Este capítulo ainda não foi entregue no formato completo. Aguarde o próximo lote.</div>`},
-{title:"7 - Sentido próprio e figurado - EM BREVE",content:`<div class="box-legal">Este capítulo ainda não foi entregue no formato completo. Aguarde o próximo lote.</div>`},
-{title:"8 - Classes de palavras - EM BREVE",content:`<div class="box-legal">Este capítulo ainda não foi entregue no formato completo. Aguarde o próximo lote.</div>`},
-{title:"9 - Concordância verbal e nominal - EM BREVE",content:`<div class="box-legal">Este capítulo ainda não foi entregue no formato completo. Aguarde o próximo lote.</div>`},
-{title:"10 - Regência verbal e nominal - EM BREVE",content:`<div class="box-legal">Este capítulo ainda não foi entregue no formato completo. Aguarde o próximo lote.</div>`},
-{title:"11 - Colocação pronominal - EM BREVE",content:`<div class="box-legal">Este capítulo ainda não foi entregue no formato completo. Aguarde o próximo lote.</div>`},
-{title:"12 - Crase - EM BREVE",content:`<div class="box-legal">Este capítulo ainda não foi entregue no formato completo. Aguarde o próximo lote.</div>`},
-{title:"13 - Pontuação - EM BREVE",content:`<div class="box-legal">Este capítulo ainda não foi entregue no formato completo. Aguarde o próximo lote.</div>`}
+<div class="box-resumo"><b>📌 RESUMO FINAL + MAPA MENTAL:</b><br><b>TEXTO:</b> Verbal = palavra. Não verbal = só imagem. Misto = palavra + imagem.<br><b>TIPO:</b> Literário = beleza, figurado, emocionar (poema, romance, conto, crônica). Não literário = informar direto (notícia, edital, bula, manual, lei).<br><b>MÉTODO:</b> 1. Leia o enunciado antes 2. Leia o texto 1ª vez para o geral 3. Leia 2ª vez para detalhes 4. Elimine as absurdas, procure prova no texto.</div>
+`}
 ]}
 ];
 const RESUMO=[
 {id:"portugues",name:"BLOCO I - Língua Portuguesa",icon:"📚",chapters:[
-{title:"1 - Interpretação - Resuminho",content:`<p><b>Verbal</b> = palavra. <b>Não verbal</b> = só imagem. <b>Misto</b> = palavra + imagem.<br><b>Literário</b> = beleza, figurado. <b>Não literário</b> = informar direto.<br><b>Método:</b> Leia o enunciado antes do texto.</p>`},
-{title:"2 - Literal x Inferência - Resuminho",content:`<p><b>Literal</b> = está escrito. "Segundo o texto".<br><b>Inferência</b> = conclusão COM PROVA. "Infere-se".<br><b>Invenção</b> = sem prova. Errada.</p>`},
-{title:"3 - Ponto de vista - Resuminho",content:`<p><b>Ponto de vista</b> = opinião do autor.<br>Procure ADJETIVOS (absurdo, brilhante) e VERBOS (conseguiu, insiste).<br><b>Ironia</b> = crítica disfarçada. "Que maravilha, mais aumento!" = crítica.<br><b>Neutro</b> = só informa, sem adjetivo. <b>Infelizmente</b> = lamento. <b>Felizmente</b> = alívio.</p>`},
-{title:"4 a 13 - Resuminho - EM BREVE",content:`<p>Os resuminhos dos capítulos 4 a 13 serão entregues junto com cada capítulo completo.</p>`}
+{title:"1 - Interpretação - Resuminho",content:`<p><b>Verbal</b> = palavra. <b>Não verbal</b> = só imagem. <b>Misto</b> = palavra + imagem.<br><b>Literário</b> = beleza, figurado, emocionar. <b>Não literário</b> = informar direto.<br><b>Método:</b> Leia o enunciado antes do texto. Elimine as absurdas.</p>`}
 ]}
 ];
 function mkQ(q,o,a,e,ec,ei){return{q,o,a,e,ec,ei}}
 const DB=[
-{id:"portugues_q",name:"BLOCO I - Simulado Cap 1 a 3",icon:"📚",questions:[
+{id:"portugues_q",name:"BLOCO I - Simulado Cap 1",icon:"📚",questions:[
 mkQ("Um texto que usa apenas uma foto de uma manifestação, sem nenhuma legenda, é:",["Verbal","Não verbal","Misto","Literário"],1,"Só foto, sem palavra, é não verbal.","Não verbal = só imagem","Verbal usa palavra, misto usa os dois."),
 mkQ("Uma tirinha com desenho e balão de fala é:",["Verbal","Não verbal","Mista","Não literária"],2,"Desenho + fala = mista.","Mista = palavra + imagem","Não verbal seria só desenho, sem fala."),
 mkQ("Um poema que usa metáfora para falar de amor é:",["Não literário","Literário","Não verbal","Misto"],1,"Poema com metáfora = literário.","Literário = beleza, figurado","Não literário quer informar direto."),
 mkQ("Um edital de concurso que informa data da prova é:",["Literário","Não literário","Não verbal","Misto"],1,"Edital informa direto = não literário.","Não literário = informar","Literário emociona, usa figurado."),
-mkQ("Qual é o primeiro passo para ler um texto na prova?",["Ler o texto inteiro","Ler o enunciado antes do texto","Sublinhar tudo","Chutar a alternativa"],1,"Leia o enunciado antes, assim você já sabe o que procurar.","Enunciado antes do texto","Ler o texto sem saber o que procurar perde tempo."),
-mkQ("Texto: 'Maria chegou ao fórum às 8h, ofegante, com camisa suada.' Segundo o texto, Maria chegou às:",["7h","8h","9h","10h"],1,"Está escrito 8h no texto. É literal.","Literal = está escrito","A banca troca o número para enganar."),
-mkQ("No mesmo texto, infere-se que Maria estava:",["Tranquila","Ansiosa / com pressa","Feliz","Dormindo"],1,"Prova: ofegante, suada, olhou relógio 3 vezes.","Inferência com prova","Tranquila é o contrário do texto."),
-mkQ("Qual alternativa é INVENTADA, sem prova no texto da Maria?",["Maria estava ofegante","Maria estava ansiosa","Maria foi de ônibus","Maria chegou às 8h"],2,"O texto não fala como ela foi. Sem prova, é invenção.","Invenção = sem prova","Ofegante e 8h estão escritos, ansiosa tem prova."),
-mkQ("'Depreende-se que Maria estava preocupada' é:",["Literal","Inferência correta","Invenção","Contrária ao texto"],1,"Tem prova: suspirou, olhou relógio 3 vezes.","Inferência = conclusão com prova","Invenção não tem prova."),
-mkQ("'Segundo o texto, Maria é escrevente' é:",["Certo, está escrito","Errado, é invenção, o texto não fala a profissão","Certo, dá para inferir","Contrária ao texto"],1,"O texto não fala a profissão dela.","Sem prova = invenção","Ela pode ser advogada, juíza, parte."),
-mkQ("Em 'O absurdo aumento de impostos', o autor é:",["A favor","Contra","Neutro","Irônico"],1,"Absurdo = crítica, contra.","Absurdo = contra","Brilhante seria a favor."),
-mkQ("Em 'A brilhante decisão do juiz', o autor:",["Critica","Elogia","É neutro","É irônico"],1,"Brilhante = elogio.","Brilhante = a favor","Absurdo seria contra."),
-mkQ("Em 'Que maravilha, mais um aumento!', o autor está:",["Feliz","Sendo irônico, criticando","Neutro","Elogiando"],1,"Ironia = crítica disfarçada de elogio.","Ironia = crítica","Ninguém acha maravilha pagar mais imposto."),
-mkQ("Em 'O tribunal informou que a prova será em maio', o autor é:",["A favor","Contra","Neutro, só informa","Irônico"],2,"Sem adjetivo, só informa.","Neutro = sem adjetivo","Se tivesse adjetivo, não seria neutro."),
-mkQ("Qual palavra mais entrega o ponto de vista do autor?",["Substantivo","Adjetivo","Artigo","Preposição"],1,"Adjetivo é a principal pista: absurdo, brilhante, justo.","Adjetivo = qualidade, opinião","Artigo e preposição não dão opinião.")
+mkQ("Qual é o primeiro passo para ler um texto na prova?",["Ler o texto inteiro","Ler o enunciado antes do texto","Sublinhar tudo","Chutar a alternativa"],1,"Leia o enunciado antes, assim você já sabe o que procurar.","Enunciado antes do texto","Ler o texto sem saber o que procurar perde tempo.")
 ]}
 ];
 let mode='livro';let activeTopic=LIVRO[0].id;let chapterIndex=0;let qIndex=0;let chosen=null;
 function getList(){if(mode==='livro')return LIVRO;if(mode==='resumo')return RESUMO;return DB}
 function getKey(){if(mode==='livro')return 'livro_';if(mode==='resumo')return 'resumo_';return ''}
 function setMode(m){mode=m;['livro','resumo','simular'].forEach(k=>{let b=document.getElementById('tab-'+k);if(b){let on=(k===m);b.style.background=on?'#7f1d1d':'#fff';b.style.color=on?'#fff':'#000'}});let list=getList();activeTopic=list[0].id;chapterIndex=0;qIndex=0;render()}
-function renderSidebar(){let users=getUsers();let cur=getCurrent();let hist=users[cur]?.history||{};let list=getList();let html='';let title=mode==='livro'?'📖 Livro Completo - BLOCO I':mode==='resumo'?'⚡ Resuminho - BLOCO I':'📝 Simulado - BLOCO I';html+=`<div class="card"><b>${title}</b><div style="height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:8px"><div id="pbar" style="height:100%;background:linear-gradient(90deg,#7f1d1d,#dc2626);width:0%"></div></div><small id="ptext"></small></div>`;list.forEach(t=>{let key=getKey()+t.id;let done=(hist[key]?.done||0);let total=mode==='simular'?t.questions.length:t.chapters.length;let pct=total?Math.round(done/total*100):0;let label=mode==='simular'?`${done}/${total} • ${pct}%`:`${done}/${total} caps • ${pct}%`;html+=`<div class="topic ${t.id===activeTopic?'active':''}" onclick="selectTopic('${t.id}')"><div><b>${t.icon} ${t.name}</b><br><small>${label}</small></div><span class="badge">${pct}%</span></div>`});document.getElementById("sidebar").innerHTML=html;updateProgress()}
+function renderSidebar(){let users=getUsers();let cur=getCurrent();let hist=users[cur]?.history||{};let list=getList();let html='';let title=mode==='livro'?'📖 Livro Completo - Cap 1':mode==='resumo'?'⚡ Resuminho - Cap 1':'📝 Simulado - Cap 1';html+=`<div class="card"><b>${title}</b><div style="height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:8px"><div id="pbar" style="height:100%;background:linear-gradient(90deg,#7f1d1d,#dc2626);width:0%"></div></div><small id="ptext"></small></div>`;list.forEach(t=>{let key=getKey()+t.id;let done=(hist[key]?.done||0);let total=mode==='simular'?t.questions.length:t.chapters.length;let pct=total?Math.round(done/total*100):0;html+=`<div class="topic ${t.id===activeTopic?'active':''}" onclick="selectTopic('${t.id}')"><div><b>${t.icon} ${t.name}</b><br><small>${done}/${total} • ${pct}%</small></div><span class="badge">${pct}%</span></div>`});document.getElementById("sidebar").innerHTML=html;updateProgress()}
 function updateProgress(){let users=getUsers();let cur=getCurrent();let hist=users[cur]?.history||{};let list=getList();let pct=0,txt="";if(mode==='simular'){let tot=list.reduce((s,t)=>s+t.questions.length,0);let done=list.reduce((s,t)=>s+(hist[t.id]?.done||0),0);pct=tot?Math.round(done/tot*100):0;txt=done+"/"+tot+" • "+pct+"%"}else{let key=getKey();let tot=list.reduce((s,t)=>s+t.chapters.length,0);let done=list.reduce((s,t)=>s+(hist[key+t.id]?.done||0),0);pct=tot?Math.round(done/tot*100):0;txt=done+"/"+tot+" págs • "+pct+"%"}let b=document.getElementById("pbar");if(b)b.style.width=pct+"%";let pt=document.getElementById("ptext");if(pt)pt.innerText=txt}
 function selectTopic(id){activeTopic=id;chapterIndex=0;qIndex=0;chosen=null;if(window.innerWidth<768)document.getElementById('sidebar').classList.remove('open');render()}
-function render(){renderSidebar();let list=getList();let t=list.find(x=>x.id===activeTopic);if(mode==='simular'){let total=t.questions.length;let qq=t.questions[qIndex];if(!qq){document.getElementById("app").innerHTML=`<div class="card"><h2>${t.icon} ${t.name} concluído! 🎉</h2><p>Você fez ${total} questões do Cap 1 a 3.</p><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="btn" onclick="qIndex=0;render()">Refazer</button> <button class="btn" onclick="setMode('resumo')">Ver Resuminho →</button></div></div>`;return}let html=`<div class="card"><div style="display:flex;justify-content:space-between"><b>${t.icon} ${t.name}</b><span class="badge">${qIndex+1}/${total}</span></div><div style="height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:12px 0"><div style="height:100%;background:linear-gradient(90deg,#7f1d1d,#dc2626);width:${Math.round((qIndex/total)*100)}%"></div></div><p class="q">${qIndex+1}. ${qq.q}</p><div id="opts">${qq.o.map((op,i)=>`<div class="opt" onclick="choose(${i})"><b>${String.fromCharCode(65+i)}.</b> ${op}</div>`).join("")}</div><div id="feedback" class="hidden"></div><div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-primary" onclick="confirmQ()">Corrigir (Enter)</button><button class="btn" onclick="nextQ()">Pular</button></div></div>`;document.getElementById("app").innerHTML=html;return}
-let chap=t.chapters[chapterIndex];if(!chap){document.getElementById("app").innerHTML=`<div class="card"><h2>${t.icon} ${t.name} concluído! 🎉</h2><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="btn" onclick="chapterIndex=0;render()">Recomeçar</button> ${mode==='livro'?'<button class="btn" onclick="setMode(\'resumo\')">Ir pro Resuminho →</button>':'<button class="btn" onclick="setMode(\'simular\')">Ir pro Simulado →</button>'}</div></div>`;return}
-let nextLabel=mode==='livro'?'✅ Li e entendi + Próxima →':'✅ Revisei + Próxima →';let html=`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><b>${t.icon} ${t.name} - ${chap.title}</b><span class="badge">${chapterIndex+1}/${t.chapters.length}</span></div><div style="height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:12px 0"><div style="height:100%;background:linear-gradient(90deg,#7f1d1d,#dc2626);width:${Math.round((chapterIndex/t.chapters.length)*100)}%"></div></div><div class="book-page">${chap.content}</div><div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-primary" onclick="markRead()">${nextLabel} (Enter)</button><button class="btn" onclick="nextChapter()">Pular →</button></div></div>`;document.getElementById("app").innerHTML=html}
+function render(){renderSidebar();let list=getList();let t=list.find(x=>x.id===activeTopic);if(mode==='simular'){let total=t.questions.length;let qq=t.questions[qIndex];if(!qq){document.getElementById("app").innerHTML=`<div class="card"><h2>Concluído! 🎉</h2><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="btn" onclick="qIndex=0;render()">Refazer</button> <button class="btn" onclick="setMode('resumo')">Ver Resuminho →</button></div></div>`;return}let html=`<div class="card"><div style="display:flex;justify-content:space-between"><b>${t.icon} ${t.name}</b><span class="badge">${qIndex+1}/${total}</span></div><div style="height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:12px 0"><div style="height:100%;background:linear-gradient(90deg,#7f1d1d,#dc2626);width:${Math.round((qIndex/total)*100)}%"></div></div><p class="q">${qIndex+1}. ${qq.q}</p><div id="opts">${qq.o.map((op,i)=>`<div class="opt" onclick="choose(${i})"><b>${String.fromCharCode(65+i)}.</b> ${op}</div>`).join("")}</div><div id="feedback" class="hidden"></div><div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-primary" onclick="confirmQ()">Corrigir (Enter)</button><button class="btn" onclick="nextQ()">Pular</button></div></div>`;document.getElementById("app").innerHTML=html;return}
+let chap=t.chapters[chapterIndex];if(!chap){document.getElementById("app").innerHTML=`<div class="card"><h2>Concluído! 🎉</h2><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="btn" onclick="chapterIndex=0;render()">Recomeçar</button> ${mode==='livro'?'<button class="btn" onclick="setMode(\'resumo\')">Ir pro Resuminho →</button>':'<button class="btn" onclick="setMode(\'simular\')">Ir pro Simulado →</button>'}</div></div>`;return}
+let html=`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><b>${t.icon} ${t.name} - ${chap.title}</b><span class="badge">${chapterIndex+1}/${t.chapters.length}</span></div><div style="height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:12px 0"><div style="height:100%;background:linear-gradient(90deg,#7f1d1d,#dc2626);width:${Math.round((chapterIndex/t.chapters.length)*100)}%"></div></div><div class="book-page">${chap.content}</div><div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-primary" onclick="markRead()">✅ Li e entendi + Próxima → (Enter)</button><button class="btn" onclick="nextChapter()">Pular →</button></div></div>`;document.getElementById("app").innerHTML=html}
 function markRead(){let users=getUsers();let cur=getCurrent();if(!users[cur])return;let key=getKey()+activeTopic;if(!users[cur].history[key])users[cur].history[key]={done:0};let h=users[cur].history[key];if(chapterIndex>=(h.done||0))h.done=Math.max(h.done||0,chapterIndex+1);saveUsers(users);nextChapter()}
 function nextChapter(){let t=getList().find(x=>x.id===activeTopic);if(!t)return;chapterIndex++;if(chapterIndex>=t.chapters.length)chapterIndex=t.chapters.length;render()}
 function choose(i){chosen=i;document.querySelectorAll(".opt").forEach((el,idx)=>{el.style.borderWidth=idx===i?"3px":"1.5px";el.style.fontWeight=idx===i?"700":"400"})}
